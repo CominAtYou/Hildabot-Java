@@ -38,19 +38,23 @@ public class RankUtil {
         }
     }
 
-    public static HashMap<Integer, Rank> getRankMap() {
-        return rankMap;
-    }
-
-    public static int[] getRanklevels() {
-        return rankLevels;
-    }
-
-    public static int getRankLevelFromLevel(int level) {
+    private static int getRankLevelFromLevel(int level) {
         for (int i = 0; i < rankLevels.length; i++) {
             if (rankLevels[i + 1] > rankLevels[i]) return rankLevels[i];
         }
         return -1;
+    }
+
+    public static Rank getRankFromLevel(int level) {
+        return rankMap.get(getRankLevelFromLevel(level));
+    }
+
+    public static boolean isLevelRankLevel(int level) {
+        return rankMap.containsKey(level);
+    }
+
+    public static int[] getRanklevels() {
+        return rankLevels;
     }
 
     public static String getRankName(int level) {

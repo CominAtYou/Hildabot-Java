@@ -54,9 +54,11 @@ public class XPSystem {
 
         if (currentLevel > beforeActionLevel) {
             // TODO: If the level-up grants a new role, include that in the message.
+            final String embedTitle = RankUtil.isLevelRankLevel(currentLevel) ? String.format("Congrats on leveling up! You've reached level **%d** and are now the **%s** rank!", currentLevel, RankUtil.getRankFromLevel(currentLevel).getName()) : String.format("Congrats on leveling up! You are now level **%d**! :tada:", currentLevel);
+
             final EmbedBuilder embed = new EmbedBuilder()
                     .setColor(new java.awt.Color(0x007acc))
-                    .setTitle(String.format("Congrats on leveling up! You are now level **%d**! :tada:", currentLevel))
+                    .setTitle(embedTitle)
                     .setDescription("To disable this message going forward, run `h!levelalert` in this DM or the bot channel in Hildacord.");
             author.asUser().get().openPrivateChannel().join().sendMessage(embed);
         }

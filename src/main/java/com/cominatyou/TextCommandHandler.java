@@ -6,6 +6,7 @@ import java.util.Arrays;
 import com.cominatyou.commands.Birthdays;
 import com.cominatyou.commands.GetXP;
 import com.cominatyou.commands.Stats;
+import com.cominatyou.commands.Submit;
 
 import org.javacord.api.entity.channel.ChannelType;
 import org.javacord.api.event.message.MessageCreateEvent;
@@ -35,6 +36,11 @@ public class TextCommandHandler {
             }
             case "stats": {
                 Stats.execute(event);
+                break;
+            }
+            case "submit": {
+                Submit.acceptSubmission(event, messageArgs);
+                break;
             }
         }
     }

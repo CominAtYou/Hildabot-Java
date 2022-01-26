@@ -30,14 +30,14 @@ public class RedisInstance {
     /**
      * Get a string that has a numerical value in the Redis instance, and convert it to an int.
      * @param key The key of the value.
-     * @return The value of the given key, or <code>-1</code> if the string does not have a numerical representation.
+     * @return The value of the given key, or <code>-1</code> if the string does not have a numerical representation or the key does not exist.
      */
     public static int getInt(String key) {
         String resp = syncCommands.get(key);
         try {
             return Integer.parseInt(resp);
         }
-        catch (Exception e) {
+        catch (NumberFormatException e) {
             return -1;
         }
     }

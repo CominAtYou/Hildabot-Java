@@ -12,6 +12,10 @@ public class RedisUserEntry {
         this.redisKey = "users:" + id;
     }
 
+    public long getID() {
+        return id;
+    }
+
     public String getRedisKey() {
         return redisKey;
     }
