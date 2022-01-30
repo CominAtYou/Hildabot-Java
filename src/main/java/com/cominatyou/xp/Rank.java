@@ -30,6 +30,6 @@ public class Rank {
     }
 
     public int getMinimumXP() {
-        return XPSystemCalculator.determineMinimumXPForLevel(level);
+        return XPSystemCalculator.determineMinimumTotalXPForLevel(level);
     }
 }

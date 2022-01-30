@@ -1,18 +1,20 @@
 package com.cominatyou.xp;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import com.cominatyou.RedisUserEntry;
-import com.cominatyou.util.RedisInstance;
+import com.cominatyou.db.RedisInstance;
+import com.cominatyou.util.Values;
 
-import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
+import org.javacord.api.entity.permission.Role;
 import org.javacord.api.event.message.MessageCreateEvent;
 
 import io.netty.util.internal.ThreadLocalRandom;
 
 public class XPSystem {
-    private final static ArrayList<Long> ignoredChannels = new ArrayList<>();
+    private final static List<Long> ignoredChannels = Arrays.asList(495034452422950915L);
 
     public static void giveXPForMessage(MessageCreateEvent message) {
         if (ignoredChannels.contains(message.getChannel().getId())) return;
@@ -22,13 +24,13 @@ public class XPSystem {
 
         // XP will only be granted for 7 messages sent within 30 seconds. This might
         // need to be increased.
-        if (RedisInstance.getInt(redisKey + ":recentmessagecount") == 7) return;
+        // if (RedisInstance.getInt(redisKey + ":recentmessagecount") == 7) return;
 
         final int currentXP = user.getXP();
         final int currentLevel = XPSystemCalculator.determineLevelFromXP(currentXP);
 
         // Award XP.
-        int amount = ThreadLocalRandom.current().nextInt(2, 6 + 1); // random number between 2 and 6, inclusive
+        int amount = ThreadLocalRandom.current().nextInt(2, 4 + 1); // random number between 2 and 4, inclusive
         user.addXP(amount);
         System.out.printf("XP awarded for %s (%d): %d XP\n", message.getMessageAuthor().getDiscriminatedName(), message.getMessageAuthor().getId(), amount);
 
@@ -43,24 +45,31 @@ public class XPSystem {
             RedisInstance.getInstance().incr(redisKey + ":recentmessagecount");
         }
 
-        checkForLevelUp(currentLevel, message.getMessageAuthor());
+        checkForLevelUp(currentLevel, message);
     }
 
-    public static void checkForLevelUp(int beforeActionLevel, MessageAuthor author) {
-        final RedisUserEntry user = new RedisUserEntry(author.getId());
+    public static void checkForLevelUp(int beforeActionLevel, MessageCreateEvent message) {
+        final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor().getId());
 
         final int currentXP = user.getXP();
         final int currentLevel = XPSystemCalculator.determineLevelFromXP(currentXP);
 
         if (currentLevel > beforeActionLevel) {
-            // TODO: If the level-up grants a new role, include that in the message.
             final String embedTitle = RankUtil.isLevelRankLevel(currentLevel) ? String.format("Congrats on leveling up! You've reached level **%d** and are now the **%s** rank!", currentLevel, RankUtil.getRankFromLevel(currentLevel).getName()) : String.format("Congrats on leveling up! You are now level **%d**! :tada:", currentLevel);
 
-            final EmbedBuilder embed = new EmbedBuilder()
-                    .setColor(new java.awt.Color(0x007acc))
-                    .setTitle(embedTitle)
-                    .setDescription("To disable this message going forward, run `h!levelalert` in this DM or the bot channel in Hildacord.");
-            author.asUser().get().openPrivateChannel().join().sendMessage(embed);
+            if (!RedisInstance.getBoolean("users:" + user.getID() + ":levelalertsdisabled")) {
+                final EmbedBuilder embed = new EmbedBuilder()
+                        .setColor(new java.awt.Color(Values.CODE_BLUE))
+                        .setTitle(embedTitle)
+                        .setDescription("To disable this message going forward, run `h!levelalert` in <#495034452422950915>.");
+                message.getMessageAuthor().asUser().get().openPrivateChannel().join().sendMessage(embed);
+            }
+
+            if (RankUtil.isLevelRankLevel(currentLevel)) {
+                final long roleId = RankUtil.getRankFromLevel(currentLevel).getId();
+                final Role role = message.getServer().get().getRoleById(roleId).get();
+                message.getMessageAuthor().asUser().get().addRole(role);
+            }
         }
     }
 }

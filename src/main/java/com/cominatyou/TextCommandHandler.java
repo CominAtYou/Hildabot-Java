@@ -5,6 +5,9 @@ import java.util.Arrays;
 
 import com.cominatyou.commands.Birthdays;
 import com.cominatyou.commands.GetXP;
+import com.cominatyou.commands.Help;
+import com.cominatyou.commands.LevelAlert;
+import com.cominatyou.commands.Restore;
 import com.cominatyou.commands.Stats;
 import com.cominatyou.commands.Submit;
 
@@ -16,8 +19,8 @@ public class TextCommandHandler {
         ArrayList<String> messageArgs = new ArrayList<String>(Arrays.asList(event.getMessage().getContent().substring(Config.getPrefix().length()).split(" +")));
         final String command = messageArgs.remove(0).toLowerCase();
         if (event.getChannel().getType() == ChannelType.PRIVATE_CHANNEL) {
-            if (command.equals("levelAlert")) {
-                // do stuff
+            if (command.equals("levelalert")) {
+                LevelAlert.setPreference(event);
             }
             return;
         }
@@ -41,6 +44,14 @@ public class TextCommandHandler {
             case "submit": {
                 Submit.acceptSubmission(event, messageArgs);
                 break;
+            }
+            case "restore": {
+                Restore.restoreRank(event);
+                break;
+            }
+            case "help": {
+                Help.getArticle(event, messageArgs);
+                return;
             }
         }
     }
