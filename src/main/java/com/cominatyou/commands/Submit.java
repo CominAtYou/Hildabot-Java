@@ -70,7 +70,6 @@ public class Submit {
             .addInlineField("Streak", String.valueOf(streak + 1))
             .addInlineField("XP Gained", String.valueOf(20 + 2 * streak))
             .addField("Streak Expires", String.format("<t:%d>", streakExpiry));
-            // 20 + 2 * streak
         message.getMessage().reply(embed);
 
         XPSystem.checkForLevelUp(currentLevel, message);

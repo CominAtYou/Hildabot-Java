@@ -24,7 +24,7 @@ public class XPSystem {
 
         // XP will only be granted for 7 messages sent within 30 seconds. This might
         // need to be increased.
-        // if (RedisInstance.getInt(redisKey + ":recentmessagecount") == 7) return;
+        if (RedisInstance.getInt(redisKey + ":recentmessagecount") == 7) return;
 
         final int currentXP = user.getXP();
         final int currentLevel = XPSystemCalculator.determineLevelFromXP(currentXP);
@@ -32,7 +32,7 @@ public class XPSystem {
         // Award XP.
         int amount = ThreadLocalRandom.current().nextInt(2, 4 + 1); // random number between 2 and 4, inclusive
         user.addXP(amount);
-        System.out.printf("XP awarded for %s (%d): %d XP\n", message.getMessageAuthor().getDiscriminatedName(), message.getMessageAuthor().getId(), amount);
+        // System.out.printf("XP awarded for %s (%d): %d XP\n", message.getMessageAuthor().getDiscriminatedName(), message.getMessageAuthor().getId(), amount);
 
         // Check if rate limit key exists. If not, create it, set it to 1, and have it
         // expire in 30 seconds.
