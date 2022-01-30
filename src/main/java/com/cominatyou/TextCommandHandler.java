@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.cominatyou.commands.Birthdays;
-import com.cominatyou.commands.GetXP;
 import com.cominatyou.commands.Help;
 import com.cominatyou.commands.LevelAlert;
 import com.cominatyou.commands.Restore;
@@ -25,10 +24,6 @@ public class TextCommandHandler {
             return;
         }
         switch (command) {
-            case "getxp": {
-                GetXP.execute(event);
-                break;
-            }
             case "birthday": {
                 if (messageArgs.get(0).equalsIgnoreCase("set")) {
                     Birthdays.set(event, messageArgs);
