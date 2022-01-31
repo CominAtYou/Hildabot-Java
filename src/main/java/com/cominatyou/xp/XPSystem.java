@@ -2,6 +2,7 @@ package com.cominatyou.xp;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import com.cominatyou.RedisUserEntry;
 import com.cominatyou.db.RedisInstance;
@@ -10,8 +11,6 @@ import com.cominatyou.util.Values;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.entity.permission.Role;
 import org.javacord.api.event.message.MessageCreateEvent;
-
-import io.netty.util.internal.ThreadLocalRandom;
 
 public class XPSystem {
     private final static List<Long> ignoredChannels = Arrays.asList(495034452422950915L);
