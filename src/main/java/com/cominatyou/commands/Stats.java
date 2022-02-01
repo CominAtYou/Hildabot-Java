@@ -1,7 +1,7 @@
 package com.cominatyou.commands;
 
-import com.cominatyou.RedisUserEntry;
 import com.cominatyou.db.RedisInstance;
+import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.util.Values;
 import com.cominatyou.xp.RankUtil;
 import com.cominatyou.xp.XPSystemCalculator;

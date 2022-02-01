@@ -2,8 +2,8 @@ package com.cominatyou.commands;
 
 import java.util.List;
 
-import com.cominatyou.RedisUserEntry;
 import com.cominatyou.db.RedisInstance;
+import com.cominatyou.db.RedisUserEntry;
 
 import java.text.DateFormatSymbols;
 import java.util.Arrays;

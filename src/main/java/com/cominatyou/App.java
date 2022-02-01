@@ -12,7 +12,7 @@ import org.javacord.api.entity.channel.ChannelType;
 import org.javacord.api.entity.permission.Permissions;
 
 public class App {
-    private static final DiscordApi client = new DiscordApiBuilder().setToken(Config.getToken()).login().join();
+    private static final DiscordApi client = new DiscordApiBuilder().setToken(Config.TOKEN).login().join();
     public static DiscordApi getClient() {
         return client;
     }
@@ -30,7 +30,7 @@ public class App {
         client.addMessageCreateListener(event -> {
             if (!MessageValidity.test(event)) return;
             // Get the command and the arguments
-            if (!event.getMessage().getContent().startsWith(Config.getPrefix()) && event.getChannel().getType() != ChannelType.PRIVATE_CHANNEL) {
+            if (!event.getMessage().getContent().startsWith(Config.PREFIX) && event.getChannel().getType() != ChannelType.PRIVATE_CHANNEL) {
                 XPSystem.giveXPForMessage(event);
             }
             else {

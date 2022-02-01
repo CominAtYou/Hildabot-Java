@@ -13,7 +13,7 @@ public class RedisInstance {
      * Open a connection to the Redis database.
      */
     public static void connect() {
-        RedisClient client = RedisClient.create(Config.getRedisInstanceAddress());
+        RedisClient client = RedisClient.create(Config.REDIS_INSTANCE_ADDRESS);
         client.setOptions(ClientOptions.builder().autoReconnect(true).build());
         syncCommands = client.connect().sync();
     }

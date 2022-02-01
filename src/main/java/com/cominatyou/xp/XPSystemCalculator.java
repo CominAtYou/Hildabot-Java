@@ -14,7 +14,7 @@ public class XPSystemCalculator {
 
         // TODO: Find a less stupid way for this later.
         for (int i = 1; i < 500; i++) {
-            int possibleNextLevelXP = determineMinimumTotalXPForLevel(i + 1);
+            final int possibleNextLevelXP = determineMinimumTotalXPForLevel(i + 1);
             if (possibleNextLevelXP > xp) return i;
         }
         return 1;

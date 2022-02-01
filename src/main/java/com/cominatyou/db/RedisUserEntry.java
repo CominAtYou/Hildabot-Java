@@ -1,6 +1,5 @@
-package com.cominatyou;
+package com.cominatyou.db;
 
-import com.cominatyou.db.RedisInstance;
 import com.cominatyou.xp.XPSystemCalculator;
 
 public class RedisUserEntry {

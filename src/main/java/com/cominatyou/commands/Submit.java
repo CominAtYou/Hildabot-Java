@@ -6,8 +6,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
 
-import com.cominatyou.RedisUserEntry;
 import com.cominatyou.db.RedisInstance;
+import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.util.Values;
 import com.cominatyou.xp.XPSystem;
 
@@ -70,7 +70,7 @@ public class Submit {
             .addInlineField("Streak", String.valueOf(streak + 1))
             .addInlineField("XP Gained", String.valueOf(20 + 2 * streak))
             .addField("Streak Expires", String.format("<t:%d>", streakExpiry));
-        message.getMessage().reply(embed);
+        message.getChannel().sendMessage(embed);
 
         XPSystem.checkForLevelUp(currentLevel, message);
     }

@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-import com.cominatyou.RedisUserEntry;
 import com.cominatyou.db.RedisInstance;
+import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.util.Values;
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;
