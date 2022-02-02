@@ -23,9 +23,11 @@ public class Restore {
         final int[] rankLevels = RankUtil.getRanklevels();
         final MessageAuthor author = message.getMessageAuthor();
         final List<Role> userRoles = author.asUser().get().getRoles(message.getServer().get());
+
         for (int i = rankLevels.length - 1; i > -1; i--) {
             final Rank rank = RankUtil.getRankFromLevel(rankLevels[i]);
             final Role role = message.getServer().get().getRoleById(rank.getId()).get();
+            
             if (userRoles.contains(role)) {
                 message.getMessage().reply(String.format("You're good to go! Your rank has been set to %s and your level has been set to %d.", rank.getName(), rank.getLevel()));
                 final Integer xpToGive = XPSystemCalculator.determineMinimumTotalXPForLevel(rank.getLevel());

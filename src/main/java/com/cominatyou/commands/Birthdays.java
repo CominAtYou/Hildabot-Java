@@ -19,7 +19,7 @@ public class Birthdays {
 
         // If a date is not specified ("set" or "edit" will be the first argument)
         if (messageArgs.size() == 1) {
-            message.getMessage().reply("You've gotta specify a date for this command!");
+            message.getMessage().reply("You've gotta specify a command (set or edit) and a date for this command!");
             return;
         }
         else if (user.getBirthdayAsString() != null) {
