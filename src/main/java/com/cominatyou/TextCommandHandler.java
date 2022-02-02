@@ -11,6 +11,7 @@ import com.cominatyou.commands.Stats;
 import com.cominatyou.commands.Submit;
 import com.cominatyou.commands.admin.Commit;
 import com.cominatyou.commands.admin.QueryDatabase;
+import com.cominatyou.commands.admin.Say;
 
 import org.javacord.api.entity.channel.ChannelType;
 import org.javacord.api.event.message.MessageCreateEvent;
@@ -56,6 +57,10 @@ public class TextCommandHandler {
             }
             case "levelalert": {
                 LevelAlert.setPreference(event);
+                break;
+            }
+            case "say": {
+                Say.run(event, messageArgs);
                 break;
             }
         }
