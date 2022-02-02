@@ -1,12 +1,11 @@
 package com.cominatyou.commands;
 
+import java.text.DateFormatSymbols;
+import java.util.Arrays;
 import java.util.List;
 
 import com.cominatyou.db.RedisInstance;
 import com.cominatyou.db.RedisUserEntry;
-
-import java.text.DateFormatSymbols;
-import java.util.Arrays;
 
 import org.javacord.api.event.message.MessageCreateEvent;
 
@@ -14,15 +13,21 @@ public class Birthdays {
     private static final List<String> thirtyDayMonths = Arrays.asList("09", "04", "06", "11");
     private static final List<String> thirtyOneDayMonths = Arrays.asList("01", "03", "05", "07", "08", "10", "12");
 
-    public static void set(MessageCreateEvent message, List<String> messageArgs) {
+    public static void run(MessageCreateEvent message, List<String> messageArgs) {
+        if (messageArgs.size() == 0 || messageArgs.size() == 1) {
+            message.getMessage().reply("Looks like you're missing some arguments. Please make sure you provided a command (set|edit) and a date!");
+        }
+        else if (messageArgs.get(0).equalsIgnoreCase("set")) {
+            Birthdays.set(message, messageArgs);
+        } else if (messageArgs.get(0).equalsIgnoreCase("edit")) {
+            Birthdays.edit(message, messageArgs);
+        }
+    }
+
+    private static void set(MessageCreateEvent message, List<String> messageArgs) {
         final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor().getId());
 
-        // If a date is not specified ("set" or "edit" will be the first argument)
-        if (messageArgs.size() == 1) {
-            message.getMessage().reply("You've gotta specify a command (set or edit) and a date for this command!");
-            return;
-        }
-        else if (user.getBirthdayAsString() != null) {
+        if (user.getBirthdayAsString() != null) {
             message.getMessage().reply("You already have a birthday set! If you want to change it, please use `h!birthday edit`.");
             return;
         }
@@ -69,8 +74,9 @@ public class Birthdays {
         }
     }
 
-    public static void edit(MessageCreateEvent message, List<String> messageArgs) {
+    private static void edit(MessageCreateEvent message, List<String> messageArgs) {
         final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor().getId());
+
         if (user.getBirthdayAsString() == null) {
             message.getMessage().reply("You don't have a birthday set! If you're trying to set your birthday, please use `h!birthday set`.");
             return;
@@ -79,11 +85,14 @@ public class Birthdays {
             message.getMessage().reply("Invalid birthday provided. Please provide your birthday in `mm-dd` format. (i.e., 06-21 is June 21)");
             return;
         }
-        else if (messageArgs.size() == 1) {
-            message.getMessage().reply("You've gotta specify a date for this command!");
-            return;
-        }
-        RedisInstance.getInstance().lrem("birthdays" + ":" + user.getBirthdayAsString(), 1, message.getMessageAuthor().getIdAsString());
+
+        final Integer monthInt = RedisInstance.getInt("users:" + user.getID() + ":birthday:month");
+        final Integer dayInt = RedisInstance.getInt("users:" + user.getID() + ":birthday:day");
+
+        final String month = monthInt < 10 ? "0" + monthInt : monthInt.toString();
+        final String day = dayInt < 10 ? "0" + dayInt : dayInt.toString();
+
+        RedisInstance.getInstance().lrem("birthdays" + ":" + month + ":" + day, 1, message.getMessageAuthor().getIdAsString());
         RedisInstance.getInstance().del(user.getRedisKey() + ":birthday:month", user.getRedisKey() + ":birthday:day", user.getRedisKey() + ":birthday:string");
         set(message, messageArgs);
     }

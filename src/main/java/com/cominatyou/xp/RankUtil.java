@@ -24,7 +24,7 @@ public class RankUtil {
             new Rank("Black Hound", 180, 587846612391297034L), new Rank("Lindworm", 200, 644368923331919892L),
             new Rank("Trevor", 220, 644369091901259776L), new Rank("Alfur", 240, 644369272474173440L),
             new Rank("David", 260, 644369376274939916L), new Rank("Frida", 280, 644369526129033217L),
-            new Rank("Hilda", 300, 64436971210866690L) };
+            new Rank("Hilda", 300, 644369712108666903L) };
 
     // TODO: Change for testing
 

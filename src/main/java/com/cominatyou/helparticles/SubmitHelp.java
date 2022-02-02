@@ -9,7 +9,7 @@ public class SubmitHelp {
     public static void sendHelpArticle(MessageCreateEvent message) {
         final EmbedBuilder embed = new EmbedBuilder()
             .setTitle("Submit command")
-            .setColor(new java.awt.Color(Values.CODE_BLUE))
+            .setColor(new java.awt.Color(Values.HILDA_BLUE))
             .setDescription("This command lets submit content (images, video, audio) to select channels to gain XP. It can be a great way to help you level up!")
             .addField("Submission Channels", "<#492579714674720778>, <#492578733442465804>, <#492580873628286976>, and <#492580926111481859>")
             .addField("Usage", "h!submit url|file attachment")

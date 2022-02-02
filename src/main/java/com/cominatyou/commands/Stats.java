@@ -1,5 +1,9 @@
 package com.cominatyou.commands;
 
+import java.util.Optional;
+
+import java.awt.Color;
+
 import com.cominatyou.db.RedisInstance;
 import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.util.Values;
@@ -12,10 +16,15 @@ import org.javacord.api.event.message.MessageCreateEvent;
 public class Stats {
     public static void execute(MessageCreateEvent message) {
         final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor().getId());
+
         final int currentLevel = user.getLevel();
         final int currentStreak = RedisInstance.getInt("users:" + user.getID() + ":streak");
+
         final int xpForLevelUp =  XPSystemCalculator.determineMinimumUserFacingXPForLevel(currentLevel + 1);
         final String highScore = String.valueOf(RedisInstance.getInt("users:" + user.getID() + ":highscore"));
+
+        final Optional<Color> roleColor = message.getServer().get().getRoleColor(message.getMessageAuthor().asUser().get());
+
         final int numberOfFilledInCircles = Math.round((float) (user.getXP() - (float) XPSystemCalculator.determineMinimumTotalXPForLevel(currentLevel)) / (float) xpForLevelUp * 20f);
         final StringBuilder progressCircles = new StringBuilder();
 
@@ -29,7 +38,7 @@ public class Stats {
         EmbedBuilder embed = new EmbedBuilder()
             .setTitle(message.getMessageAuthor().getDisplayName())
             .setThumbnail(message.getMessageAuthor().getAvatar())
-            .setColor(new java.awt.Color(Values.CODE_BLUE))
+            .setColor(roleColor.isPresent() ? roleColor.get() : new Color(Values.HILDA_BLUE))
             .setDescription(String.format("%s, Level %d", RankUtil.getRankName(user.getLevel()), currentLevel))
             .addField("Progress:", progressCircles.toString())
             .addInlineField("XP:", user.getXP() - XPSystemCalculator.determineMinimumTotalXPForLevel(currentLevel) + "/" + xpForLevelUp)

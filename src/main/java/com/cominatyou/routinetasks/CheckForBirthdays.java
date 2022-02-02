@@ -1,5 +1,6 @@
 package com.cominatyou.routinetasks;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -13,14 +14,22 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 public class CheckForBirthdays implements Job {
+    @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         final int month = Calendar.getInstance().get(Calendar.MONTH) + 1; // January is 0
         final int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+
         final String monthString = month < 10 ? "0" + month : String.valueOf(month);
         final String dayString = day < 10 ? "0" + day : String.valueOf(day);
-        final List<String> birthdays = RedisInstance.getInstance().lrange(String.format("birthdays:%s:%s", monthString, dayString), 0, -1);
+
+        ArrayList<String> birthdays = new ArrayList<>(RedisInstance.getInstance().lrange(String.format("birthdays:%s:%s", monthString, dayString), 0, -1));
+
+        if (Calendar.getInstance().get(Calendar.YEAR) % 4 != 0 && month == 3 && day == 1) {
+            final List<String> leapBirthdays = RedisInstance.getInstance().lrange("birthdays:02:29", 0, -1);
+            birthdays.addAll(leapBirthdays);
+        }
         // TODO: CLEAR THIS FOR TESTING
-        final TextChannel birthdayChannel =  App.getClient().getServerById(Values.HILDACORD_ID).get().getTextChannelById(609253148564914187L).get();
+        final TextChannel birthdayChannel = App.getClient().getServerById(Values.HILDACORD_ID).get().getTextChannelById(609253148564914187L).get();
 
         if (birthdays.size() == 0) {
             return;

@@ -27,11 +27,7 @@ public class TextCommandHandler {
         }
         switch (command) {
             case "birthday": {
-                if (messageArgs.get(0).equalsIgnoreCase("set")) {
-                    Birthdays.set(event, messageArgs);
-                } else if (messageArgs.get(0).equalsIgnoreCase("edit")) {
-                    Birthdays.edit(event, messageArgs);
-                }
+                Birthdays.run(event, messageArgs);
                 break;
             }
             case "stats": {
@@ -56,6 +52,10 @@ public class TextCommandHandler {
             }
             case "querydb": {
                 QueryDatabase.sendQuery(event, messageArgs);
+                break;
+            }
+            case "levelalert": {
+                LevelAlert.setPreference(event);
                 break;
             }
         }

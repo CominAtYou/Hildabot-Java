@@ -14,6 +14,7 @@ import org.javacord.api.event.message.MessageCreateEvent;
 
 public class Restore {
     public static void restoreRank(MessageCreateEvent message) {
+        // if (message.getChannel().getId() != Values.BOT_CHANNEL) return;
         final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor().getId());
         if (user.isEnrolled()) {
             message.getMessage().reply("Looks like you've already done this before!");
@@ -27,7 +28,7 @@ public class Restore {
         for (int i = rankLevels.length - 1; i > -1; i--) {
             final Rank rank = RankUtil.getRankFromLevel(rankLevels[i]);
             final Role role = message.getServer().get().getRoleById(rank.getId()).get();
-            
+
             if (userRoles.contains(role)) {
                 message.getMessage().reply(String.format("You're good to go! Your rank has been set to %s and your level has been set to %d.", rank.getName(), rank.getLevel()));
                 final Integer xpToGive = XPSystemCalculator.determineMinimumTotalXPForLevel(rank.getLevel());
