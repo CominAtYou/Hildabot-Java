@@ -57,7 +57,7 @@ public class Submit {
         RedisInstance.getInstance().expireat("users:" + messageAuthorId + ":streakexpiry", streakExpiry);
 
         // If the streak is higher than the user's current high score, set the high score to that.
-        if (RedisInstance.getInt("users:" + messageAuthorId + ":highscore") < streak) {
+        if (RedisInstance.getInt("users:" + messageAuthorId + ":highscore") < streak + 1) {
             // streak contains the pre-increment value, so + 1
             RedisInstance.getInstance().set("users:" + messageAuthorId + ":highscore", String.valueOf(streak + 1));
         }
