@@ -2,10 +2,10 @@
 The bot we all know and love.
 
 ## Features to Develop
-- ✅ XP System (Gain XP for messages, leveling up)
-- ✅ Submissions
-- ✅ Birthdays & Birthday Announcements
-- ✅ Stats command for viewing your stats
+- [x] XP System (Gain XP for messages, leveling up)
+- [x] Submissions
+- [x] Birthdays & Birthday Announcements
+- [x] Stats command for viewing your stats
 
 # Development Stages
 | Step | Process | Description |
