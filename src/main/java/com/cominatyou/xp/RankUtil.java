@@ -20,7 +20,7 @@ public class RankUtil {
             new Rank("Sparrow Scout", 60, 498582101483061268L), new Rank("Johanna", 70, 547261495231119370L),
             new Rank("Librarian", 80, 547263982151401482L), new Rank("Marra", 90, 547261632703627274L),
             new Rank("Mad Scientist", 100, 587846803450363916L), new Rank("Mountain Giant", 120, 644368570352009237L),
-            new Rank("Weather Spirit", 140, 547261953421082635L), new Rank("Thunder Bird", 160, 587846612391297034L),
+            new Rank("Weather Spirit", 140, 547261953421082635L), new Rank("Thunder Bird", 160, 520057898731307009L),
             new Rank("Black Hound", 180, 587846612391297034L), new Rank("Lindworm", 200, 644368923331919892L),
             new Rank("Trevor", 220, 644369091901259776L), new Rank("Alfur", 240, 644369272474173440L),
             new Rank("David", 260, 644369376274939916L), new Rank("Frida", 280, 644369526129033217L),
