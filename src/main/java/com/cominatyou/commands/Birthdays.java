@@ -36,6 +36,7 @@ public class Birthdays {
         // Expected format is MM-DD
         if (!birthday.matches("(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])") || birthday.length() == 4) {
             message.getMessage().reply("Invalid birthday provided. Please provide your birthday in `mm-dd` format. (i.e., 06-21 is June 21)");
+            return;
         }
 
         // "parse" the date
