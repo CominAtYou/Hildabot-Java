@@ -26,7 +26,7 @@ public class CheckForBirthdays implements Job {
         if (birthdayRole != null) {
             final Collection<User> birthdayRoleUsers = birthdayRole.getUsers();
             birthdayRoleUsers.forEach(user -> {
-                user.removeRole(birthdayRole);
+                user.removeRole(birthdayRole, "Their birthday has passed.");
             });
         }
 
@@ -65,10 +65,10 @@ public class CheckForBirthdays implements Job {
         }
         birthdays.forEach(id -> {
             if (birthdayRole == null) return;
-            
+
             try {
                 final User user = client.getUserById(id).get();
-                birthdayRole.addUser(user);
+                birthdayRole.addUser(user, "Their birthday is today!");
             }
             catch (Exception e) {
                 e.printStackTrace();

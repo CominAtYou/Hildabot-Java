@@ -68,7 +68,7 @@ public class XPSystem {
             if (RankUtil.isLevelRankLevel(currentLevel)) {
                 final long roleId = RankUtil.getRankFromLevel(currentLevel).getId();
                 final Role role = message.getServer().get().getRoleById(roleId).get();
-                message.getMessageAuthor().asUser().get().addRole(role);
+                message.getMessageAuthor().asUser().get().addRole(role, message.getMessageAuthor().getName() + " leveled up!");
                 System.out.printf("[LEVELUP] Assigned role %s to %s (%d)\n", role.getName(), message.getMessageAuthor().getDiscriminatedName(), message.getMessageAuthor().getId());
             }
         }
