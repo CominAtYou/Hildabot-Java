@@ -3,13 +3,12 @@ package com.cominatyou.commands.admin;
 import java.util.List;
 
 import com.cominatyou.db.RedisInstance;
-import com.cominatyou.util.Values;
 
 import org.javacord.api.event.message.MessageCreateEvent;
 
 public class QueryDatabase {
     public static void sendQuery(MessageCreateEvent message, List<String> messageArgs) {
-        if (message.getMessageAuthor().getId() != Values.COMIN_USER_ID) return;
+        if (!message.getMessageAuthor().isBotOwner()) return;
 
         if (messageArgs.size() == 0) {
             message.getChannel().sendMessage("A key was not supplied!");

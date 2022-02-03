@@ -55,6 +55,8 @@ public class XPSystem {
         if (currentLevel > beforeActionLevel) {
             final String embedTitle = RankUtil.isLevelRankLevel(currentLevel) ? String.format("Congrats on leveling up! You've reached level **%d** and are now the **%s** rank!", currentLevel, RankUtil.getRankFromLevel(currentLevel).getName()) : String.format("Congrats on leveling up! You are now level **%d**! :tada:", currentLevel);
 
+            System.out.printf("[LEVELUP] %s (%d) leveled up to %d: %d XP\n", message.getMessageAuthor().getDiscriminatedName(), user.getID(), currentLevel, currentXP);
+
             if (!RedisInstance.getBoolean("users:" + user.getID() + ":levelalertsdisabled")) {
                 final EmbedBuilder embed = new EmbedBuilder()
                         .setColor(new java.awt.Color(Values.HILDA_BLUE))

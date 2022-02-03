@@ -2,13 +2,17 @@ package com.cominatyou.routinetasks;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.List;
 
 import com.cominatyou.App;
 import com.cominatyou.db.RedisInstance;
 import com.cominatyou.util.Values;
 
+import org.javacord.api.DiscordApi;
 import org.javacord.api.entity.channel.TextChannel;
+import org.javacord.api.entity.permission.Role;
+import org.javacord.api.entity.user.User;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -16,6 +20,16 @@ import org.quartz.JobExecutionException;
 public class CheckForBirthdays implements Job {
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
+        final DiscordApi client = App.getClient();
+
+        final Role birthdayRole = client.getServerById(Values.HILDACORD_ID).get().getRoleById(609258045759029250L).orElse(null);
+        if (birthdayRole != null) {
+            final Collection<User> birthdayRoleUsers = birthdayRole.getUsers();
+            birthdayRoleUsers.forEach(user -> {
+                user.removeRole(birthdayRole);
+            });
+        }
+
         final int month = Calendar.getInstance().get(Calendar.MONTH) + 1; // January is 0
         final int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 
@@ -29,7 +43,7 @@ public class CheckForBirthdays implements Job {
             birthdays.addAll(leapBirthdays);
         }
         // TODO: CLEAR THIS FOR TESTING
-        final TextChannel birthdayChannel = App.getClient().getServerById(Values.HILDACORD_ID).get().getTextChannelById(609253148564914187L).get();
+        final TextChannel birthdayChannel = client.getServerById(Values.HILDACORD_ID).get().getTextChannelById(609253148564914187L).get();
 
         if (birthdays.size() == 0) {
             return;
@@ -49,5 +63,16 @@ public class CheckForBirthdays implements Job {
             announcement.append("I just wanted to wish you all the happiest of birthdays! Can I have a slice of cake too? :birthday::heart:");
             birthdayChannel.sendMessage(announcement.toString());
         }
+        birthdays.forEach(id -> {
+            if (birthdayRole == null) return;
+            
+            try {
+                final User user = client.getUserById(id).get();
+                birthdayRole.addUser(user);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

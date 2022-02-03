@@ -1,13 +1,12 @@
 package com.cominatyou.commands.admin;
 
 import com.cominatyou.db.RedisInstance;
-import com.cominatyou.util.Values;
 
 import org.javacord.api.event.message.MessageCreateEvent;
 
 public class Commit {
     public static void saveDB(MessageCreateEvent message) {
-        if (message.getMessageAuthor().getId() != Values.COMIN_USER_ID) return;
+        if (!message.getMessageAuthor().isBotOwner()) return;
 
         final String response = RedisInstance.getInstance().save();
 

@@ -38,7 +38,7 @@ public class Stats {
         EmbedBuilder embed = new EmbedBuilder()
             .setTitle(message.getMessageAuthor().getDisplayName())
             .setThumbnail(message.getMessageAuthor().getAvatar())
-            .setColor(roleColor.isPresent() ? roleColor.get() : new Color(Values.HILDA_BLUE))
+            .setColor(roleColor.orElse(new Color(Values.HILDA_BLUE)))
             .setDescription(String.format("%s, Level %d", RankUtil.getRankName(user.getLevel()), currentLevel))
             .addField("Progress:", progressCircles.toString())
             .addInlineField("XP:", user.getXP() - XPSystemCalculator.determineMinimumTotalXPForLevel(currentLevel) + "/" + xpForLevelUp)
