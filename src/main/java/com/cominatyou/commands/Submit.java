@@ -19,7 +19,7 @@ public class Submit {
     public static void acceptSubmission(MessageCreateEvent message, List<String> messageArgs) {
         // TODO: Clear this for testing
         if (!allowedChannels.contains(message.getChannel().getId())) return;
-        if (!String.join(" ", messageArgs).matches("^https?://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|].*") && message.getMessage().getAttachments().size() == 0) {
+        if (!String.join(" ", messageArgs).matches("https?://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|].*") && message.getMessage().getAttachments().size() == 0) {
             message.getMessage().reply("You need to provide something to submit!");
             return;
         }
