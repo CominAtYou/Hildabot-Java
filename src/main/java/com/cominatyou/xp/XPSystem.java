@@ -69,6 +69,7 @@ public class XPSystem {
                 final long roleId = RankUtil.getRankFromLevel(currentLevel).getId();
                 final Role role = message.getServer().get().getRoleById(roleId).get();
                 message.getMessageAuthor().asUser().get().addRole(role);
+                System.out.printf("[LEVELUP] Assigned role %s to %s (%d)\n", role.getName(), message.getMessageAuthor().getDiscriminatedName(), message.getMessageAuthor().getId());
             }
         }
     }
