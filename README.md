@@ -7,7 +7,7 @@ The bot we all know and love.
 - [x] Birthdays & Birthday Announcements
 - [x] Stats command for viewing your stats
 
-# Development Stages
+## Development Stages
 | Step | Process | Description |
 | ---- | ------- | ----------- |
 | 1 | Planning / Design | Figure out what features to implement and design how they should work. |

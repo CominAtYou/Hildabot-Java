@@ -9,6 +9,7 @@ import org.javacord.api.event.message.MessageCreateEvent;
 
 public class Help {
     public static void getArticle(MessageCreateEvent message, List<String> messageArgs) {
+        if (messageArgs.size() == 0) return;
         switch (messageArgs.get(0)) {
             case "birthdays": {
                 BirthdaysHelp.sendHelpArticle(message);

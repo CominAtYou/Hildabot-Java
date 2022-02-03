@@ -22,9 +22,12 @@ public class CheckForBirthdays implements Job {
     public void execute(JobExecutionContext context) throws JobExecutionException {
         final DiscordApi client = App.getClient();
 
+        System.out.println("[BIRTHDAYS] Starting birthdays task.");
+
         final Role birthdayRole = client.getServerById(Values.HILDACORD_ID).get().getRoleById(609258045759029250L).orElse(null);
         if (birthdayRole != null) {
             final Collection<User> birthdayRoleUsers = birthdayRole.getUsers();
+            if (birthdayRoleUsers.size() != 0) System.out.printf("[BIRTHDAYS] Removing birthday role from %d user(s)", birthdayRoleUsers.size());
             birthdayRoleUsers.forEach(user -> {
                 user.removeRole(birthdayRole, "Their birthday has passed.");
             });
@@ -45,6 +48,8 @@ public class CheckForBirthdays implements Job {
         // TODO: CLEAR THIS FOR TESTING
         final TextChannel birthdayChannel = client.getServerById(Values.HILDACORD_ID).get().getTextChannelById(609253148564914187L).get();
 
+        System.out.printf("[BIRTHDAYS] Got %d birthdays for %d-%d\n", birthdays.size(), month, day);
+
         if (birthdays.size() == 0) {
             return;
         }
@@ -63,12 +68,14 @@ public class CheckForBirthdays implements Job {
             announcement.append("I just wanted to wish you all the happiest of birthdays! Can I have a slice of cake too? :birthday::heart:");
             birthdayChannel.sendMessage(announcement.toString());
         }
+
+
         birthdays.forEach(id -> {
             if (birthdayRole == null) return;
-
             try {
                 final User user = client.getUserById(id).get();
                 birthdayRole.addUser(user, "Their birthday is today!");
+                System.out.printf("[BIRTHDAYS] Gave birthday role to %s (%d)", user.getDiscriminatedName(), user.getId());
             }
             catch (Exception e) {
                 e.printStackTrace();

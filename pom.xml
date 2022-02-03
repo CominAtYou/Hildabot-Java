@@ -5,7 +5,7 @@
 
   <groupId>com.cominatyou</groupId>
   <artifactId>hildabot</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
 
   <name>hildabot</name>
   <!-- FIXME change it to the project's website -->
@@ -39,7 +39,7 @@
       <groupId>org.quartz-scheduler</groupId>
       <artifactId>quartz</artifactId>
       <version>2.3.2</version>
-  </dependency>
+    </dependency>
   </dependencies>
 
   <build>
