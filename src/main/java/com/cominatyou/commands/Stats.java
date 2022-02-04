@@ -49,7 +49,7 @@ public class Stats {
 
         final String streakExpiry = RedisInstance.getInstance().get("users:" + user.getID() + ":streakexpiry");
         if (streakExpiry != null) {
-            embed.addField("Streak Expires", "<t:" + streakExpiry + ">");
+            embed.addField("Streak Expiry", "<t:" + streakExpiry + ">");
         }
         message.getChannel().sendMessage(embed);
     }

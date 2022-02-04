@@ -65,11 +65,11 @@ public class Submit {
         final EmbedBuilder embed = new EmbedBuilder()
             .setTitle("Submission successful!")
             .setAuthor(message.getMessageAuthor())
-            .setDescription("Your submission has been accepted! Your XP and streak have been updated accordingly.")
+            .setDescription("Your submission has been accepted!")
             .setColor(new java.awt.Color(Values.SUCCESS_GREEN))
             .addInlineField("Streak", String.valueOf(streak + 1))
             .addInlineField("XP Gained", String.valueOf(20 + 2 * streak))
-            .addField("Streak Expires", String.format("<t:%d>", streakExpiry));
+            .addField("Streak Expiry", String.format("<t:%d>", streakExpiry));
         message.getChannel().sendMessage(embed);
 
         XPSystem.checkForLevelUp(currentLevel, message);
