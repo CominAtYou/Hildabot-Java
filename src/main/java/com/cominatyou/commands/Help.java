@@ -9,7 +9,10 @@ import org.javacord.api.event.message.MessageCreateEvent;
 
 public class Help {
     public static void getArticle(MessageCreateEvent message, List<String> messageArgs) {
-        if (messageArgs.size() == 0) return;
+        if (messageArgs.size() == 0) {
+            message.getMessage().reply("Please specify the help article you want. You can do either `h!help submit` or `h!help birthdays`!");
+            return;
+        }
         switch (messageArgs.get(0)) {
             case "birthdays": {
                 BirthdaysHelp.sendHelpArticle(message);
