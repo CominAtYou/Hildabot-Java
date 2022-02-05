@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import com.cominatyou.App;
 import com.cominatyou.db.RedisInstance;
@@ -24,12 +25,12 @@ public class CheckForBirthdays implements Job {
 
         System.out.println("[BIRTHDAYS] Starting birthdays task.");
 
-        final Role birthdayRole = client.getServerById(Values.HILDACORD_ID).get().getRoleById(609258045759029250L).orElse(null);
-        if (birthdayRole != null) {
-            final Collection<User> birthdayRoleUsers = birthdayRole.getUsers();
+        final Optional<Role> birthdayRole = client.getServerById(Values.HILDACORD_ID).get().getRoleById(609258045759029250L);
+        if (birthdayRole.isPresent()) {
+            final Collection<User> birthdayRoleUsers = birthdayRole.get().getUsers();
             if (birthdayRoleUsers.size() != 0) System.out.printf("[BIRTHDAYS] Removing birthday role from %d user(s)", birthdayRoleUsers.size());
             birthdayRoleUsers.forEach(user -> {
-                user.removeRole(birthdayRole, "Their birthday has passed.");
+                user.removeRole(birthdayRole.get(), "Their birthday has passed.");
             });
         }
 
@@ -39,16 +40,15 @@ public class CheckForBirthdays implements Job {
         final String monthString = month < 10 ? "0" + month : String.valueOf(month);
         final String dayString = day < 10 ? "0" + day : String.valueOf(day);
 
-        ArrayList<String> birthdays = new ArrayList<>(RedisInstance.getInstance().lrange(String.format("birthdays:%s:%s", monthString, dayString), 0, -1));
+        ArrayList<String> birthdays = (ArrayList<String>) RedisInstance.getInstance().lrange(String.format("birthdays:%s:%s", monthString, dayString), 0, -1);
 
         if (Calendar.getInstance().get(Calendar.YEAR) % 4 != 0 && month == 3 && day == 1) {
             final List<String> leapBirthdays = RedisInstance.getInstance().lrange("birthdays:02:29", 0, -1);
             birthdays.addAll(leapBirthdays);
         }
-        // TODO: CLEAR THIS FOR TESTING
         final TextChannel birthdayChannel = client.getServerById(Values.HILDACORD_ID).get().getTextChannelById(609253148564914187L).get();
 
-        System.out.printf("[BIRTHDAYS] Got %d birthdays for %d-%d\n", birthdays.size(), month, day);
+        System.out.printf("[BIRTHDAYS] Got %d birthdays for %d-%s\n", birthdays.size(), month, dayString);
 
         if (birthdays.size() == 0) {
             return;
@@ -69,13 +69,13 @@ public class CheckForBirthdays implements Job {
             birthdayChannel.sendMessage(announcement.toString());
         }
 
-
         birthdays.forEach(id -> {
-            if (birthdayRole == null) return;
+            if (birthdayRole.isEmpty()) return;
             try {
-                final User user = client.getUserById(id).get();
-                birthdayRole.addUser(user, "Their birthday is today!");
-                System.out.printf("[BIRTHDAYS] Gave birthday role to %s (%d)", user.getDiscriminatedName(), user.getId());
+                final Optional<User> user = client.getServerById(Values.HILDACORD_ID).get().getMemberById(id);
+                if (user.isEmpty()) return;
+                birthdayRole.get().addUser(user.get(), "Their birthday is today!");
+                System.out.printf("[BIRTHDAYS] Gave birthday role to %s (%d)", user.get().getDiscriminatedName(), user.get().getId());
             }
             catch (Exception e) {
                 e.printStackTrace();
