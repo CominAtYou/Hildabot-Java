@@ -29,8 +29,8 @@ public class XPSystem {
         final int currentLevel = XPSystemCalculator.determineLevelFromXP(currentXP);
 
         // Award XP.
-        int amount = ThreadLocalRandom.current().nextInt(2, 4 + 1); // random number between 2 and 4, inclusive
-        user.addXP(amount);
+        final int amount = ThreadLocalRandom.current().nextInt(2, 4 + 1); // random number between 2 and 4, inclusive
+        RedisInstance.getInstance().incrby("users:" + message.getMessageAuthor().getId() + ":xp", amount);
 
         // Check if rate limit key exists. If not, create it, set it to 1, and have it
         // expire in 30 seconds.

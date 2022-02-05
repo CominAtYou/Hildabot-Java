@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.cominatyou.db.RedisInstance;
-import com.cominatyou.db.RedisUserEntry;
 
 import org.javacord.api.event.message.MessageCreateEvent;
 
@@ -25,9 +24,10 @@ public class Birthdays {
     }
 
     private static void set(MessageCreateEvent message, List<String> messageArgs) {
-        final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor().getId());
+        final Long messageAuthorID = message.getMessageAuthor().getId();
+        final boolean birthdayStringExists = RedisInstance.getInstance().get("users:" + messageAuthorID + ":birthday:string") != null;
 
-        if (user.getBirthdayAsString() != null) {
+        if (birthdayStringExists) {
             message.getMessage().reply("You already have a birthday set! If you want to change it, please use `h!birthday edit`.");
             return;
         }
@@ -61,10 +61,10 @@ public class Birthdays {
         }
 
         // Write birthday to DB
-        RedisInstance.getInstance().set("users:" + message.getMessageAuthor().getIdAsString() + ":birthday:month", month);
-        RedisInstance.getInstance().set("users:" + message.getMessageAuthor().getIdAsString() + ":birthday:day", day);
-        RedisInstance.getInstance().set("users:" + message.getMessageAuthor().getIdAsString() + ":birthday:string", birthday);
-        RedisInstance.getInstance().rpush(String.format("birthdays:%s:%s", month, day), message.getMessageAuthor().getIdAsString());
+        RedisInstance.getInstance().set("users:" + messageAuthorID + ":birthday:month", month);
+        RedisInstance.getInstance().set("users:" + messageAuthorID + ":birthday:day", day);
+        RedisInstance.getInstance().set("users:" + messageAuthorID + ":birthday:string", birthday);
+        RedisInstance.getInstance().rpush(String.format("birthdays:%s:%s", month, day), messageAuthorID.toString());
 
         if (birthday.equals("02-29")) {
             message.getMessage().reply("Success! Your birthday has been set to Feburary 29. Your birthday will be announced on March 1 on non-leap years.");
@@ -76,9 +76,10 @@ public class Birthdays {
     }
 
     private static void edit(MessageCreateEvent message, List<String> messageArgs) {
-        final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor().getId());
+        final Long messageAuthorID = message.getMessageAuthor().getId();
+        final boolean birthdayStringExists = RedisInstance.getInstance().get("users:" + messageAuthorID + ":birthday:string") != null;
 
-        if (user.getBirthdayAsString() == null) {
+        if (!birthdayStringExists) {
             message.getMessage().reply("You don't have a birthday set! If you're trying to set your birthday, please use `h!birthday set`.");
             return;
         }
@@ -87,14 +88,14 @@ public class Birthdays {
             return;
         }
 
-        final Integer monthInt = RedisInstance.getInt("users:" + user.getID() + ":birthday:month");
-        final Integer dayInt = RedisInstance.getInt("users:" + user.getID() + ":birthday:day");
+        final Integer monthInt = RedisInstance.getInt("users:" + messageAuthorID + ":birthday:month");
+        final Integer dayInt = RedisInstance.getInt("users:" + messageAuthorID + ":birthday:day");
 
         final String month = monthInt < 10 ? "0" + monthInt : monthInt.toString();
         final String day = dayInt < 10 ? "0" + dayInt : dayInt.toString();
 
-        RedisInstance.getInstance().lrem("birthdays" + ":" + month + ":" + day, 1, message.getMessageAuthor().getIdAsString());
-        RedisInstance.getInstance().del(user.getRedisKey() + ":birthday:month", user.getRedisKey() + ":birthday:day", user.getRedisKey() + ":birthday:string");
+        RedisInstance.getInstance().lrem("birthdays" + ":" + month + ":" + day, 1, messageAuthorID.toString());
+        RedisInstance.getInstance().del("users:" + messageAuthorID + ":birthday:month", "users:" + messageAuthorID + ":birthday:day", "users:" + messageAuthorID + ":birthday:string");
         set(message, messageArgs);
     }
 }

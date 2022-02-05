@@ -4,12 +4,6 @@ import java.util.HashMap;
 
 public class RankUtil {
     private final static int[] rankLevels = { 1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300 };
-    // private final static int[] rankLevels = {1, 5, 10, 15}; // TODO: Change for testing
-
-    // private final static String[] ranksArr = { "Time Worm", "Nitten", "Tide Mouse", "Elf", "Twig", "Woff", "Vitra", "Nisse",
-    //         "Forest Giant", "Troll", "Adventurer", "Sparrow Scout", "Johanna", "Librarian", "Marra", "Mad Scientist",
-    //         "Mountain Giant", "Weather Spirit", "Thunder Bird", "Black Hound", "Lindworm", "Trevor", "Alfur", "David",
-    //         "Frida", "Hilda" };
 
     private final static Rank[] ranks = { new Rank("Time Worm", 1, 505141598946852885L),
             new Rank("Nitten", 5, 492871026640814090L), new Rank("Tide Mouse", 10, 587846293091778560L),
@@ -24,14 +18,8 @@ public class RankUtil {
             new Rank("Black Hound", 180, 587846612391297034L), new Rank("Lindworm", 200, 644368923331919892L),
             new Rank("Trevor", 220, 644369091901259776L), new Rank("Alfur", 240, 644369272474173440L),
             new Rank("David", 260, 644369376274939916L), new Rank("Frida", 280, 644369526129033217L),
-            new Rank("Hilda", 300, 644369712108666903L) };
-
-    // TODO: Change for testing
-
-    // private final static Rank[] ranks = { new Rank("Time Worm", 1, 936499728970043453L),
-    // new Rank("Nitten", 5, 936499765569548308L), new Rank("Tide Mouse", 10, 936499819290177556L),
-    // new Rank("Elf", 15, 936499850101522452L) };
-
+            new Rank("Hilda", 300, 644369712108666903L)
+    };
 
     private static final HashMap<Integer, Rank> ranksMap = new HashMap<>(26);
 

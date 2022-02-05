@@ -28,16 +28,8 @@ public class RedisUserEntry {
         return Integer.valueOf(res);
     }
 
-    public void addXP(int amount) {
-        RedisInstance.getInstance().incrby(redisKey + ":xp", amount);
-    }
-
     public int getLevel() {
         return XPSystemCalculator.determineLevelFromXP(getXP());
-    }
-
-    public String getBirthdayAsString() {
-        return RedisInstance.getInstance().get(redisKey + ":birthday:string");
     }
 
     public boolean isEnrolled() {

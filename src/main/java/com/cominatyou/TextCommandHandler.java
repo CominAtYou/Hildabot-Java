@@ -3,15 +3,8 @@ package com.cominatyou;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import com.cominatyou.commands.Birthdays;
-import com.cominatyou.commands.Help;
-import com.cominatyou.commands.LevelAlert;
-import com.cominatyou.commands.Restore;
-import com.cominatyou.commands.Stats;
-import com.cominatyou.commands.Submit;
-import com.cominatyou.commands.admin.Commit;
-import com.cominatyou.commands.admin.QueryDatabase;
-import com.cominatyou.commands.admin.Say;
+import com.cominatyou.commands.*;
+import com.cominatyou.commands.admin.*;
 
 import org.javacord.api.entity.channel.ChannelType;
 import org.javacord.api.event.message.MessageCreateEvent;
