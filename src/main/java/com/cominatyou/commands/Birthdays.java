@@ -139,7 +139,7 @@ public class Birthdays {
         }
 
         final EmbedBuilder embed = new EmbedBuilder()
-            .setTitle("Birthdays for " + DateFormatSymbols.getInstance().getMonths()[month - 1])
+            .setTitle(":birthday: Birthdays for " + DateFormatSymbols.getInstance().getMonths()[month - 1])
             .setColor(new java.awt.Color(Values.HILDA_BLUE))
             .setDescription(birthdays.size() == 0 ? "No birthdays for this month!" : "");
 
