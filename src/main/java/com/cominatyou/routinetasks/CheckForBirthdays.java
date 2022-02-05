@@ -75,7 +75,7 @@ public class CheckForBirthdays implements Job {
                 final Optional<User> user = client.getServerById(Values.HILDACORD_ID).get().getMemberById(id);
                 if (user.isEmpty()) return;
                 birthdayRole.get().addUser(user.get(), "Their birthday is today!");
-                System.out.printf("[BIRTHDAYS] Gave birthday role to %s (%d)", user.get().getDiscriminatedName(), user.get().getId());
+                System.out.printf("[BIRTHDAYS] Gave birthday role to %s (%d)\n", user.get().getDiscriminatedName(), user.get().getId());
             }
             catch (Exception e) {
                 e.printStackTrace();
