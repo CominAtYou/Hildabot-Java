@@ -1,12 +1,19 @@
 package com.cominatyou.commands;
 
 import java.text.DateFormatSymbols;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 
 import com.cominatyou.db.RedisInstance;
 import com.cominatyou.db.RedisUserEntry;
+import com.cominatyou.util.BirthdayEntry;
+import com.cominatyou.util.Values;
 
+import org.javacord.api.entity.message.embed.EmbedBuilder;
+import org.javacord.api.entity.user.User;
 import org.javacord.api.event.message.MessageCreateEvent;
 
 public class Birthdays {
@@ -14,13 +21,16 @@ public class Birthdays {
     private static final List<String> thirtyOneDayMonths = Arrays.asList("01", "03", "05", "07", "08", "10", "12");
 
     public static void run(MessageCreateEvent message, List<String> messageArgs) {
-        if (messageArgs.size() == 0 || messageArgs.size() == 1) {
-            message.getMessage().reply("Looks like you're missing some arguments. Please make sure you provided a command (set|edit) and a date!");
+        if (messageArgs.size() == 0 || messageArgs.size() == 1 && !messageArgs.get(0).equalsIgnoreCase("list")) {
+            message.getMessage().reply("Looks like you're missing some arguments. Please make sure you provided a command (set|edit) and a date, or list and a month if you want to view upcoming birthdays!");
         }
         else if (messageArgs.get(0).equalsIgnoreCase("set")) {
             Birthdays.set(message, messageArgs);
         } else if (messageArgs.get(0).equalsIgnoreCase("edit")) {
             Birthdays.edit(message, messageArgs);
+        }
+        else if (messageArgs.get(0).equalsIgnoreCase("list")) {
+            Birthdays.list(message, messageArgs);
         }
     }
 
@@ -96,5 +106,58 @@ public class Birthdays {
         RedisInstance.getInstance().lrem("birthdays" + ":" + month + ":" + day, 1, message.getMessageAuthor().getIdAsString());
         RedisInstance.getInstance().del(user.getRedisKey() + ":birthday:month", user.getRedisKey() + ":birthday:day", user.getRedisKey() + ":birthday:string");
         set(message, messageArgs);
+    }
+
+    private static void list(MessageCreateEvent message, List<String> messageArgs) {
+        final Integer month;
+        // If no month is provided, get birthdays for this month
+        if (messageArgs.size() == 1) month = Calendar.getInstance().get(Calendar.MONTH) + 1;
+        else {
+            try {
+                month = Integer.valueOf(messageArgs.get(1));
+            }
+            catch (Exception e) {
+                message.getMessage().reply(messageArgs.get(1) + " doesn't seem to be a month! Please specify a month from 1 - 12.");
+                return;
+            }
+        }
+
+        // Single-digit numbers need a leading 0 for the DB.
+        final String monthStr = month < 10 ? "0" + month : month.toString();
+        final int numberOfDays = month == 2 ? 29 : (thirtyDayMonths.contains(monthStr) ? 30 : 31);
+        ArrayList<BirthdayEntry> birthdays = new ArrayList<>();
+
+        for (int i = 1; i <= numberOfDays; i++) {
+            final String day = i < 10 ? "0" + i : String.valueOf(i);
+            final int dayInt = i; // needed for forEach loop below
+            final List<String> birthdaysForDay = RedisInstance.getInstance().lrange(String.format("birthdays:%s:%s", monthStr, day), 0, -1);
+
+            birthdaysForDay.forEach(j -> {
+                birthdays.add(new BirthdayEntry(j, dayInt));
+            });
+        }
+
+        final EmbedBuilder embed = new EmbedBuilder()
+            .setTitle("Birthdays for " + DateFormatSymbols.getInstance().getMonths()[month - 1])
+            .setColor(new java.awt.Color(Values.HILDA_BLUE))
+            .setDescription(birthdays.size() == 0 ? "No birthdays for this month!" : "");
+
+        for (int i = 0; i < birthdays.size(); i++) {
+            final BirthdayEntry entry = birthdays.get(i);
+            final Optional<User> user = message.getApi().getServerById(Values.HILDACORD_ID).get().getMemberById(entry.getUserID());
+            if (user.isEmpty()) continue;
+
+            if (i == 8 && birthdays.size() > 9) {
+                embed.addField(birthdays.size() - 9 + "more", "up to " + month + "/" + numberOfDays);
+                break;
+            }
+            else {
+                embed.addInlineField(user.get().getDiscriminatedName(), month + "/" + entry.getDay());
+                if (i == 9) break;
+            }
+
+        }
+
+        message.getChannel().sendMessage(embed);
     }
 }

@@ -54,10 +54,10 @@ public class CheckForBirthdays implements Job {
             return;
         }
         else if (birthdays.size() == 1) {
-            birthdayChannel.sendMessage(String.format("Hey <@%s>! I just wanted to wish you the happiest of birthdays! Can I have a slice of cake too? :birthday::heart:", birthdays.get(0)));
+            birthdayChannel.sendMessage(String.format("Hey <@%s>! I just wanted to wish you the happiest of birthdays! Can I have a slice of cake too? :birthday: :heart:", birthdays.get(0)));
         }
         else if (birthdays.size() == 2) {
-            birthdayChannel.sendMessage(String.format("Hey <@%s> and <@%s>! I just wanted to wish you both the happiest of birthdays! Can I have a slice of cake too? :birthday::heart:", birthdays.get(0), birthdays.get(1)));
+            birthdayChannel.sendMessage(String.format("Hey <@%s> and <@%s>! I just wanted to wish you both the happiest of birthdays! Can I have a slice of cake too? :birthday: :heart:", birthdays.get(0), birthdays.get(1)));
         }
         else {
             StringBuilder announcement = new StringBuilder("Hey");
@@ -65,7 +65,7 @@ public class CheckForBirthdays implements Job {
                 if (i != birthdays.size() - 1) announcement.append(" <@" + birthdays.get(i) + ">, ");
                 else announcement.append("and <@" + birthdays.get(i) + ">! ");
             }
-            announcement.append("I just wanted to wish you all the happiest of birthdays! Can I have a slice of cake too? :birthday::heart:");
+            announcement.append("I just wanted to wish you all the happiest of birthdays! Can I have a slice of cake too? :birthday: :heart:");
             birthdayChannel.sendMessage(announcement.toString());
         }
 
