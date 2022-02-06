@@ -2,19 +2,19 @@ package com.cominatyou.xp;
 
 public class Rank {
     private int level;
-    private long roleID;
+    private long roleId;
     private String name;
 
     /**
      * Create a new instance object, representing a rank in Hildacord.
      * @param name The name of the rank.
      * @param level The minimum level for the rank.
-     * @param roleID The ID of the role for the rank.
+     * @param roleId The ID of the role for the rank.
      */
-    protected Rank(String name, int level, long roleID) {
+    protected Rank(String name, int level, long roleId) {
         this.level = level;
         this.name = name;
-        this.roleID = roleID;
+        this.roleId = roleId;
     }
 
     public int getLevel() {
@@ -22,7 +22,7 @@ public class Rank {
     }
 
     public long getId() {
-        return roleID;
+        return roleId;
     }
 
     public String getName() {

@@ -1,6 +1,6 @@
 package com.cominatyou.commands;
 
-import com.cominatyou.db.RedisInstance;
+import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.util.Values;
 
 import org.javacord.api.entity.channel.ChannelType;
@@ -12,16 +12,16 @@ public class LevelAlert {
 
     public static void setPreference(MessageCreateEvent message) {
         if (message.getChannel().getId() != Values.BOT_CHANNEL && message.getChannel().getType() != ChannelType.PRIVATE_CHANNEL) return;
-        final String userId = message.getMessageAuthor().getIdAsString();
-        final boolean userPreference = RedisInstance.getBoolean("users:" + userId + ":levelalertsdisabled");
+        final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor().getId());
+        final boolean userPreference = user.getBoolean("levelalertsdisabled");
 
         if (!userPreference) {
-            RedisInstance.getInstance().set("users:" + userId + ":levelalertsdisabled", "true");
+            user.set("levelalertsdisabled", "true");
             if (message.getChannel().getType() == ChannelType.PRIVATE_CHANNEL) message.getChannel().sendMessage(alertsDisabledMessage);
             else message.getMessage().reply(alertsDisabledMessage);
         }
         else {
-            RedisInstance.getInstance().set("users:" + userId + ":levelalertsdisabled", "false");
+            user.set("levelalertsdisabled", "false");
             if (message.getChannel().getType() == ChannelType.PRIVATE_CHANNEL) message.getChannel().sendMessage(alertsEnabledMessage);
             else message.getMessage().reply(alertsEnabledMessage);
         }

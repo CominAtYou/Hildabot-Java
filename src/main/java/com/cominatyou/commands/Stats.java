@@ -1,10 +1,8 @@
 package com.cominatyou.commands;
 
+import java.awt.Color;
 import java.util.Optional;
 
-import java.awt.Color;
-
-import com.cominatyou.db.RedisInstance;
 import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.util.Values;
 import com.cominatyou.xp.RankUtil;
@@ -18,10 +16,10 @@ public class Stats {
         final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor().getId());
 
         final int currentLevel = user.getLevel();
-        final int currentStreak = RedisInstance.getInt("users:" + user.getID() + ":streak");
+        final int currentStreak = user.getInt("streak");
 
         final int xpForLevelUp =  XPSystemCalculator.determineMinimumUserFacingXPForLevel(currentLevel + 1);
-        final String highScore = String.valueOf(RedisInstance.getInt("users:" + user.getID() + ":highscore"));
+        final String highScore = String.valueOf(user.getInt("highscore"));
 
         final Optional<Color> roleColor = message.getServer().get().getRoleColor(message.getMessageAuthor().asUser().get());
 
@@ -40,17 +38,18 @@ public class Stats {
             .setThumbnail(message.getMessageAuthor().getAvatar())
             .setColor(roleColor.orElse(new Color(Values.HILDA_BLUE)))
             .setDescription(String.format("%s, Level %d", RankUtil.getRankName(user.getLevel()), currentLevel))
-            .addField("Progress:", progressCircles.toString())
-            .addInlineField("XP:", user.getXP() - XPSystemCalculator.determineMinimumTotalXPForLevel(currentLevel) + "/" + xpForLevelUp)
-            .addInlineField("Streak:", String.valueOf(currentStreak))
-            .addInlineField("High Score:", highScore)
-            .addField("Stats", "**Submits:** " + RedisInstance.getInt(user.getRedisKey() + ":timessubmitted"))
-            .addField("Submit Status", RedisInstance.getBoolean(user.getRedisKey() + ":submitted") ? ":white_check_mark: You have submitted today!" : "You have not submitted today.");
+            .addField("Progress", progressCircles.toString())
+            .addInlineField("XP", user.getXP() - XPSystemCalculator.determineMinimumTotalXPForLevel(currentLevel) + "/" + xpForLevelUp)
+            .addInlineField("Streak", String.valueOf(currentStreak))
+            .addInlineField("High Score", highScore)
+            .addField("Stats", "**Submits:** " + user.getInt("timessubmitted"))
+            .addField("Submit Status", user.getBoolean("submitted") ? ":white_check_mark: You have submitted today!" : "You have not submitted today.");
 
-        final String streakExpiry = RedisInstance.getInstance().get("users:" + user.getID() + ":streakexpiry");
+        final String streakExpiry = user.getString("streakexpiry");
         if (streakExpiry != null) {
             embed.addField("Streak Expiry", "<t:" + streakExpiry + ">");
         }
+        
         message.getChannel().sendMessage(embed);
     }
 }

@@ -6,7 +6,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
 
-import com.cominatyou.db.RedisInstance;
 import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.util.Values;
 import com.cominatyou.xp.XPSystem;
@@ -24,41 +23,42 @@ public class Submit {
         }
 
         final long messageAuthorId = message.getMessageAuthor().getId();
+        final RedisUserEntry user = new RedisUserEntry(messageAuthorId);
 
-        if (RedisInstance.getBoolean("users:" + messageAuthorId + ":submitted")) {
+        if (user.getBoolean("submitted")) {
             message.getMessage().reply("You've already submitted today!");
             return;
         }
 
-        final int streak = RedisInstance.getInt("users:" + message.getMessageAuthor().getIdAsString() + ":streak");
+        final int streak = user.getInt("streak");
 
         final ZonedDateTime now = ZonedDateTime.now(Clock.systemDefaultZone());
         final ZonedDateTime midnightToday = now.toLocalDate().atStartOfDay(now.getZone());
         final long streakExpiry = midnightToday.plus(7, ChronoUnit.DAYS).toEpochSecond();
 
-        final int currentLevel = new RedisUserEntry(messageAuthorId).getLevel();
+        final int currentLevel = user.getLevel();
 
         // Increment the user's streak.
-        RedisInstance.getInstance().incr("users:" + messageAuthorId + ":streak");
+        user.incrementKey("streak");
         // Streaks expire after one week of inactivity.
-        RedisInstance.getInstance().expireat("users:" + messageAuthorId + ":streak", streakExpiry);
+        user.expireKeyAt("streak", streakExpiry);
         // XP for submissions is calculated by taking the user's current streak, and adding 20 to it.
-        RedisInstance.getInstance().incrby("users:" + messageAuthorId + ":xp", 20 + 2 * streak);
+        user.incrementKey("xp", 20 + 2 * streak);
         // One submission is permitted per day.
-        RedisInstance.getInstance().set("users:" + messageAuthorId + ":submitted", "true");
+        user.set("submitted", "true");
         // Increment the total number of submissions from this user.
-        RedisInstance.getInstance().incr("users:" + messageAuthorId + ":timessubmitted");
+        user.incrementKey("timessubmitted");
         // Allow submissions after midnight CT.
-        RedisInstance.getInstance().expireat("users:" + messageAuthorId + ":submitted", midnightToday.plus(1, ChronoUnit.DAYS).toEpochSecond());
+        user.expireKeyAt("submitted", midnightToday.plus(1, ChronoUnit.DAYS).toEpochSecond());
         // Record streak expiry timestamp.
-        RedisInstance.getInstance().set("users:" + messageAuthorId + ":streakexpiry", String.valueOf(streakExpiry));
+        user.set("streakexpiry", String.valueOf(streakExpiry));
         // Remove timestamp when streak expires.
-        RedisInstance.getInstance().expireat("users:" + messageAuthorId + ":streakexpiry", streakExpiry);
+        user.expireKeyAt("streakexpiry", streakExpiry);
 
         // If the streak is higher than the user's current high score, set the high score to that.
-        if (RedisInstance.getInt("users:" + messageAuthorId + ":highscore") < streak + 1) {
+        if (user.getInt("highscore") < streak + 1) {
             // streak contains the pre-increment value, so + 1
-            RedisInstance.getInstance().set("users:" + messageAuthorId + ":highscore", String.valueOf(streak + 1));
+            user.set("highscore", String.valueOf(streak + 1));
         }
 
         final EmbedBuilder embed = new EmbedBuilder()

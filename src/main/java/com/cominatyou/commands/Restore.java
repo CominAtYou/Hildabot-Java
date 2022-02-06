@@ -1,6 +1,5 @@
 package com.cominatyou.commands;
 
-import com.cominatyou.db.RedisInstance;
 import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.xp.Rank;
 import com.cominatyou.xp.RankUtil;
@@ -14,7 +13,7 @@ public class Restore {
     public static void restoreRank(MessageCreateEvent message) {
         // if (message.getChannel().getId() != Values.BOT_CHANNEL) return;
         final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor().getId());
-        if (user.isEnrolled()) {
+        if (user.getBoolean("enrolled")) {
             message.getMessage().reply("Looks like you've already done this before!");
             return;
         }
@@ -29,8 +28,8 @@ public class Restore {
             if (role.hasUser(author.asUser().get())) {
                 message.getMessage().reply(String.format("You're good to go! Your rank has been set to %s and your level has been set to %d.", rank.getName(), rank.getLevel()));
                 final Integer xpToGive = XPSystemCalculator.determineMinimumTotalXPForLevel(rank.getLevel());
-                RedisInstance.getInstance().set(user.getRedisKey() + ":xp", xpToGive.toString());
-                RedisInstance.getInstance().set(user.getRedisKey() + ":enrolled", "true");
+                user.set("xp", xpToGive.toString());
+                user.set("enrolled", "true");
                 return;
             }
         }

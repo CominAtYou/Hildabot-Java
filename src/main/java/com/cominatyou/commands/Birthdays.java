@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.cominatyou.db.RedisInstance;
+import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.util.BirthdayEntry;
 import com.cominatyou.util.Values;
 
@@ -34,8 +35,8 @@ public class Birthdays {
     }
 
     private static void set(MessageCreateEvent message, List<String> messageArgs) {
-        final Long messageAuthorID = message.getMessageAuthor().getId();
-        final boolean birthdayStringExists = RedisInstance.getInstance().get("users:" + messageAuthorID + ":birthday:string") != null;
+        final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor().getId());
+        final boolean birthdayStringExists = user.getString("birthday:string") != null;
 
         if (birthdayStringExists) {
             message.getMessage().reply("You already have a birthday set! If you want to change it, please use `h!birthday edit`.");
@@ -71,10 +72,10 @@ public class Birthdays {
         }
 
         // Write birthday to DB
-        RedisInstance.getInstance().set("users:" + messageAuthorID + ":birthday:month", month);
-        RedisInstance.getInstance().set("users:" + messageAuthorID + ":birthday:day", day);
-        RedisInstance.getInstance().set("users:" + messageAuthorID + ":birthday:string", birthday);
-        RedisInstance.getInstance().rpush(String.format("birthdays:%s:%s", month, day), messageAuthorID.toString());
+        user.set("birthday:month", month);
+        user.set("birthday:day", day);
+        user.set("birthday:string", birthday);
+        RedisInstance.getInstance().rpush(String.format("birthdays:%s:%s", month, day), String.valueOf(user.getId()));
 
         if (birthday.equals("02-29")) {
             message.getMessage().reply("Success! Your birthday has been set to Feburary 29. Your birthday will be announced on March 1 on non-leap years.");
@@ -86,8 +87,8 @@ public class Birthdays {
     }
 
     private static void edit(MessageCreateEvent message, List<String> messageArgs) {
-        final Long messageAuthorID = message.getMessageAuthor().getId();
-        final boolean birthdayStringExists = RedisInstance.getInstance().get("users:" + messageAuthorID + ":birthday:string") != null;
+        final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor().getId());
+        final boolean birthdayStringExists = user.getString("birthday:string") != null;
 
         if (!birthdayStringExists) {
             message.getMessage().reply("You don't have a birthday set! If you're trying to set your birthday, please use `h!birthday set`.");
@@ -98,14 +99,14 @@ public class Birthdays {
             return;
         }
 
-        final Integer monthInt = RedisInstance.getInt("users:" + messageAuthorID + ":birthday:month");
-        final Integer dayInt = RedisInstance.getInt("users:" + messageAuthorID + ":birthday:day");
+        final Integer monthInt = user.getInt("birthday:month");
+        final Integer dayInt = user.getInt("birthday:day");
 
         final String month = monthInt < 10 ? "0" + monthInt : monthInt.toString();
         final String day = dayInt < 10 ? "0" + dayInt : dayInt.toString();
 
-        RedisInstance.getInstance().lrem("birthdays" + ":" + month + ":" + day, 1, messageAuthorID.toString());
-        RedisInstance.getInstance().del("users:" + messageAuthorID + ":birthday:month", "users:" + messageAuthorID + ":birthday:day", "users:" + messageAuthorID + ":birthday:string");
+        RedisInstance.getInstance().lrem("birthdays" + ":" + month + ":" + day, 1, String.valueOf(user.getId()));
+        RedisInstance.getInstance().del("users:" + user.getId() + ":birthday:month", "users:" + user.getId() + ":birthday:day", "users:" + user.getId() + ":birthday:string");
         set(message, messageArgs);
     }
 
@@ -133,8 +134,8 @@ public class Birthdays {
             final int dayInt = i; // needed for forEach loop below
             final List<String> birthdaysForDay = RedisInstance.getInstance().lrange(String.format("birthdays:%s:%s", monthStr, day), 0, -1);
 
-            birthdaysForDay.forEach(j -> {
-                birthdays.add(new BirthdayEntry(j, dayInt));
+            birthdaysForDay.forEach(id -> {
+                birthdays.add(new BirthdayEntry(id, dayInt));
             });
         }
 
@@ -145,11 +146,11 @@ public class Birthdays {
 
         for (int i = 0; i < birthdays.size(); i++) {
             final BirthdayEntry entry = birthdays.get(i);
-            final Optional<User> user = message.getApi().getServerById(Values.HILDACORD_ID).get().getMemberById(entry.getUserID());
-            if (user.isEmpty()) continue;
+            final Optional<User> user = message.getApi().getServerById(Values.HILDACORD_ID).get().getMemberById(entry.getUserId());
+            if (user.isEmpty()) continue; // User is not in guild
 
             if (i == 8 && birthdays.size() > 9) {
-                embed.addField(birthdays.size() - 9 + "more", "up to " + month + "/" + numberOfDays);
+                embed.addField(birthdays.size() - 9 + " more", "up to " + month + "/" + numberOfDays);
                 break;
             }
             else {

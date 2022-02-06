@@ -2,10 +2,10 @@ package com.cominatyou.util;
 
 public class BirthdayEntry {
     private final int day;
-    private final String userID;
+    private final String userId;
 
-    public BirthdayEntry(String userID, int day) {
-        this.userID = userID;
+    public BirthdayEntry(String userId, int day) {
+        this.userId = userId;
         this.day = day;
     }
 
@@ -13,7 +13,7 @@ public class BirthdayEntry {
         return day;
     }
 
-    public String getUserID() {
-        return userID;
+    public String getUserId() {
+        return userId;
     }
 }

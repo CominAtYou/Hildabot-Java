@@ -19,28 +19,27 @@ public class XPSystem {
         if (ignoredChannels.contains(message.getChannel().getId())) return;
 
         final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor().getId());
-        final String redisKey = user.getRedisKey();
 
         // XP will only be granted for 7 messages sent within 30 seconds. This might
         // need to be increased.
-        if (RedisInstance.getInt(redisKey + ":recentmessagecount") == 7) return;
+        if (user.getInt("recentmessagecount") == 7) return;
 
         final int currentXP = user.getXP();
         final int currentLevel = XPSystemCalculator.determineLevelFromXP(currentXP);
 
         // Award XP.
         final int amount = ThreadLocalRandom.current().nextInt(2, 4 + 1); // random number between 2 and 4, inclusive
-        RedisInstance.getInstance().incrby("users:" + message.getMessageAuthor().getId() + ":xp", amount);
+        user.incrementKey("xp", amount);
 
         // Check if rate limit key exists. If not, create it, set it to 1, and have it
         // expire in 30 seconds.
-        if (!RedisInstance.keyExists(redisKey + ":recentmessagecount")) {
-            RedisInstance.getInstance().set(redisKey + ":recentmessagecount", "1");
-            RedisInstance.getInstance().expire(redisKey + ":recentmessagecount", 30);
+        if (user.getString("recentmessagecount") == null) {
+            user.set("recentmessagecount", "1");
+            user.expireKeyIn("recentmessagecount", 30);
         }
         else {
             // Incrememnt the rate limit key by 1 (this does not reset the expiration timer)
-            RedisInstance.getInstance().incr(redisKey + ":recentmessagecount");
+            user.incrementKey("recentmessagecount");
         }
 
         checkForLevelUp(currentLevel, message);
@@ -55,9 +54,9 @@ public class XPSystem {
         if (currentLevel > beforeActionLevel) {
             final String embedTitle = RankUtil.isLevelRankLevel(currentLevel) ? String.format("Congrats on leveling up! You've reached level **%d** and are now the **%s** rank!", currentLevel, RankUtil.getRankFromLevel(currentLevel).getName()) : String.format("Congrats on leveling up! You are now level **%d**! :tada:", currentLevel);
 
-            System.out.printf("[LEVELUP] %s (%d) leveled up to %d: %d XP\n", message.getMessageAuthor().getDiscriminatedName(), user.getID(), currentLevel, currentXP);
+            System.out.printf("[LEVELUP] %s (%d) leveled up to %d: %d XP\n", message.getMessageAuthor().getDiscriminatedName(), user.getId(), currentLevel, currentXP);
 
-            if (!RedisInstance.getBoolean("users:" + user.getID() + ":levelalertsdisabled")) {
+            if (!RedisInstance.getBoolean("users:" + user.getId() + ":levelalertsdisabled")) {
                 final EmbedBuilder embed = new EmbedBuilder()
                         .setColor(new java.awt.Color(Values.HILDA_BLUE))
                         .setTitle(embedTitle)
