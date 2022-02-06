@@ -40,7 +40,7 @@ public class CheckForBirthdays implements Job {
         final String monthString = month < 10 ? "0" + month : String.valueOf(month);
         final String dayString = day < 10 ? "0" + day : String.valueOf(day);
 
-        ArrayList<String> birthdays = (ArrayList<String>) RedisInstance.getInstance().lrange(String.format("birthdays:%s:%s", monthString, dayString), 0, -1);
+        ArrayList<String> birthdays = new ArrayList<>(RedisInstance.getInstance().lrange(String.format("birthdays:%s:%s", monthString, dayString), 0, -1));
 
         if (Calendar.getInstance().get(Calendar.YEAR) % 4 != 0 && month == 3 && day == 1) {
             final List<String> leapBirthdays = RedisInstance.getInstance().lrange("birthdays:02:29", 0, -1);

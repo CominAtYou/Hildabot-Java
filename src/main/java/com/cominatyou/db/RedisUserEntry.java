@@ -2,10 +2,17 @@ package com.cominatyou.db;
 
 import com.cominatyou.xp.XPSystemCalculator;
 
+/**
+ * This class contains methods for reading and modifying data in a user's Redis database entry, without the hassles of having to use {@link RedisInstance#getInstance}.
+ */
 public class RedisUserEntry {
     final long id;
     final String redisKey;
 
+    /**
+     * Create an instance of this class to access and modify a user's Redis database entry.
+     * @param id The Discord ID of the user.
+     */
     public RedisUserEntry(long id) {
         this.id = id;
         this.redisKey = "users:" + id;
