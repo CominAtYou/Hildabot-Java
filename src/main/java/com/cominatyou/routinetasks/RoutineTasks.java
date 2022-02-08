@@ -11,7 +11,7 @@ import org.quartz.impl.StdSchedulerFactory;
 
 public class RoutineTasks {
     /**
-     * Schedule the routine tasks that run every day at midnight.
+     * Schedule the routine tasks that run every day at midnight Central Time.
      */
     public static void schedule() {
         final JobDetail job = JobBuilder.newJob(CheckForBirthdays.class).withIdentity("birthdayAnnoucement", "routineTasks").build();

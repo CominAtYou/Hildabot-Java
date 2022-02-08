@@ -20,6 +20,6 @@ public class ActivitySwapper {
                 final int index = ThreadLocalRandom.current().nextInt(0, activities.length);
                 client.updateActivity(activities[index].getType(), activities[index].getActivity());
             }
-        }, 0, 600000);
+        }, 0, 600000); // Swaps activities every ten minutes.
     }
 }

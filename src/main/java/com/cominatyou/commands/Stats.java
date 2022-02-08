@@ -37,7 +37,7 @@ public class Stats {
             .setTitle(message.getMessageAuthor().getDisplayName())
             .setThumbnail(message.getMessageAuthor().getAvatar())
             .setColor(roleColor.orElse(new Color(Values.HILDA_BLUE)))
-            .setDescription(String.format("%s, Level %d", RankUtil.getRankName(user.getLevel()), currentLevel))
+            .setDescription(String.format("%s, Level %d", RankUtil.getRankNameFromLevel(user.getLevel()), currentLevel))
             .addField("Progress", progressCircles.toString())
             .addInlineField("XP", user.getXP() - XPSystemCalculator.determineMinimumTotalXPForLevel(currentLevel) + "/" + xpForLevelUp)
             .addInlineField("Streak", String.valueOf(currentStreak))
@@ -49,7 +49,7 @@ public class Stats {
         if (streakExpiry != null) {
             embed.addField("Streak Expiry", "<t:" + streakExpiry + ">");
         }
-        
+
         message.getChannel().sendMessage(embed);
     }
 }

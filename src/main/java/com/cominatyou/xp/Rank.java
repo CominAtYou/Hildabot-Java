@@ -17,18 +17,34 @@ public class Rank {
         this.roleId = roleId;
     }
 
+    /**
+     * Get the minimum level of the rank.
+     * @return The rank's minimum level.
+     */
     public int getLevel() {
         return level;
     }
 
+    /**
+     * Get the ID of the role for the rank.
+     * @return The ID of the rank's role.
+     */
     public long getId() {
         return roleId;
     }
 
+    /**
+     * Get the name of the rank.
+     * @return The name of the rank.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Get the minimum amount of XP required for the rank.
+     * @return The minimum amount of XP needed to attain the rank.
+     */
     public int getMinimumXP() {
         return XPSystemCalculator.determineMinimumTotalXPForLevel(level);
     }

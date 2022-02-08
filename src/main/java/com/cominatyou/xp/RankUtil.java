@@ -29,6 +29,11 @@ public class RankUtil {
         }
     }
 
+    /**
+     * Get the nearest minimum rank level for the specified level.
+     * @param level The level to get the rank level of.
+     * @return The minimum rank level for the level provided.
+     */
     private static int getRankLevelFromLevel(int level) {
         for (int i = 0; i < rankLevels.length; i++) {
             if (level == rankLevels[i]) return level;
@@ -37,19 +42,38 @@ public class RankUtil {
         return -1;
     }
 
+    /**
+     * Get the associated rank object with a level.
+     * @param level The level to get the rank object of.
+     * @return The rank object for the level specified.
+     */
     public static Rank getRankFromLevel(int level) {
         return ranksMap.get(getRankLevelFromLevel(level));
     }
 
+    /**
+     * Determine if the specified level is a level in which a rank is attained.
+     * @param level The level to test.
+     * @return {@code true} if the level is a level that gives a new rank, or {@code false} otherwise.
+     */
     public static boolean isLevelRankLevel(int level) {
         return ranksMap.containsKey(level);
     }
 
+    /**
+     * Get the rank levels array.
+     * @return The rank levels array.
+     */
     public static int[] getRanklevels() {
         return rankLevels;
     }
 
-    public static String getRankName(int level) {
+    /**
+     * Get the name of a rank from its level.
+     * @param level The level to get the name of.
+     * @return The name of the rank from the specified level.
+     */
+    public static String getRankNameFromLevel(int level) {
         final int rankLevel = getRankLevelFromLevel(level);
         return ranksMap.get(rankLevel).getName();
     }

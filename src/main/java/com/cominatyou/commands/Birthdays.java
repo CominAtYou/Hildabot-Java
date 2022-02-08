@@ -102,6 +102,7 @@ public class Birthdays {
         final Integer monthInt = user.getInt("birthday:month");
         final Integer dayInt = user.getInt("birthday:day");
 
+        // DB needs leading zeroes if number is less than 10.
         final String month = monthInt < 10 ? "0" + monthInt : monthInt.toString();
         final String day = dayInt < 10 ? "0" + dayInt : dayInt.toString();
 
