@@ -24,7 +24,7 @@ public class App {
 
     public static void main(String[] args) {
         System.out.printf("Logged in as %s\n", client.getYourself().getDiscriminatedName());
-        System.out.println("Invite bot with " + new BotInviteBuilder(client.getClientId()).setPermissions(Permissions.fromBitmask(8)).build()); // TODO: Change this after completion
+        System.out.println("Invite bot with " + new BotInviteBuilder(client.getClientId()).setPermissions(Permissions.fromBitmask(412652792896L)).build());
 
         // Open connection to Redis database
         RedisInstance.connect();
