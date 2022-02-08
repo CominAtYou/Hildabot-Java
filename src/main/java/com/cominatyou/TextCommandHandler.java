@@ -14,8 +14,15 @@ public class TextCommandHandler {
         ArrayList<String> messageArgs = new ArrayList<>(Arrays.asList(event.getMessage().getContent().substring(Config.PREFIX.length()).split(" +")));
         final String command = messageArgs.remove(0).toLowerCase();
         if (event.getChannel().getType() == ChannelType.PRIVATE_CHANNEL) {
-            if (command.equals("levelalert")) {
-                LevelAlert.setPreference(event);
+            switch (command) {
+                case "levelalert": {
+                    LevelAlert.setPreference(event);
+                    break;
+                }
+                case "querydb": {
+                    QueryDatabase.sendQuery(event, messageArgs);
+                    break;
+                }
             }
             return;
         }
