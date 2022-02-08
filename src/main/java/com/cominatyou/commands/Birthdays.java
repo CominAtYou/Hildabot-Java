@@ -157,7 +157,6 @@ public class Birthdays {
                 embed.addInlineField(user.get().getDiscriminatedName(), month + "/" + entry.getDay());
                 if (i == 9) break;
             }
-
         }
 
         message.getChannel().sendMessage(embed);

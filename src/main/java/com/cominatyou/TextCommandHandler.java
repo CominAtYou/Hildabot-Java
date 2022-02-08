@@ -11,7 +11,7 @@ import org.javacord.api.event.message.MessageCreateEvent;
 
 public class TextCommandHandler {
     public static void getCommand(MessageCreateEvent event) {
-        ArrayList<String> messageArgs = new ArrayList<String>(Arrays.asList(event.getMessage().getContent().substring(Config.PREFIX.length()).split(" +")));
+        ArrayList<String> messageArgs = new ArrayList<>(Arrays.asList(event.getMessage().getContent().substring(Config.PREFIX.length()).split(" +")));
         final String command = messageArgs.remove(0).toLowerCase();
         if (event.getChannel().getType() == ChannelType.PRIVATE_CHANNEL) {
             if (command.equals("levelalert")) {

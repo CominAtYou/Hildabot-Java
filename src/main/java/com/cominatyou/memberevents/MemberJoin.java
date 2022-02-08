@@ -1,4 +1,4 @@
-package com.cominatyou;
+package com.cominatyou.memberevents;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -9,7 +9,7 @@ import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.entity.permission.Role;
 import org.javacord.api.event.server.member.ServerMemberJoinEvent;
 
-public class Welcome {
+public class MemberJoin {
     private final static String[] welcomeMessages = {"Come on in and have a seat around the fire!", "We're glad to have you here!", "Glad you could make it!", "Make yourself at home!", "The bells ring to welcome your arrival."};
 
     public static void greet(ServerMemberJoinEvent event) {

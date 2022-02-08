@@ -1,6 +1,9 @@
 package com.cominatyou;
 
 import com.cominatyou.db.RedisInstance;
+import com.cominatyou.memberevents.MemberBan;
+import com.cominatyou.memberevents.MemberJoin;
+import com.cominatyou.memberevents.MemberLeave;
 import com.cominatyou.routinetasks.RoutineTasks;
 import com.cominatyou.util.MessageValidity;
 import com.cominatyou.util.activities.ActivitySwapper;
@@ -42,6 +45,9 @@ public class App {
             }
         });
 
-        client.addServerMemberJoinListener(Welcome::greet);
+        client.addServerMemberJoinListener(MemberJoin::greet);
+
+        client.addServerMemberLeaveListener(MemberLeave::removeDBEntries);
+        client.addServerMemberBanListener(MemberBan::removeDBEntries);
     }
 }
