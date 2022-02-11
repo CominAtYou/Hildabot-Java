@@ -29,7 +29,7 @@ public class RedisUserEntry {
      * @throws IllegalArgumentException If the ID passed is not 18 digits long.
      */
     public RedisUserEntry(String id) throws IllegalArgumentException {
-        if (!String.valueOf(id).matches("[0-9]{18}")) {
+        if (!id.matches("[0-9]{18}")) {
             throw new IllegalArgumentException("Invalid ID supplied");
         }
 
