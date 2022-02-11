@@ -32,7 +32,7 @@ public class TextCommandHandler {
                 break;
             }
             case "stats": {
-                Stats.execute(event);
+                Stats.execute(event, messageArgs);
                 break;
             }
             case "submit": {

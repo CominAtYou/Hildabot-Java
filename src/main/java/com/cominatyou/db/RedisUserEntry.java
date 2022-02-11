@@ -6,14 +6,33 @@ import com.cominatyou.xp.XPSystemCalculator;
  * This class contains methods for reading and modifying data in a user's Redis database entry, without the hassles of having to use {@link RedisInstance#getInstance}.
  */
 public class RedisUserEntry {
-    final long id;
+    final String id;
     final String redisKey;
 
     /**
      * Create an instance of this class to access and modify a user's Redis database entry.
      * @param id The Discord ID of the user.
+     * @throws IllegalArgumentException If the ID passed is not 18 digits long.
      */
-    public RedisUserEntry(long id) {
+    public RedisUserEntry(long id) throws IllegalArgumentException {
+        if (!String.valueOf(id).matches("[0-9]{18}")) {
+            throw new IllegalArgumentException("Invalid ID supplied");
+        }
+
+        this.id = String.valueOf(id);
+        this.redisKey = "users:" + id;
+    }
+
+    /**
+     * Create an instance of this class to access and modify a user's Redis database entry.
+     * @param id The Discord ID of the user.
+     * @throws IllegalArgumentException If the ID passed is not 18 digits long.
+     */
+    public RedisUserEntry(String id) throws IllegalArgumentException {
+        if (!String.valueOf(id).matches("[0-9]{18}")) {
+            throw new IllegalArgumentException("Invalid ID supplied");
+        }
+
         this.id = id;
         this.redisKey = "users:" + id;
     }
@@ -23,7 +42,7 @@ public class RedisUserEntry {
      * @return The user's ID.
      */
     public long getId() {
-        return id;
+        return Long.valueOf(id);
     }
 
     /**

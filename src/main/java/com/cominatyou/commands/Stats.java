@@ -1,6 +1,7 @@
 package com.cominatyou.commands;
 
 import java.awt.Color;
+import java.util.List;
 import java.util.Optional;
 
 import com.cominatyou.db.RedisUserEntry;
@@ -9,21 +10,35 @@ import com.cominatyou.xp.RankUtil;
 import com.cominatyou.xp.XPSystemCalculator;
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;
+import org.javacord.api.entity.user.User;
 import org.javacord.api.event.message.MessageCreateEvent;
 
 public class Stats {
-    public static void execute(MessageCreateEvent message) {
-        final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor().getId());
+    public static void execute(MessageCreateEvent message, List<String> messageArgs) {
+        final String id;
+        if (messageArgs.size() == 0) {
+            id = message.getMessageAuthor().getIdAsString();
+        }
+        else if (messageArgs.get(0).matches("[0-9]{18}")) {
+            final String providedId = messageArgs.get(0);
+            id = message.getServer().get().getMemberById(providedId).isEmpty() ? message.getMessageAuthor().getIdAsString() : providedId;
+        }
+        else {
+            id = message.getMessageAuthor().getIdAsString();
+        }
 
-        final int currentLevel = user.getLevel();
-        final int currentStreak = user.getInt("streak");
+        final RedisUserEntry userEntry = new RedisUserEntry(id);
+        final User user = message.getServer().get().getMemberById(id).get();
+
+        final int currentLevel = userEntry.getLevel();
+        final int currentStreak = userEntry.getInt("streak");
 
         final int xpForLevelUp =  XPSystemCalculator.determineMinimumUserFacingXPForLevel(currentLevel + 1);
-        final String highScore = String.valueOf(user.getInt("highscore"));
+        final String highScore = String.valueOf(userEntry.getInt("highscore"));
 
         final Optional<Color> roleColor = message.getServer().get().getRoleColor(message.getMessageAuthor().asUser().get());
 
-        final int numberOfFilledInCircles = Math.round((float) (user.getXP() - (float) XPSystemCalculator.determineMinimumTotalXPForLevel(currentLevel)) / (float) xpForLevelUp * 20f);
+        final int numberOfFilledInCircles = Math.round((float) (userEntry.getXP() - (float) XPSystemCalculator.determineMinimumTotalXPForLevel(currentLevel)) / (float) xpForLevelUp * 20f);
         final StringBuilder progressCircles = new StringBuilder();
 
         for (int i = 0; i < numberOfFilledInCircles; i++) {
@@ -34,18 +49,18 @@ public class Stats {
         }
 
         EmbedBuilder embed = new EmbedBuilder()
-            .setTitle(message.getMessageAuthor().getDisplayName())
-            .setThumbnail(message.getMessageAuthor().getAvatar())
+            .setTitle(user.getDisplayName(message.getServer().get()))
+            .setThumbnail(user.getAvatar())
             .setColor(roleColor.orElse(new Color(Values.HILDA_BLUE)))
-            .setDescription(String.format("%s, Level %d", RankUtil.getRankNameFromLevel(user.getLevel()), currentLevel))
+            .setDescription(String.format("%s, Level %d", RankUtil.getRankNameFromLevel(userEntry.getLevel()), currentLevel))
             .addField("Progress", progressCircles.toString())
-            .addInlineField("XP", user.getXP() - XPSystemCalculator.determineMinimumTotalXPForLevel(currentLevel) + "/" + xpForLevelUp)
+            .addInlineField("XP", userEntry.getXP() - XPSystemCalculator.determineMinimumTotalXPForLevel(currentLevel) + "/" + xpForLevelUp)
             .addInlineField("Streak", String.valueOf(currentStreak))
             .addInlineField("High Score", highScore)
-            .addField("Stats", "**Submits:** " + user.getInt("timessubmitted"))
-            .addField("Submit Status", user.getBoolean("submitted") ? ":white_check_mark: You have submitted today!" : "You have not submitted today.");
+            .addField("Stats", "**Submits:** " + userEntry.getInt("timessubmitted"))
+            .addField("Submit Status", userEntry.getBoolean("submitted") ? (id.equals(message.getMessageAuthor().getIdAsString()) ? ":white_check_mark: You have submitted today!" : ":white_check_mark: Submitted today!") : (id.equals(message.getMessageAuthor().getIdAsString()) ? "You have not submitted today." : "Nothing yet today!"));
 
-        final String streakExpiry = user.getString("streakexpiry");
+        final String streakExpiry = userEntry.getString("streakexpiry");
         if (streakExpiry != null) {
             embed.addField("Streak Expiry", "<t:" + streakExpiry + ">");
         }

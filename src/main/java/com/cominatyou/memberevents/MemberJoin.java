@@ -22,7 +22,7 @@ public class MemberJoin {
         final String greeting = welcomeMessages[index];
         final int memberCount = event.getServer().getMemberCount();
 
-        final String welcomeMessage = String.format("**#%d - Welcome to Hildacord,** <@%d>**!** %s\n\nHildacord is a great place for everyone from all around the world to come around a show that they all love: Hilda!", memberCount, event.getUser().getId(), greeting);
+        final String welcomeMessage = String.format("**#%d - Welcome to Hildacord,** %s**!** %s\n\nHildacord is a great place for everyone from all around the world to come around a show that they all love: Hilda!", memberCount, event.getUser().getMentionTag(), greeting);
 
         EmbedBuilder embed = new EmbedBuilder()
             .setAuthor(event.getUser().getDiscriminatedName(), null, event.getUser().getAvatar())
