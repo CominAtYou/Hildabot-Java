@@ -10,7 +10,7 @@ public class BirthdaysHelp {
         final EmbedBuilder embed = new EmbedBuilder()
             .setTitle("Birthday command")
             .setColor(new java.awt.Color(Values.HILDA_BLUE))
-            .setDescription("This command lets you set your birthday, or edit it if you've already set it.\nBirthdays will be announced the day of at 12:00 AM Central Daylight/Standard Time (<t:1537506000:t> in your time zone) in <#609253148564914187>.\n\nBirthdays on 29 Feburary will be announced on 1 March during non-leap years.")
+            .setDescription("This command lets you set your birthday, or edit it if you've already set it.\nBirthdays will be announced the day of at 12:00 AM Central Daylight/Standard Time (<t:1537506000:t> in your time zone) in <#609253148564914187>.\n\nBirthdays on 29 February will be announced on 1 March during non-leap years.")
             .addField("Syntax", "h!birthday edit|set mm-dd or h!birthday list month")
             .addField("'List' Command", "Use this command to list the birthdays for the specified month, or this month if a month is not provided.")
             .addField("'Set' Parameter", "Set your birthday, if it has not been set. A date must be provided in the mm-dd format. (i.e. 06-08 for 8 June)")

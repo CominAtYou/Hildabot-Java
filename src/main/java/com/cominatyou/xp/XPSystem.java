@@ -1,5 +1,7 @@
 package com.cominatyou.xp;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -54,7 +56,12 @@ public class XPSystem {
         if (currentLevel > beforeActionLevel) {
             final String embedTitle = RankUtil.isLevelRankLevel(currentLevel) ? String.format("Congrats on leveling up! You've reached level **%d** and are now the **%s** rank!", currentLevel, RankUtil.getRankFromLevel(currentLevel).getName()) : String.format("Congrats on leveling up! You are now level **%d**! :tada:", currentLevel);
 
-            System.out.printf("[LEVELUP] %s (%d) leveled up to %d: %d XP\n", message.getMessageAuthor().getDiscriminatedName(), user.getId(), currentLevel, currentXP);
+            // Time for logging purposes
+            final DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            final LocalDateTime currentTime = LocalDateTime.now();
+            final String timeString = timeFormat.format(currentTime);
+
+            System.out.printf("%s: [LEVELUP] %s (%d) leveled up to %d: %d XP\n", timeString, message.getMessageAuthor().getDiscriminatedName(), user.getId(), currentLevel, currentXP);
 
             if (!RedisInstance.getBoolean("users:" + user.getId() + ":levelalertsdisabled")) {
                 final EmbedBuilder embed = new EmbedBuilder()
@@ -68,7 +75,7 @@ public class XPSystem {
                 final long roleId = RankUtil.getRankFromLevel(currentLevel).getId();
                 final Role role = message.getServer().get().getRoleById(roleId).get();
                 message.getMessageAuthor().asUser().get().addRole(role, message.getMessageAuthor().getName() + " leveled up!");
-                System.out.printf("[LEVELUP] Assigned role %s to %s (%d)\n", role.getName(), message.getMessageAuthor().getDiscriminatedName(), message.getMessageAuthor().getId());
+                System.out.printf("%s: [LEVELUP] Assigned role %s to %s (%d)\n", timeString, role.getName(), message.getMessageAuthor().getDiscriminatedName(), message.getMessageAuthor().getId());
             }
         }
     }

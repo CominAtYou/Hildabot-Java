@@ -63,6 +63,10 @@ public class TextCommandHandler {
                 Say.run(event, messageArgs);
                 break;
             }
+            case "version": {
+                GetVersion.sendVersion(event);
+                break;
+            }
         }
     }
 }
