@@ -67,7 +67,7 @@ public class Birthdays {
             return;
         }
         else if (month.equals("02") && intDay > 29) { // Leap birthdays
-            message.getMessage().reply("Feburary only has 29 days (at most)! Double-check the date you provided.");
+            message.getMessage().reply("February only has 29 days (at most)! Double-check the date you provided.");
             return;
         }
 
@@ -78,7 +78,7 @@ public class Birthdays {
         RedisInstance.getInstance().rpush(String.format("birthdays:%s:%s", month, day), String.valueOf(user.getId()));
 
         if (birthday.equals("02-29")) {
-            message.getMessage().reply("Success! Your birthday has been set to Feburary 29. Your birthday will be announced on March 1 on non-leap years.");
+            message.getMessage().reply("Success! Your birthday has been set to February 29. Your birthday will be announced on March 1 on non-leap years.");
         }
         else {
             final String monthString = DateFormatSymbols.getInstance().getMonths()[intMonth - 1];
