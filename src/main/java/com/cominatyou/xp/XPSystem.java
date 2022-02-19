@@ -20,7 +20,7 @@ public class XPSystem {
     public static void giveXPForMessage(MessageCreateEvent message) {
         if (ignoredChannels.contains(message.getChannel().getId())) return;
 
-        final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor().getId());
+        final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor());
 
         // XP will only be granted for 7 messages sent within 30 seconds. This might
         // need to be increased.
@@ -48,7 +48,7 @@ public class XPSystem {
     }
 
     public static void checkForLevelUp(int beforeActionLevel, MessageCreateEvent message) {
-        final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor().getId());
+        final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor());
 
         final int currentXP = user.getXP();
         final int currentLevel = XPSystemCalculator.determineLevelFromXP(currentXP);

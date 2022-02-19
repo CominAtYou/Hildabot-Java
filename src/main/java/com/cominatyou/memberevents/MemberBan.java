@@ -7,7 +7,7 @@ import org.javacord.api.event.server.member.ServerMemberBanEvent;
 
 public class MemberBan {
     public static void removeDBEntries(ServerMemberBanEvent event) {
-        final RedisUserEntry user = new RedisUserEntry(event.getUser().getId());
+        final RedisUserEntry user = new RedisUserEntry(event.getUser());
 
         final Integer monthInt = user.getInt("birthday:month");
         final Integer dayInt = user.getInt("birthday:day");

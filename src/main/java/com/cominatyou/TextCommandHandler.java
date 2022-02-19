@@ -44,7 +44,7 @@ public class TextCommandHandler {
                 break;
             }
             case "help": {
-                Help.getArticle(event, messageArgs);
+                Help.sendHelp(event);
                 break;
             }
             case "commit": {

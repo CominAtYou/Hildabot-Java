@@ -22,8 +22,7 @@ public class Submit {
             return;
         }
 
-        final long messageAuthorId = message.getMessageAuthor().getId();
-        final RedisUserEntry user = new RedisUserEntry(messageAuthorId);
+        final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor());
 
         if (user.getBoolean("submitted")) {
             message.getMessage().reply("You've already submitted today!");

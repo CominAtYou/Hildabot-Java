@@ -2,6 +2,9 @@ package com.cominatyou.db;
 
 import com.cominatyou.xp.XPSystemCalculator;
 
+import org.javacord.api.entity.message.MessageAuthor;
+import org.javacord.api.entity.user.User;
+
 /**
  * This class contains methods for reading and modifying data in a user's Redis database entry, without the hassles of having to use {@link RedisInstance#getInstance}.
  */
@@ -10,7 +13,7 @@ public class RedisUserEntry {
     final String redisKey;
 
     /**
-     * Create an instance of this class to access and modify a user's Redis database entry.
+     * Create an instance of this class to access and modify a user's Redis database entry. Passing a {@link User} or {@link MessageAuthor} object to this constructor is recommended over passing an ID, when possible.
      * @param id The Discord ID of the user.
      * @throws IllegalArgumentException If the ID passed is not 18 digits long.
      */
@@ -24,7 +27,7 @@ public class RedisUserEntry {
     }
 
     /**
-     * Create an instance of this class to access and modify a user's Redis database entry.
+     * Create an instance of this class to access and modify a user's Redis database entry. Passing a {@link User} or {@link MessageAuthor} object to this constructor is recommended over passing an ID, when possible.
      * @param id The Discord ID of the user.
      * @throws IllegalArgumentException If the ID passed is not 18 digits long.
      */
@@ -34,6 +37,24 @@ public class RedisUserEntry {
         }
 
         this.id = id;
+        this.redisKey = "users:" + id;
+    }
+
+    /**
+     * Create an instance of this class to access and modify a user's Redis database entry.
+     * @param user The user to access the entry of.
+     */
+    public RedisUserEntry(User user) {
+        this.id = user.getIdAsString();
+        this.redisKey = "users:" + id;
+    }
+
+    /**
+     * Create an instance of this class to access and modify a user's Redis database entry.
+     * @param user The user to access the entry of.
+     */
+    public RedisUserEntry(MessageAuthor user) {
+        this.id = user.getIdAsString();
         this.redisKey = "users:" + id;
     }
 

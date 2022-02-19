@@ -12,7 +12,7 @@ import org.javacord.api.event.message.MessageCreateEvent;
 public class Restore {
     public static void restoreRank(MessageCreateEvent message) {
         // if (message.getChannel().getId() != Values.BOT_CHANNEL) return;
-        final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor().getId());
+        final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor());
         if (user.getBoolean("enrolled")) {
             message.getMessage().reply("Looks like you've already done this before!");
             return;

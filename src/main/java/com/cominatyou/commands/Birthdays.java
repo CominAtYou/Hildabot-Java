@@ -35,7 +35,7 @@ public class Birthdays {
     }
 
     private static void set(MessageCreateEvent message, List<String> messageArgs) {
-        final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor().getId());
+        final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor());
         final boolean birthdayStringExists = user.getString("birthday:string") != null;
 
         if (birthdayStringExists) {
@@ -87,7 +87,7 @@ public class Birthdays {
     }
 
     private static void edit(MessageCreateEvent message, List<String> messageArgs) {
-        final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor().getId());
+        final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor());
         final boolean birthdayStringExists = user.getString("birthday:string") != null;
 
         if (!birthdayStringExists) {

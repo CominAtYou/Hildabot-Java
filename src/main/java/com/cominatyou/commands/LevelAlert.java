@@ -12,7 +12,7 @@ public class LevelAlert {
 
     public static void setPreference(MessageCreateEvent message) {
         if (message.getChannel().getId() != Values.BOT_CHANNEL && message.getChannel().getType() != ChannelType.PRIVATE_CHANNEL) return;
-        final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor().getId());
+        final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor());
         final boolean userPreference = user.getBoolean("levelalertsdisabled");
 
         if (!userPreference) {
