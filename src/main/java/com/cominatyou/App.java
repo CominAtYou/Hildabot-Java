@@ -1,18 +1,15 @@
 package com.cominatyou;
 
 import com.cominatyou.db.RedisInstance;
-import com.cominatyou.memberevents.MemberBan;
-import com.cominatyou.memberevents.MemberJoin;
-import com.cominatyou.memberevents.MemberLeave;
+import com.cominatyou.eventhandlers.MessageCreate;
+import com.cominatyou.eventhandlers.kudos.Kudos;
+import com.cominatyou.eventhandlers.memberevents.*;
 import com.cominatyou.routinetasks.RoutineTasks;
-import com.cominatyou.util.MessageValidity;
 import com.cominatyou.util.activities.ActivitySwapper;
-import com.cominatyou.xp.XPSystem;
 
 import org.javacord.api.BotInviteBuilder;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
-import org.javacord.api.entity.channel.ChannelType;
 import org.javacord.api.entity.intent.Intent;
 import org.javacord.api.entity.permission.Permissions;
 
@@ -35,19 +32,14 @@ public class App {
         // Set the bot's activity.
         ActivitySwapper.start(client);
 
-        client.addMessageCreateListener(event -> {
-            if (!MessageValidity.test(event)) return;
-            if (!event.getMessage().getContent().startsWith(Config.PREFIX) && event.getChannel().getType() == ChannelType.SERVER_TEXT_CHANNEL) {
-                XPSystem.giveXPForMessage(event);
-            }
-            else {
-                TextCommandHandler.getCommand(event);
-            }
-        });
+        client.addMessageCreateListener(MessageCreate::route);
 
         client.addServerMemberJoinListener(MemberJoin::greet);
 
         client.addServerMemberLeaveListener(MemberLeave::removeDBEntries);
         client.addServerMemberBanListener(MemberBan::removeDBEntries);
+
+        client.addReactionAddListener(Kudos::tally);
+        client.addReactionRemoveListener(Kudos::remove);
     }
 }

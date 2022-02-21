@@ -1,4 +1,4 @@
-package com.cominatyou.memberevents;
+package com.cominatyou.eventhandlers.memberevents;
 
 import com.cominatyou.db.RedisInstance;
 import com.cominatyou.db.RedisUserEntry;

@@ -1,4 +1,4 @@
-package com.cominatyou.memberevents;
+package com.cominatyou.eventhandlers.memberevents;
 
 import java.util.concurrent.ThreadLocalRandom;
 

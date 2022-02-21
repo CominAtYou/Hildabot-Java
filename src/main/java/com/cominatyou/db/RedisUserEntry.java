@@ -163,20 +163,38 @@ public class RedisUserEntry {
     /**
      * Increment a key in the user's database entry by a certain amount.
      * @param key The key to increment.
-     * @param value The value to increment the key by.
+     * @param amount The amount to increment the key by.
      * @return The value of the key post-increment.
      */
-    public long incrementKey(String key, int value) {
-        return RedisInstance.getInstance().incrby(redisKey + ":" + key, value);
+    public long incrementKey(String key, int amount) {
+        return RedisInstance.getInstance().incrby(redisKey + ":" + key, amount);
     }
 
     /**
      * Increment a key in the user's database entry by {@code 1}.
      * @param key The key to increment.
-     * @param value The value to increment the key by.
      * @return The value of the key post-increment.
      */
     public long incrementKey(String key) {
         return RedisInstance.getInstance().incr(redisKey + ":" + key);
+    }
+
+    /**
+     * Decrement a key in the user's database entry by a certain amount.
+     * @param key The key to decrement.
+     * @param amount The amount to decrement the key by.
+     * @return The value of the key post-decrement.
+     */
+    public long decrementKey(String key, int amount) {
+        return RedisInstance.getInstance().decrby(redisKey + ":" + key, amount);
+    }
+
+    /**
+     * Decrement a key in the user's database entry by {@code 1}.
+     * @param key The key to decrement.
+     * @return The value of the key post-decrement.
+     */
+    public long decrementKey(String key) {
+        return RedisInstance.getInstance().decr(redisKey + ":" + key);
     }
 }
