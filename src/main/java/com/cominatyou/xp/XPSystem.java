@@ -9,6 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import com.cominatyou.db.RedisInstance;
 import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.util.Values;
+import com.cominatyou.util.logging.Log;
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.entity.permission.Role;
@@ -61,7 +62,7 @@ public class XPSystem {
             final LocalDateTime currentTime = LocalDateTime.now();
             final String timeString = timeFormat.format(currentTime);
 
-            System.out.printf("%s: [LEVELUP] %s (%d) leveled up to %d: %d XP\n", timeString, message.getMessageAuthor().getDiscriminatedName(), user.getId(), currentLevel, currentXP);
+            Log.eventf("LEVELUP", "%s (%d) leveled up to %d: %d XP\n", timeString, message.getMessageAuthor().getDiscriminatedName(), user.getId(), currentLevel, currentXP);
 
             if (!RedisInstance.getBoolean("users:" + user.getId() + ":levelalertsdisabled")) {
                 final EmbedBuilder embed = new EmbedBuilder()
@@ -75,7 +76,7 @@ public class XPSystem {
                 final long roleId = RankUtil.getRankFromLevel(currentLevel).getId();
                 final Role role = message.getServer().get().getRoleById(roleId).get();
                 message.getMessageAuthor().asUser().get().addRole(role, message.getMessageAuthor().getName() + " leveled up!");
-                System.out.printf("%s: [LEVELUP] Assigned role %s to %s (%d)\n", timeString, role.getName(), message.getMessageAuthor().getDiscriminatedName(), message.getMessageAuthor().getId());
+                Log.eventf("LEVELUP", "Assigned role %s to %s (%d)\n", role.getName(), message.getMessageAuthor().getDiscriminatedName(), message.getMessageAuthor().getId());
             }
         }
     }

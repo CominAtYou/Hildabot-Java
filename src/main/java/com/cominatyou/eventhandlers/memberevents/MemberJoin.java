@@ -4,6 +4,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import com.cominatyou.util.Values;
 import com.cominatyou.xp.RankUtil;
+import com.cominatyou.xp.RestoreRoles;
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.entity.permission.Role;
@@ -33,5 +34,8 @@ public class MemberJoin {
             .setColor(new java.awt.Color(Values.HILDA_BLUE))
             .setFooter("Have any questions? Ask around or DM a staff member for help!", event.getServer().getIcon().get());
         event.getServer().getTextChannelById(830495332474552360L).get().sendMessage(welcomeMessage, embed);
+
+        // If the user was previously a member of Hildacord, add back their roles.
+        RestoreRoles.restore(event);
     }
 }

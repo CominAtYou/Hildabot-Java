@@ -13,6 +13,7 @@ public class LevelTest {
         assertEquals(50, determineMinimumTotalXPForLevel(2));
         assertEquals(50 + 65, determineMinimumTotalXPForLevel(3));
         assertEquals(50 + 65 + 80, determineMinimumTotalXPForLevel(4));
+        assertEquals(50 + 65 + 80 + 95, determineMinimumTotalXPForLevel(5));
         assertEquals(2065, determineMinimumTotalXPForLevel(15));
     }
 

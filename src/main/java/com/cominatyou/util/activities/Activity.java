@@ -2,6 +2,9 @@ package com.cominatyou.util.activities;
 
 import org.javacord.api.entity.activity.ActivityType;
 
+/**
+ * This class represents an activity that can be used with the {@link ActivitySwapper}.
+ */
 public class Activity {
     private final ActivityType type;
     private final String activity;
