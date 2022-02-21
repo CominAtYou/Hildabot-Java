@@ -4,6 +4,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ThreadLocalRandom;
 
+import com.cominatyou.util.versioning.Version;
+
 import org.javacord.api.DiscordApi;
 import org.javacord.api.entity.activity.ActivityType;
 
@@ -11,7 +13,8 @@ public class ActivitySwapper {
     private static final Activity[] activities = { new Activity(ActivityType.LISTENING, "Nav-fi"),
             new Activity(ActivityType.PLAYING, "with Twig"),
             new Activity(ActivityType.WATCHING, "the Woffs migrate"),
-            new Activity(ActivityType.WATCHING, "for your submissions!") };
+            new Activity(ActivityType.WATCHING, "for your submissions!"),
+            new Activity(ActivityType.PLAYING, String.format("Version %s / Build %s", Version.VERSION, Version.BUILD_NUMBER)) };
 
     public static void start(DiscordApi client) {
         new Timer().scheduleAtFixedRate(new TimerTask() {
