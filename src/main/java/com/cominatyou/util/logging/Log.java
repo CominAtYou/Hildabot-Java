@@ -31,4 +31,32 @@ public class Log {
         final String info = String.format(fString, args);
         System.out.printf("%s -- [%s] %s", timeString, event.toUpperCase(), info);
     }
+
+    /**
+     * Log a timestamped error to the console.
+     * @param event The name of the event.
+     * @param error The error details.
+     */
+    public static void error(String event, String error) {
+        final DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        final LocalDateTime currentTime = LocalDateTime.now();
+        final String timeString = timeFormat.format(currentTime);
+
+        System.err.printf("%s -- [%s] %s\n", timeString, event.toUpperCase(), error);
+    }
+
+    /**
+     * Log a formatted timestamped error to the console.
+     * @param event The name of the event.
+     * @param fString A {@code printf} format string.
+     * @param args Format arguments for {@code fString}.
+     */
+    public static void errorf(String event, String fString, Object... args) {
+        final DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        final LocalDateTime currentTime = LocalDateTime.now();
+        final String timeString = timeFormat.format(currentTime);
+
+        final String error = String.format(fString, args);
+        System.err.printf("%s -- [%s] %s", timeString, event.toUpperCase(), error);
+    }
 }

@@ -2,6 +2,7 @@ package com.cominatyou.xp;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ThreadLocalRandom;
 
 import com.cominatyou.db.RedisInstance;
@@ -54,7 +55,7 @@ public class XPSystem {
 
         if (currentLevel > beforeActionLevel) {
             final String embedTitle = RankUtil.isLevelRankLevel(currentLevel) ? String.format("Congrats on leveling up! You've reached level **%d** and are now the **%s** rank!", currentLevel, RankUtil.getRankFromLevel(currentLevel).getName()) : String.format("Congrats on leveling up! You are now level **%d**! :tada:", currentLevel);
-            
+
             Log.eventf("LEVELUP", "%s (%d) leveled up to %d: %d XP\n", message.getMessageAuthor().getDiscriminatedName(), user.getId(), currentLevel, currentXP);
 
             if (!RedisInstance.getBoolean("users:" + user.getId() + ":levelalertsdisabled")) {
@@ -68,8 +69,18 @@ public class XPSystem {
             if (RankUtil.isLevelRankLevel(currentLevel)) {
                 final long roleId = RankUtil.getRankFromLevel(currentLevel).getId();
                 final Role role = message.getServer().get().getRoleById(roleId).get();
-                message.getMessageAuthor().asUser().get().addRole(role, message.getMessageAuthor().getName() + " leveled up!");
-                Log.eventf("LEVELUP", "Assigned role %s to %s (%d)\n", role.getName(), message.getMessageAuthor().getDiscriminatedName(), message.getMessageAuthor().getId());
+                try {
+                    role.addUser(message.getMessageAuthor().asUser().get()).get();
+                    Log.eventf("LEVELUP", "Assigned role %s to %s (%d)\n", role.getName(), message.getMessageAuthor().getDiscriminatedName(), message.getMessageAuthor().getId());
+                }
+                catch (ExecutionException e) {
+                    Log.errorf("LEVELUP", "Failed to assign %s to %s (%d)!\n", role.getName(), message.getMessageAuthor().getDiscriminatedName(), message.getMessageAuthor().getId());
+                    e.getCause().printStackTrace();
+                }
+                catch (Exception e) {
+                    Log.errorf("LEVELUP", "Failed to assign %s to %s (%d)!\n", role.getName(), message.getMessageAuthor().getDiscriminatedName(), message.getMessageAuthor().getId());
+                    e.printStackTrace();
+                }
             }
         }
     }
