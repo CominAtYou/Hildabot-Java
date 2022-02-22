@@ -67,6 +67,10 @@ public class TextCommandHandler {
                 GetVersion.sendVersion(event);
                 break;
             }
+            case "levelcheck": {
+                LevelCheck.check(event);
+                break;
+            }
         }
     }
 }

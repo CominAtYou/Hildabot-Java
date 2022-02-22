@@ -2,3 +2,4 @@ src/main/java/com/cominatyou/Config.java
 target/
 *.rdb
 .vscode/
+src/test/java/com/cominatyou/AppTest.java
