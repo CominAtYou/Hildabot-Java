@@ -14,10 +14,12 @@ public class Kudos {
         if (reaction.getMessage().get().getType() != MessageType.NORMAL_WEBHOOK && reaction.getUser().get() == reaction.getMessageAuthor().get().asUser().get()) return;
 
         final RedisUserEntry giver = new RedisUserEntry(reaction.getUser().get()); // Person who reacted to the message
-        final RedisUserEntry reciever = new RedisUserEntry(reaction.getMessageAuthor().get()); // Author of message that was reacted to
-
         giver.incrementKey("kudos:given");
-        reciever.incrementKey("kudos:received");
+
+        if (reaction.getMessage().get().getType() != MessageType.NORMAL_WEBHOOK) {
+            final RedisUserEntry reciever = new RedisUserEntry(reaction.getMessageAuthor().get()); // Author of message that was reacted to
+            reciever.incrementKey("kudos:received");
+        }
     }
 
     public static void remove(ReactionRemoveEvent event) {
@@ -25,9 +27,11 @@ public class Kudos {
         if (event.getEmoji() != event.getServer().get().getCustomEmojiById(539313415425097728L).get()) return;
 
         final RedisUserEntry giver = new RedisUserEntry(event.getUser().get());
-        final RedisUserEntry reciever = new RedisUserEntry(event.getMessageAuthor().get());
-
         giver.decrementKey("kudos:given");
-        reciever.decrementKey("kudos:received");
+
+        if (event.getMessage().get().getType() != MessageType.NORMAL_WEBHOOK) {
+            final RedisUserEntry reciever = new RedisUserEntry(event.getMessageAuthor().get());
+            reciever.decrementKey("kudos:received");
+        }
     }
 }
