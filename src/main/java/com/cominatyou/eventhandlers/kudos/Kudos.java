@@ -15,7 +15,7 @@ public class Kudos {
         final RedisUserEntry giver = new RedisUserEntry(reaction.getUser().get()); // Person who reacted to the message
         giver.incrementKey("kudos:given");
 
-        if (reaction.getMessage().get().getType() == MessageType.NORMAL) {
+        if (reaction.getMessage().isPresent() && reaction.getMessage().get().getType() == MessageType.NORMAL) {
             final RedisUserEntry reciever = new RedisUserEntry(reaction.getMessageAuthor().get()); // Author of message that was reacted to
             reciever.incrementKey("kudos:received");
         }
@@ -28,7 +28,7 @@ public class Kudos {
         final RedisUserEntry giver = new RedisUserEntry(event.getUser().get());
         giver.decrementKey("kudos:given");
 
-        if (event.getMessage().get().getType() == MessageType.NORMAL) {
+        if (event.getMessage().isPresent() && event.getMessage().get().getType() == MessageType.NORMAL) {
             final RedisUserEntry reciever = new RedisUserEntry(event.getMessageAuthor().get());
             reciever.decrementKey("kudos:received");
         }
