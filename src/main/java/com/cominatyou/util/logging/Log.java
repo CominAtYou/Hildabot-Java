@@ -29,6 +29,6 @@ public class Log {
         final String timeString = timeFormat.format(currentTime);
 
         final String info = String.format(fString, args);
-        System.out.printf("%s -- [%s] %s", timeString, event, info);
+        System.out.printf("%s -- [%s] %s", timeString, event.toUpperCase(), info);
     }
 }
