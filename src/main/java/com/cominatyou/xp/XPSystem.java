@@ -1,7 +1,5 @@
 package com.cominatyou.xp;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -56,13 +54,8 @@ public class XPSystem {
 
         if (currentLevel > beforeActionLevel) {
             final String embedTitle = RankUtil.isLevelRankLevel(currentLevel) ? String.format("Congrats on leveling up! You've reached level **%d** and are now the **%s** rank!", currentLevel, RankUtil.getRankFromLevel(currentLevel).getName()) : String.format("Congrats on leveling up! You are now level **%d**! :tada:", currentLevel);
-
-            // Time for logging purposes
-            final DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            final LocalDateTime currentTime = LocalDateTime.now();
-            final String timeString = timeFormat.format(currentTime);
-
-            Log.eventf("LEVELUP", "%s (%d) leveled up to %d: %d XP\n", timeString, message.getMessageAuthor().getDiscriminatedName(), user.getId(), currentLevel, currentXP);
+            
+            Log.eventf("LEVELUP", "%s (%d) leveled up to %d: %d XP\n", message.getMessageAuthor().getDiscriminatedName(), user.getId(), currentLevel, currentXP);
 
             if (!RedisInstance.getBoolean("users:" + user.getId() + ":levelalertsdisabled")) {
                 final EmbedBuilder embed = new EmbedBuilder()

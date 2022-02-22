@@ -22,12 +22,10 @@ public class RestoreRoles {
 
         for (int i = index; i > 0; i--) {
             final long levelId = RankUtil.getRankFromLevel(rankLevels[i]).getId();
-
             final Role role = event.getServer().getRoleById(levelId).get();
             role.addUser(event.getUser());
         }
-
-        Log.eventf("RESTORE", "Restored roles for %s (%d), starting from level %d", event.getUser().getDiscriminatedName(), event.getUser().getId(), rankLevel);
+        Log.eventf("RESTORE", "Restored roles for %s (%d), starting from level %d\n", event.getUser().getDiscriminatedName(), event.getUser().getId(), rankLevel);
 
     }
 }
