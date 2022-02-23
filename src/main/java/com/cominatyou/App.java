@@ -35,7 +35,6 @@ public class App {
         client.addMessageCreateListener(MessageCreate::route);
 
         client.addServerMemberJoinListener(MemberJoin::greet);
-
         client.addServerMemberLeaveListener(MemberLeave::removeDBEntries);
         client.addServerMemberBanListener(MemberBan::removeDBEntries);
 

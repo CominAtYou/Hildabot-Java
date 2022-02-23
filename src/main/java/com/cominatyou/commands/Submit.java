@@ -1,6 +1,6 @@
 package com.cominatyou.commands;
 
-import java.time.Clock;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
@@ -31,7 +31,7 @@ public class Submit {
 
         final int streak = user.getInt("streak");
 
-        final ZonedDateTime now = ZonedDateTime.now(Clock.systemDefaultZone());
+        final ZonedDateTime now = ZonedDateTime.now(ZoneId.of("America/Chicago"));
         final ZonedDateTime midnightToday = now.toLocalDate().atStartOfDay(now.getZone());
         final long streakExpiry = midnightToday.plus(7, ChronoUnit.DAYS).toEpochSecond();
 
