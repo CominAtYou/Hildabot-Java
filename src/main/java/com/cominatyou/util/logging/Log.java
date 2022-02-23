@@ -1,6 +1,7 @@
 package com.cominatyou.util.logging;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 public class Log {
@@ -25,7 +26,7 @@ public class Log {
      */
     public static void eventf(String event, String fString, Object... args) {
         final DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        final LocalDateTime currentTime = LocalDateTime.now();
+        final LocalDateTime currentTime = LocalDateTime.now(ZoneId.of("America/Chicago"));
         final String timeString = timeFormat.format(currentTime);
 
         final String info = String.format(fString, args);
@@ -39,7 +40,7 @@ public class Log {
      */
     public static void error(String event, String error) {
         final DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        final LocalDateTime currentTime = LocalDateTime.now();
+        final LocalDateTime currentTime = LocalDateTime.now(ZoneId.of("America/Chicago"));
         final String timeString = timeFormat.format(currentTime);
 
         System.err.printf("%s -- [%s] %s\n", timeString, event.toUpperCase(), error);
@@ -53,7 +54,7 @@ public class Log {
      */
     public static void errorf(String event, String fString, Object... args) {
         final DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        final LocalDateTime currentTime = LocalDateTime.now();
+        final LocalDateTime currentTime = LocalDateTime.now(ZoneId.of("America/Chicago"));
         final String timeString = timeFormat.format(currentTime);
 
         final String error = String.format(fString, args);
