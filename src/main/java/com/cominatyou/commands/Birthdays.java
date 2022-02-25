@@ -151,7 +151,7 @@ public class Birthdays {
             if (user.isEmpty()) continue; // User is not in guild
 
             if (i == 8 && birthdays.size() > 9) {
-                embed.addField(birthdays.size() - 9 + " more", "up to " + month + "/" + numberOfDays);
+                embed.addInlineField(birthdays.size() - 8 + " more", "up to " + month + "/" + numberOfDays);
                 break;
             }
             else {
