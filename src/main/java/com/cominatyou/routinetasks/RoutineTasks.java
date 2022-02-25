@@ -1,5 +1,7 @@
 package com.cominatyou.routinetasks;
 
+import java.util.TimeZone;
+
 import org.quartz.CronScheduleBuilder;
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
@@ -15,7 +17,7 @@ public class RoutineTasks {
      */
     public static void schedule() {
         final JobDetail job = JobBuilder.newJob(CheckForBirthdays.class).withIdentity("birthdayAnnoucement", "routineTasks").build();
-        final Trigger midnightTrigger = TriggerBuilder.newTrigger().withIdentity("birthdayTrigger", "routineTasks").withSchedule(CronScheduleBuilder.cronSchedule("0 0 0 * * ?")).build();
+        final Trigger midnightTrigger = TriggerBuilder.newTrigger().withIdentity("birthdayTrigger", "routineTasks").withSchedule(CronScheduleBuilder.cronSchedule("0 0 0 * * ?").inTimeZone(TimeZone.getTimeZone("America/Chicago"))).build();
 
         try {
             final Scheduler scheduler = new StdSchedulerFactory().getScheduler();
