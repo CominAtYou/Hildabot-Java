@@ -38,7 +38,7 @@ public class Say {
 
         message.getMessage().getReferencedMessage().ifPresentOrElse(replyMessage -> { // Reply to the replied-to message if the invoking message was in reply to another.
             message.deleteMessage();
-            messageBuilder.replyTo(message.getMessage());
+            messageBuilder.replyTo(replyMessage);
         }, () -> {
             message.deleteMessage();
             messageBuilder.send(message.getChannel());
