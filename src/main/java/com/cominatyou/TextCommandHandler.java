@@ -71,6 +71,10 @@ public class TextCommandHandler {
                 LevelCheck.check(event);
                 break;
             }
+            case "ping": {
+                Ping.pong(event);
+                break;
+            }
         }
     }
 }
