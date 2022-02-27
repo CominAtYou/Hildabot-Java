@@ -63,7 +63,12 @@ public class XPSystem {
                         .setColor(new java.awt.Color(Values.HILDA_BLUE))
                         .setTitle(embedTitle)
                         .setDescription("To disable this message going forward, run `h!levelalert` in this DM or <#495034452422950915>.");
-                message.getMessageAuthor().asUser().get().openPrivateChannel().join().sendMessage(embed);
+                try {
+                    message.getMessageAuthor().asUser().get().openPrivateChannel().join().sendMessage(embed);
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             if (RankUtil.isLevelRankLevel(currentLevel)) {

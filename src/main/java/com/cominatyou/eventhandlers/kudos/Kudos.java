@@ -13,7 +13,17 @@ public class Kudos {
         if (reaction.getChannel().getType() == ChannelType.PRIVATE_CHANNEL) return;
         if (reaction.getEmoji() != reaction.getServer().get().getCustomEmojiById(539313415425097728L).get()) return;
 
-        final Message message = reaction.requestMessage().join();
+
+        final Message message;
+
+        try {
+            message = reaction.requestMessage().get();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+
         if (message.getAuthor().getId() == reaction.getUserId()) return;
 
         final RedisUserEntry giver = new RedisUserEntry(reaction.getUserId()); // Person who reacted to the message
@@ -33,7 +43,15 @@ public class Kudos {
         final RedisUserEntry giver = new RedisUserEntry(event.getUserId());
         giver.decrementKey("kudos:given");
 
-        final Message message = event.requestMessage().join();
+        final Message message;
+
+        try {
+            message = event.requestMessage().get();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
 
         if (message.getType() == MessageType.NORMAL) {
             final RedisUserEntry reciever = new RedisUserEntry(event.getMessageAuthor().get());
