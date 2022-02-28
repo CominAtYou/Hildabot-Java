@@ -10,10 +10,13 @@ import org.javacord.api.DiscordApi;
 import org.javacord.api.entity.activity.ActivityType;
 
 public class ActivitySwapper {
-    private static final Activity[] activities = { new Activity(ActivityType.LISTENING, "Nav-fi"),
-            new Activity(ActivityType.PLAYING, "with Twig"),
+    private static final Activity[] activities = { new Activity(ActivityType.PLAYING, "with Twig"),
             new Activity(ActivityType.WATCHING, "the Woffs migrate"),
             new Activity(ActivityType.WATCHING, "for your submissions!"),
+            new Activity(ActivityType.PLAYING, "with the Sparrow Scouts"),
+            new Activity(ActivityType.WATCHING, "Hilda and the Mountain King"),
+            new Activity(ActivityType.PLAYING, "with the trolls"),
+            new Activity(ActivityType.COMPETING, "a dodgeball game"),
             new Activity(ActivityType.PLAYING, String.format("Version %s / Build %s", Version.VERSION, Version.BUILD_NUMBER)) };
 
     public static void start(DiscordApi client) {
