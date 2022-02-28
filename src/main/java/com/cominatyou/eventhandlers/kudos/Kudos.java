@@ -24,8 +24,6 @@ public class Kudos {
             return;
         }
 
-        if (message.getAuthor().getId() == reaction.getUserId()) return;
-
         final RedisUserEntry giver = new RedisUserEntry(reaction.getUserId()); // Person who reacted to the message
         giver.incrementKey("kudos:given");
 

@@ -28,7 +28,7 @@ public class XPSystemCalculator {
      * @throws IllegalArgumentException If a negative value is passed.
     */
     public static int determineMinimumTotalXPForLevel(int level) throws IllegalArgumentException {
-        if (level < 0) throw new IllegalArgumentException("XP must be a positive value.");
+        if (level < 0) throw new IllegalArgumentException("Level must be a positive value.");
         if (level < 2) return 0;
         int xp = 50;
         for (int i = 2; i < level; i++) {
@@ -45,7 +45,7 @@ public class XPSystemCalculator {
      * @throws IllegalArgumentException If a negative value is passed.
     */
     public static int determineMinimumUserFacingXPForLevel(int level) throws IllegalArgumentException {
-        if (level < 0) throw new IllegalArgumentException("XP must be a positive value.");
+        if (level < 0) throw new IllegalArgumentException("Level must be a positive value.");
         if (level < 2) return 0;
         return 50 + 15 * (level - 2);
     }
