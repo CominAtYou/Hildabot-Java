@@ -2,3 +2,4 @@ target/
 *.rdb
 .vscode/
 src/test/java/com/cominatyou/AppTest.java
+.DS_Store
