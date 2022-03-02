@@ -3,7 +3,7 @@ package com.cominatyou.xp;
 import java.util.HashMap;
 
 public class RankUtil {
-    private final static int[] rankLevels = { 1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300 };
+    private final static Integer[] rankLevels = { 1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300 };
 
     private final static Rank[] ranks = { new Rank("Time Worm", 1, 505141598946852885L),
             new Rank("Nitten", 5, 492871026640814090L), new Rank("Tide Mouse", 10, 587846293091778560L),
@@ -64,7 +64,7 @@ public class RankUtil {
      * Get the rank levels array.
      * @return The rank levels array.
      */
-    public static int[] getRanklevels() {
+    public static Integer[] getRanklevels() {
         return rankLevels;
     }
 

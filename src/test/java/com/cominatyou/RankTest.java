@@ -11,7 +11,7 @@ import com.cominatyou.xp.RankUtil;
 import org.junit.Test;
 
 public class RankTest {
-    private static final int[] rankLevels = RankUtil.getRanklevels();
+    private static final Integer[] rankLevels = RankUtil.getRanklevels();
 
     @Test
     public void ensureCorrectAmountOfRankLevels() {

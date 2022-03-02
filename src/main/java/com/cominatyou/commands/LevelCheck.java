@@ -1,7 +1,6 @@
 package com.cominatyou.commands;
 
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.Arrays;
 
 import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.util.Values;
@@ -26,8 +25,8 @@ public class LevelCheck {
 
         final int rankLevel = RankUtil.getRankFromLevel(userEntry.getLevel()).getLevel();
 
-        final int[] rankLevels = RankUtil.getRanklevels();
-        final int index = IntStream.of(rankLevels).boxed().collect(Collectors.toList()).indexOf(rankLevel);
+        final Integer[] rankLevels = RankUtil.getRanklevels();
+        final int index = Arrays.asList(rankLevels).indexOf(rankLevel);
 
         int restoredRoles = 0;
         for (int i = index; i > 0; i--) {

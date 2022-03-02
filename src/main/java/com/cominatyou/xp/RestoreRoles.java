@@ -1,7 +1,6 @@
 package com.cominatyou.xp;
 
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.Arrays;
 
 import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.util.logging.Log;
@@ -16,9 +15,8 @@ public class RestoreRoles {
 
         final int rankLevel = RankUtil.getRankFromLevel(user.getLevel()).getLevel();
 
-        final int[] rankLevels = RankUtil.getRanklevels();
-        // This is a really really really stupid idea. It works, though.
-        final int index = IntStream.of(rankLevels).boxed().collect(Collectors.toList()).indexOf(rankLevel);
+        final Integer[] rankLevels = RankUtil.getRanklevels();
+        final int index = Arrays.asList(rankLevels).indexOf(rankLevel);
 
         for (int i = index; i > 0; i--) {
             final long levelId = RankUtil.getRankFromLevel(rankLevels[i]).getId();

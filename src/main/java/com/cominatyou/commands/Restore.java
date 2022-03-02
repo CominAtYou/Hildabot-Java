@@ -18,7 +18,7 @@ public class Restore {
             return;
         }
 
-        final int[] rankLevels = RankUtil.getRanklevels();
+        final Integer[] rankLevels = RankUtil.getRanklevels();
         final MessageAuthor author = message.getMessageAuthor();
 
         for (int i = rankLevels.length - 1; i > -1; i--) {
