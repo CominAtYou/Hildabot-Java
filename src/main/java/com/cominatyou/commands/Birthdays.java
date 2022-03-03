@@ -77,7 +77,20 @@ public class Birthdays {
         user.set("birthday:string", birthday);
         RedisInstance.getInstance().rpush(String.format("birthdays:%s:%s", month, day), String.valueOf(user.getId()));
 
-        if (birthday.equals("02-29")) {
+        final int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
+        final int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+
+        if (intMonth == currentMonth && intDay == currentDay) {
+            if (birthday.equals("02-29")) {
+                message.getMessage().reply("Happy Birthday! Your birthday has been set to February 29. Your birthday will be announced on March 1 on non-leap years.");
+            }
+            else {
+                final String monthString = DateFormatSymbols.getInstance().getMonths()[intMonth - 1];
+                message.getMessage().reply(String.format("Happy Birthday! Your birthday has been set to %s %d.", monthString, intDay));
+            }
+            message.getServer().get().getRoleById(609258045759029250L).get().addUser(message.getMessageAuthor().asUser().get(), "Today is their birthday!");
+        }
+        else if (birthday.equals("02-29")) {
             message.getMessage().reply("Success! Your birthday has been set to February 29. Your birthday will be announced on March 1 on non-leap years.");
         }
         else {
