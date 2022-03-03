@@ -27,9 +27,19 @@ public class Kudos {
         final RedisUserEntry giver = new RedisUserEntry(reaction.getUserId()); // Person who reacted to the message
         giver.incrementKey("kudos:given");
 
+        if (giver.getInt("kudos:givenintimespan") == 0) {
+            giver.incrementKey("kudos:givenintimespan");
+            giver.incrementKey("xp", 2);
+            giver.expireKeyIn("kudos:givenintimespan", 120);
+        }
+        else if (giver.getInt("kudos:givenintimespan") < 10) {
+            giver.incrementKey("xp", 2);
+        }
+
         if (message.getType() == MessageType.NORMAL) {
             final RedisUserEntry receiver = new RedisUserEntry(message.getAuthor());
             receiver.incrementKey("kudos:received");
+            receiver.incrementKey("xp", 2);
         }
 
     }
@@ -40,6 +50,7 @@ public class Kudos {
 
         final RedisUserEntry giver = new RedisUserEntry(event.getUserId());
         giver.decrementKey("kudos:given");
+        giver.decrementKey("xp", 2);
 
         final Message message;
 
@@ -54,6 +65,7 @@ public class Kudos {
         if (message.getType() == MessageType.NORMAL) {
             final RedisUserEntry reciever = new RedisUserEntry(event.getMessageAuthor().get());
             reciever.decrementKey("kudos:received");
+            reciever.decrementKey("xp", 2);
         }
     }
 }
