@@ -75,6 +75,10 @@ public class TextCommandHandler {
                 Ping.pong(event);
                 break;
             }
+            case "definetone": {
+                ToneIndicators.define(event, messageArgs);
+                break;
+            }
         }
     }
 }
