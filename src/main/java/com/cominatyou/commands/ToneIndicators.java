@@ -7,16 +7,11 @@ import java.util.regex.Pattern;
 
 import com.cominatyou.util.Values;
 
-import org.javacord.api.entity.message.MessageBuilder;
-import org.javacord.api.entity.message.component.ButtonBuilder;
-import org.javacord.api.entity.message.component.ButtonStyle;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;
 
 public class ToneIndicators {
-    private static final Pattern regex = Pattern.compile(
-            "/(hj|gen|srs|nsrs|pos|pc|neu|neg|nc|ly|lh|nm|lu|nbh|rh|rt|ij|m|li|hyp|f|th|cb|p|r|c|l|j|s|g|t|s)",
-            Pattern.MULTILINE | Pattern.CASE_INSENSITIVE);
+    private static final Pattern regex = Pattern.compile("/(hj|gen|srs|nsrs|pos|pc|neu|neg|nc|ly|lh|nm|lu|nbh|rh|rt|ij|m|li|hyp|f|th|cb|p|r|c|l|j|s|g|t|s)", Pattern.MULTILINE | Pattern.CASE_INSENSITIVE);
 
     private static final Map<String, String> toneIndicators = Map.ofEntries(
         Map.entry("j", "Joking"),
@@ -66,15 +61,8 @@ public class ToneIndicators {
                 final String toneIndicator = messageToneIndicators[i].toLowerCase();
                 embed.addField(toneIndicator, toneIndicators.get(toneIndicator.substring(1)));
             }
-            final MessageBuilder replyMessage = new MessageBuilder().addActionRow(
-                new ButtonBuilder()
-                .setStyle(ButtonStyle.LINK)
-                .setUrl(reply.getLink().toString())
-                .setLabel("View original message")
-                .build())
-            .setEmbed(embed);
 
-            replyMessage.send(message.getChannel());
+            message.getChannel().sendMessage(embed);
         }, () -> {
             message.getMessage().reply("You need to reply to a message when using the define command!");
         });
