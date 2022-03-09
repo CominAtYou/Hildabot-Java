@@ -30,7 +30,7 @@ public class XPSystem {
         final int currentLevel = XPSystemCalculator.determineLevelFromXP(currentXP);
 
         // Award XP.
-        final int amount = ThreadLocalRandom.current().nextInt(2, 5 + 1); // random number between 2 and 5, inclusive, plus current level divided by 10, rounded up
+        final int amount = ThreadLocalRandom.current().nextInt(2, 5 + 1); // random number between 2 and 5, inclusive
         user.incrementKey("xp", amount);
 
         // Check if rate limit key exists. If not, create it, set it to 1, and have it

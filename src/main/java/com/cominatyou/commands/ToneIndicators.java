@@ -49,6 +49,7 @@ public class ToneIndicators {
 
     public static void define(MessageCreateEvent message, List<String> messageArgs) {
         message.getMessage().getReferencedMessage().ifPresentOrElse(reply -> {
+            // Create an array of tone indicators in the message, based on regex matches
             final String[] messageToneIndicators = regex.matcher(reply.getContent()).results().map(MatchResult::group).toArray(String[]::new);
 
             if (messageToneIndicators.length == 0) {
