@@ -26,13 +26,13 @@ public class CheckForBirthdays implements Job {
         System.out.println("[BIRTHDAYS] Starting birthdays task.");
 
         final Optional<Role> birthdayRole = client.getServerById(Values.HILDACORD_ID).get().getRoleById(609258045759029250L);
-        if (birthdayRole.isPresent()) {
-            final Collection<User> birthdayRoleUsers = birthdayRole.get().getUsers();
+        birthdayRole.ifPresent(role -> {
+            final Collection<User> birthdayRoleUsers = role.getUsers();
             if (birthdayRoleUsers.size() != 0) System.out.printf("[BIRTHDAYS] Removing birthday role from %d user(s)\n", birthdayRoleUsers.size());
             birthdayRoleUsers.forEach(user -> {
-                user.removeRole(birthdayRole.get(), "Their birthday has passed.");
+                user.removeRole(role, "Their birthday has passed.");
             });
-        }
+        });
 
         final int month = Calendar.getInstance().get(Calendar.MONTH) + 1; // January is 0
         final int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
@@ -40,7 +40,7 @@ public class CheckForBirthdays implements Job {
         final String monthString = month < 10 ? "0" + month : String.valueOf(month);
         final String dayString = day < 10 ? "0" + day : String.valueOf(day);
 
-        ArrayList<String> birthdays = new ArrayList<>(RedisInstance.getInstance().lrange(String.format("birthdays:%s:%s", monthString, dayString), 0, -1));
+        final ArrayList<String> birthdays = new ArrayList<>(RedisInstance.getInstance().lrange(String.format("birthdays:%s:%s", monthString, dayString), 0, -1));
 
         if (Calendar.getInstance().get(Calendar.YEAR) % 4 != 0 && month == 3 && day == 1) {
             final List<String> leapBirthdays = RedisInstance.getInstance().lrange("birthdays:02:29", 0, -1);
@@ -70,16 +70,12 @@ public class CheckForBirthdays implements Job {
         }
 
         birthdays.forEach(id -> {
-            if (birthdayRole.isEmpty()) return;
-            try {
-                final Optional<User> user = client.getServerById(Values.HILDACORD_ID).get().getMemberById(id);
-                if (user.isEmpty()) return;
-                birthdayRole.get().addUser(user.get(), "Their birthday is today!");
-                System.out.printf("[BIRTHDAYS] Gave birthday role to %s (%d)\n", user.get().getDiscriminatedName(), user.get().getId());
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
+            client.getServerById(Values.HILDACORD_ID).get().getMemberById(id).ifPresent(user -> {
+                birthdayRole.ifPresent(role -> {
+                    role.addUser(user, "Their birthday is today!");
+                    System.out.printf("[BIRTHDAYS] Gave birthday role to %s (%d)\n", user.getDiscriminatedName(), user.getId());
+                });
+            });
         });
     }
 }
