@@ -15,7 +15,7 @@ public class RankTest {
 
     @Test
     public void ensureCorrectAmountOfRankLevels() {
-        assertEquals(26, RankUtil.getRanklevels().length);
+        assertEquals(26, rankLevels.length);
     }
 
     @Test
@@ -28,6 +28,16 @@ public class RankTest {
             }
             else {
                 seenIDs.add(rank.getId());
+            }
+        }
+    }
+
+    @Test
+    public void ensureCorrectRankRoleIdFormat() {
+        for (final int i : rankLevels) {
+            final Rank rank = RankUtil.getRankFromLevel(i);
+            if (!String.valueOf(rank.getId()).matches("^[0-9]{18}$")) {
+                fail(String.format("Level %d: ID %d is not a Discord snowflake!", i, rank.getId()));
             }
         }
     }
