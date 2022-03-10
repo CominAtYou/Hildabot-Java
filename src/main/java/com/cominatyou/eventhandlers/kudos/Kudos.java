@@ -63,9 +63,9 @@ public class Kudos {
         }
 
         if (message.getType() == MessageType.NORMAL) {
-            final RedisUserEntry reciever = new RedisUserEntry(event.getMessageAuthor().get());
-            reciever.decrementKey("kudos:received");
-            reciever.decrementKey("xp", 2);
+            final RedisUserEntry receiver = new RedisUserEntry(event.getMessageAuthor().get());
+            receiver.decrementKey("kudos:received");
+            receiver.decrementKey("xp", 2);
         }
     }
 }
