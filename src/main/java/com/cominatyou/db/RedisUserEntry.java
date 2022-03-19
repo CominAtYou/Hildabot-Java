@@ -67,6 +67,14 @@ public class RedisUserEntry {
     }
 
     /**
+     * Get the ID of the user representing this database entry as a string.
+     * @return The user's ID, as a string.
+     */
+    public String getIdAsString() {
+        return id;
+    }
+
+    /**
      * Get the formatted user key for the user, in the form of {@code users:userID}.
      * @return The user's key.
      */
