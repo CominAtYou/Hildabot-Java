@@ -24,4 +24,15 @@ jobs:
         run: pip install codespell
       - name: Check spelling
         run: codespell -S=".git"
-
+  check-for-non-lettuce-imports:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download script
+        env:
+          SCRIPT_URL: ${{ secrets.IMPORT_TEST_SCRIPT_URL }}
+        run: |
+          curl $SCRIPT_URL -o 'importscript.sh'
+          chmod +x 'importscript.sh'
+      - name: Check for disallowed imports
+        run: ./importscript.sh
