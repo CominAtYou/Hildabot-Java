@@ -50,6 +50,13 @@ public class CheckForBirthdays implements Job {
 
         System.out.printf("[BIRTHDAYS] Got %d birthdays for %d-%s\n", birthdays.size(), month, dayString);
 
+        // Filter out members that are no longer in the server
+        birthdays.forEach(i -> {
+            if (client.getServerById(Values.HILDACORD_ID).get().getMemberById(i).isEmpty()) {
+                birthdays.remove(i);
+            }
+        });
+
         if (birthdays.size() == 0) {
             return;
         }
