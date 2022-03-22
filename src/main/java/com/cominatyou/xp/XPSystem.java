@@ -22,7 +22,7 @@ public class XPSystem {
 
         final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor());
 
-        if (RedisInstance.getInstance().lrange("config:xp:disallowedusers", 0, -1).contains(user.getIdAsString())) return;
+        if (RedisInstance.getInstance().lrange("config:xp:ignoredusers", 0, -1).contains(user.getIdAsString())) return;
 
         // XP will only be granted for 7 messages sent within 30 seconds. This might
         // need to be increased.
