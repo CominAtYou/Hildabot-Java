@@ -163,8 +163,8 @@ public class Birthdays {
             final Optional<User> user = message.getApi().getServerById(Values.HILDACORD_ID).get().getMemberById(entry.getUserId());
             if (user.isEmpty()) continue; // User is not in guild
 
-            if (i == 8 && birthdays.size() > 9) {
-                embed.addInlineField(birthdays.size() - 8 + " more", "up to " + month + "/" + numberOfDays);
+            if (i == 18 && birthdays.size() > 19) {
+                embed.addInlineField(birthdays.size() - 18 + " more", "up to " + month + "/" + numberOfDays);
                 break;
             }
             else {
