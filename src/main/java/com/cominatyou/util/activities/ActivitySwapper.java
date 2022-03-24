@@ -19,7 +19,7 @@ public class ActivitySwapper {
             new Activity(ActivityType.PLAYING, "with the trolls"),
             new Activity(ActivityType.PLAYING, "with Twig"),
             new Activity(ActivityType.PLAYING, "with the water spirits"),
-            new Activity(ActivityType.PLAYING, String.format("Version %s / Build %s", Version.VERSION, Version.BUILD_NUMBER)),
+            new Activity(ActivityType.PLAYING, String.format("Version %s (%s)", Version.VERSION, Version.BUILD_NUMBER)),
             new Activity(ActivityType.COMPETING, "a dodgeball game"),
             new Activity(ActivityType.LISTENING, "the Rat King's secrets"),
             new Activity(ActivityType.LISTENING, "Alfur lecture"),
