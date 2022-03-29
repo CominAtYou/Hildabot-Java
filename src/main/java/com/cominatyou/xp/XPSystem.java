@@ -62,7 +62,7 @@ public class XPSystem {
 
             if (!RedisInstance.getBoolean("users:" + user.getId() + ":levelalertsdisabled")) {
                 final EmbedBuilder embed = new EmbedBuilder()
-                        .setColor(new java.awt.Color(Values.HILDA_BLUE))
+                        .setColor(Values.HILDA_BLUE)
                         .setTitle(embedTitle)
                         .setDescription("To disable this message going forward, run `h!levelalert` in this DM or <#495034452422950915>.");
                 try {

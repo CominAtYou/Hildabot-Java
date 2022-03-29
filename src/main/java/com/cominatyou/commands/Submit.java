@@ -64,7 +64,7 @@ public class Submit {
             .setTitle("Submission successful!")
             .setAuthor(message.getMessageAuthor())
             .setDescription("Your submission has been accepted!")
-            .setColor(new java.awt.Color(Values.SUCCESS_GREEN))
+            .setColor(Values.SUCCESS_GREEN)
             .addInlineField("Streak", String.valueOf(streak + 1))
             .addInlineField("XP Gained", String.valueOf(20 + 2 * streak))
             .addField("Streak Expiry", String.format("<t:%d>", streakExpiry));

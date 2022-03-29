@@ -155,7 +155,7 @@ public class Birthdays {
 
         final EmbedBuilder embed = new EmbedBuilder()
             .setTitle(":birthday: Birthdays for " + DateFormatSymbols.getInstance().getMonths()[month - 1])
-            .setColor(new java.awt.Color(Values.HILDA_BLUE))
+            .setColor(Values.HILDA_BLUE)
             .setDescription(birthdays.size() == 0 ? "No birthdays for this month!" : "");
 
         for (int i = 0; i < birthdays.size(); i++) {

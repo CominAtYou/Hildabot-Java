@@ -75,6 +75,10 @@ public class TextCommandHandler {
                 Ping.pong(event);
                 break;
             }
+            case "dbcard": {
+                DbEntryCard.sendCard(event, messageArgs);
+                break;
+            }
         }
     }
 }
