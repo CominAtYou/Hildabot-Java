@@ -8,6 +8,7 @@ import com.cominatyou.xp.RankUtil;
 import com.cominatyou.xp.XPSystemCalculator;
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;
+import org.javacord.api.entity.server.Server;
 import org.javacord.api.event.message.MessageCreateEvent;
 
 public class DbEntryCard {
@@ -21,7 +22,9 @@ public class DbEntryCard {
             message.getChannel().sendMessage("Please provide a valid user ID.");
             return;
         }
-        message.getApi().getServerById(Values.HILDACORD_ID).get().getMemberById(messageArgs.get(0)).ifPresentOrElse(member -> {
+
+        final Server hildacord = message.getApi().getServerById(Values.HILDACORD_ID).get();
+        hildacord.getMemberById(messageArgs.get(0)).ifPresentOrElse(member -> {
             final RedisUserEntry userEntry = new RedisUserEntry(member);
             final int level = userEntry.getLevel();
 
@@ -34,7 +37,8 @@ public class DbEntryCard {
                     .addInlineField("Enrolled", userEntry.getBoolean("enrolled") ? "Yes" : "No")
                     .addInlineField("Level Alerts", userEntry.getBoolean("levelalertsdisabled") ? "Disabled" : "Enabled")
                     .addInlineField("Birthday", userEntry.getString("birthday:string") == null ? "None" : userEntry.getString("birthday:string"))
-                    .setFooter("User ID: " + userEntry.getIdAsString());
+                    .setFooter("User ID: " + userEntry.getIdAsString())
+                    .setTimestamp(member.getJoinedAtTimestamp(hildacord).get());
 
             message.getChannel().sendMessage(embed);
         }, () -> {
