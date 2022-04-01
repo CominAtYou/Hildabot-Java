@@ -16,11 +16,16 @@ public class TextCommandHandler {
         if (event.getChannel().getType() == ChannelType.PRIVATE_CHANNEL) {
             switch (command) {
                 case "levelalert": {
-                    LevelAlert.setPreference(event);
+                    LevelAlert.setLevelAlertPreference(event);
                     break;
                 }
                 case "querydb": {
                     QueryDatabase.sendQuery(event, messageArgs);
+                    break;
+
+                }
+                case "streakwarning": {
+                    StreakWarning.setStreakWarningPreference(event);
                     break;
                 }
             }
@@ -56,7 +61,7 @@ public class TextCommandHandler {
                 break;
             }
             case "levelalert": {
-                LevelAlert.setPreference(event);
+                LevelAlert.setLevelAlertPreference(event);
                 break;
             }
             case "say": {
@@ -77,6 +82,10 @@ public class TextCommandHandler {
             }
             case "dbcard": {
                 DbEntryCard.sendCard(event, messageArgs);
+                break;
+            }
+            case "streakwarning": {
+                StreakWarning.setStreakWarningPreference(event);
                 break;
             }
         }

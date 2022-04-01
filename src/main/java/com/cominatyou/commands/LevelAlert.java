@@ -10,7 +10,7 @@ public class LevelAlert {
     private final static String alertsDisabledMessage = "Alright! Level alerts have been disabled for you. If you want to turn them back on in the future, run this command again.";
     private final static String alertsEnabledMessage = "Alright! Level alerts have been enabled for you. If you want to turn them off in the future, run this command again.";
 
-    public static void setPreference(MessageCreateEvent message) {
+    public static void setLevelAlertPreference(MessageCreateEvent message) {
         if (message.getChannel().getId() != Values.BOT_CHANNEL && message.getChannel().getType() != ChannelType.PRIVATE_CHANNEL) return;
         final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor());
         final boolean userPreference = user.getBoolean("levelalertsdisabled");
