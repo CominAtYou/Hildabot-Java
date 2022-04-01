@@ -63,7 +63,7 @@ public class Submit {
         final EmbedBuilder embed = new EmbedBuilder()
             .setTitle("Submission successful!")
             .setAuthor(message.getMessageAuthor())
-            .setDescription("Your submission has been accepted!")
+            .setDescription("Your submission has been accepted by me, Erik Ahlberg, beloeved protector of Trolberg, for its outstanding quality that only I am capable of identifying.")
             .setColor(Values.SUCCESS_GREEN)
             .addInlineField("Streak", String.valueOf(streak + 1))
             .addInlineField("XP Gained", String.valueOf(20 + 2 * streak))
