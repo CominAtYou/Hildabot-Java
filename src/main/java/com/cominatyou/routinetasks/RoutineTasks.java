@@ -19,13 +19,15 @@ public class RoutineTasks {
         final JobDetail birthdayJob = JobBuilder.newJob(CheckForBirthdays.class).withIdentity("birthdayAnnoucement", "routineTasks").build();
         final JobDetail streakJob = JobBuilder.newJob(SendStreakWarning.class).withIdentity("streakwarning", "routineTasks").build();
 
-        final Trigger midnightTrigger = TriggerBuilder.newTrigger().withIdentity("birthdayTrigger", "routineTasks").withSchedule(CronScheduleBuilder.cronSchedule("0 0 0 * * ?").inTimeZone(TimeZone.getTimeZone("America/Chicago"))).build();
+        final Trigger birthdayTrigger = TriggerBuilder.newTrigger().withIdentity("birthdayTrigger", "routineTasks").withSchedule(CronScheduleBuilder.cronSchedule("0 0 0 * * ?").inTimeZone(TimeZone.getTimeZone("America/Chicago"))).build();
+        final Trigger streakTrigger = TriggerBuilder.newTrigger().withIdentity("streakTrigger", "routineTasks").withSchedule(CronScheduleBuilder.cronSchedule("0 0 0 * * ?").inTimeZone(TimeZone.getTimeZone("America/Chicago"))).build();
 
         try {
             final Scheduler scheduler = new StdSchedulerFactory().getScheduler();
             scheduler.start();
-            scheduler.scheduleJob(birthdayJob, midnightTrigger);
-            scheduler.scheduleJob(streakJob, midnightTrigger);
+            
+            scheduler.scheduleJob(birthdayJob, birthdayTrigger);
+            scheduler.scheduleJob(streakJob, streakTrigger);
         }
         catch (final SchedulerException e) {
             e.printStackTrace();

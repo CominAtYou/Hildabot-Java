@@ -32,6 +32,8 @@ public class App {
         // Set the bot's activity.
         ActivitySwapper.start(client);
 
+        client.getYourself().updateNickname(client.getServerById(com.cominatyou.util.Values.HILDACORD_ID).get(), "[h!] Hildabot");
+
         client.addMessageCreateListener(MessageCreate::route);
 
         client.addServerMemberJoinListener(MemberJoin::greet);
