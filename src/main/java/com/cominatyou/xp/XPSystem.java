@@ -56,7 +56,7 @@ public class XPSystem {
         final int currentLevel = XPSystemCalculator.determineLevelFromXP(currentXP);
 
         if (currentLevel > beforeActionLevel) {
-            final String embedTitle = RankUtil.isLevelRankLevel(currentLevel) ? String.format("This is a momentous occasion. Allow me, Erik Ahlberg, to congratulate you on your prestigious level up to %s, level %d.",RankUtil.getRankFromLevel(currentLevel).getName(), currentLevel) : String.format("This is a momentous occasion. Allow me, Erik Ahlberg, to congratulate you on your prestigious level up to level %d.", currentLevel);
+            final String embedTitle = RankUtil.isLevelRankLevel(currentLevel) ? String.format("Congrats on leveling up! You've reached level **%d** and are now the **%s** rank!", currentLevel, RankUtil.getRankFromLevel(currentLevel).getName()) : String.format("Congrats on leveling up! You are now level **%d**! :tada:", currentLevel);
 
             Log.eventf("LEVELUP", "%s (%d) leveled up to %d: %d XP\n", message.getMessageAuthor().getDiscriminatedName(), user.getId(), currentLevel, currentXP);
 
