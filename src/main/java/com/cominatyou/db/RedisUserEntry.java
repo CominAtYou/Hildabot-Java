@@ -139,6 +139,20 @@ public class RedisUserEntry {
     }
 
     /**
+     * Get a key that represents a long from the user's database entry.
+     * @param key The key in which to query.
+     * @return The long value of the key, or {@code 0} if the key does not exist or cannot be represented as a {@code long}.
+     */
+    public long getLong(String key) {
+        try {
+            return Long.valueOf(RedisInstance.getInstance().get(redisKey + ":" + key));
+        }
+        catch (NumberFormatException e) {
+            return 0L;
+        }
+    }
+
+    /**
      * Set a value in the user's database entry.
      * @param key The key to set.
      * @param value The value to set.

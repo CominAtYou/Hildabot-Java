@@ -1,11 +1,12 @@
 package com.cominatyou.commands;
 
-import java.time.ZoneId;
+import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
 
+import com.cominatyou.db.RedisInstance;
 import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.util.Values;
 import com.cominatyou.xp.XPSystem;
@@ -31,11 +32,24 @@ public class Submit {
 
         final int streak = user.getInt("streak");
 
-        final ZonedDateTime now = ZonedDateTime.now(ZoneId.of("America/Chicago"));
+        final ZonedDateTime now = ZonedDateTime.now(Values.BOT_TIME_ZONE);
         final ZonedDateTime midnightToday = now.toLocalDate().atStartOfDay(now.getZone());
-        final long streakExpiry = midnightToday.plus(7, ChronoUnit.DAYS).toEpochSecond();
+        final ZonedDateTime midnightInAWeek = midnightToday.plus(7, ChronoUnit.DAYS);
+        final long streakExpiry = midnightInAWeek.toEpochSecond();
 
         final int currentLevel = user.getLevel();
+
+        // Remove old streak entry for warnings.
+        final long oldExpirySec = user.getLong("streakexpiry");
+        if (oldExpirySec != 0) {
+            final ZonedDateTime oldExpiry = Instant.ofEpochSecond(oldExpirySec).atZone(Values.BOT_TIME_ZONE);
+            final int month = oldExpiry.getMonthValue();
+            final int day = oldExpiry.getDayOfMonth();
+
+            final String key = String.format("streakexpiries:%d:%d", month, day);
+
+            RedisInstance.getInstance().lrem(key, 1, user.getIdAsString());
+        }
 
         // Increment the user's streak.
         user.incrementKey("streak");
@@ -53,6 +67,16 @@ public class Submit {
         user.set("streakexpiry", String.valueOf(streakExpiry));
         // Remove timestamp when streak expires.
         user.expireKeyAt("streakexpiry", streakExpiry);
+
+        // Add streak expiry to database for warnings
+        final int expiryMonth = midnightInAWeek.getMonthValue();
+        final int expiryDay = midnightInAWeek.getDayOfMonth();
+        final String newExpiryKey = String.format("streakexpiries:%d:%d", expiryMonth, expiryDay);
+
+        RedisInstance.getInstance().rpush(newExpiryKey, user.getIdAsString());
+        if (RedisInstance.getInstance().ttl(newExpiryKey) == -1) {
+            RedisInstance.getInstance().expireat(newExpiryKey, streakExpiry);
+        }
 
         // If the streak is higher than the user's current high score, set the high score to that.
         if (user.getInt("highscore") < streak + 1) {

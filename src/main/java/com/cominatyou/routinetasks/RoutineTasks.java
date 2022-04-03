@@ -25,7 +25,7 @@ public class RoutineTasks {
         try {
             final Scheduler scheduler = new StdSchedulerFactory().getScheduler();
             scheduler.start();
-            
+
             scheduler.scheduleJob(birthdayJob, birthdayTrigger);
             scheduler.scheduleJob(streakJob, streakTrigger);
         }

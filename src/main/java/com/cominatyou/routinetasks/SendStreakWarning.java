@@ -5,7 +5,6 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -19,15 +18,13 @@ public class SendStreakWarning implements Job {
 
     @Override
     public void execute(JobExecutionContext arg0) throws JobExecutionException {
-        final ZonedDateTime now = ZonedDateTime.now(ZoneId.of("America/Chicago"));
+        final ZonedDateTime now = ZonedDateTime.now(Values.BOT_TIME_ZONE);
         final ZonedDateTime midnight = now.toLocalDate().atStartOfDay(now.getZone());
         final ZonedDateTime threeDaysAhead = midnight.plus(3, ChronoUnit.DAYS);
         final ZonedDateTime tomorrow = midnight.plus(1, ChronoUnit.DAYS);
 
         int month = midnight.getMonthValue();
         int day = midnight.getDayOfMonth();
-
-        RedisInstance.getInstance().del(String.format("streakexpiries:%d:%d", month, day));
 
         month = threeDaysAhead.getMonthValue();
         day = threeDaysAhead.getDayOfMonth();
