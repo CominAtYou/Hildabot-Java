@@ -32,7 +32,7 @@ public class DbEntryCard {
                     .setColor(Values.HILDA_BLUE)
                     .setThumbnail(member.getAvatar())
                     .addInlineField("Total XP", String.valueOf(userEntry.getXP()))
-                    .addInlineField("Level", String.format("%d (%s)", level, RankUtil.getRankNameFromLevel(level)))
+                    .addInlineField("Level", String.format("%d (%s)", level, RankUtil.getRankFromLevel(level).getName()))
                     .addInlineField("XP for Level Up", String.valueOf(XPSystemCalculator.determineMinimumTotalXPForLevel(level + 1)))
                     .addInlineField("Enrolled", userEntry.getBoolean("enrolled") ? "Yes" : "No")
                     .addInlineField("Level Alerts", userEntry.getBoolean("levelalertsdisabled") ? "Disabled" : "Enabled")

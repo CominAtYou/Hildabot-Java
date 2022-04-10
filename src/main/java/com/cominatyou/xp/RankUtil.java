@@ -39,7 +39,7 @@ public class RankUtil {
             if (level == rankLevels[i]) return level;
             if (level < rankLevels[i + 1]) return rankLevels[i];
         }
-        return -1;
+        return -1; // This should never happen
     }
 
     /**
@@ -66,15 +66,5 @@ public class RankUtil {
      */
     public static Integer[] getRanklevels() {
         return rankLevels;
-    }
-
-    /**
-     * Get the name of a rank from its level.
-     * @param level The level to get the name of.
-     * @return The name of the rank from the specified level.
-     */
-    public static String getRankNameFromLevel(int level) {
-        final int rankLevel = getRankLevelFromLevel(level);
-        return ranksMap.get(rankLevel).getName();
     }
 }

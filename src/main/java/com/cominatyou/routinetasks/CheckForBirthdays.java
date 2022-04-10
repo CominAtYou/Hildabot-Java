@@ -10,6 +10,7 @@ import com.cominatyou.App;
 import com.cominatyou.db.RedisInstance;
 import com.cominatyou.util.Values;
 
+import org.atteo.evo.inflector.English;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.permission.Role;
@@ -28,7 +29,7 @@ public class CheckForBirthdays implements Job {
         final Optional<Role> birthdayRole = client.getServerById(Values.HILDACORD_ID).get().getRoleById(609258045759029250L);
         birthdayRole.ifPresent(role -> {
             final Collection<User> birthdayRoleUsers = role.getUsers();
-            if (birthdayRoleUsers.size() != 0) System.out.printf("[BIRTHDAYS] Removing birthday role from %d user(s)\n", birthdayRoleUsers.size());
+            if (birthdayRoleUsers.size() != 0) System.out.printf("[BIRTHDAYS] Removing birthday role from %d %s\n", birthdayRoleUsers.size(), English.plural("user", birthdayRoleUsers.size()));
             birthdayRoleUsers.forEach(user -> {
                 user.removeRole(role, "Their birthday has passed.");
             });
@@ -48,7 +49,9 @@ public class CheckForBirthdays implements Job {
         }
         final TextChannel birthdayChannel = client.getServerById(Values.HILDACORD_ID).get().getTextChannelById(609253148564914187L).get();
 
-        System.out.printf("[BIRTHDAYS] Got %d birthdays for %d-%s\n", birthdays.size(), month, dayString);
+        final int birthdaysCount = birthdays.size();
+
+        System.out.printf("[BIRTHDAYS] Got %d %s for %d-%s\n", birthdaysCount, English.plural("birthday", birthdaysCount), month, dayString);
 
         // Filter out members that are no longer in the server
         birthdays.forEach(i -> {

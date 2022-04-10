@@ -13,6 +13,7 @@ import com.cominatyou.App;
 import com.cominatyou.db.RedisInstance;
 import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.util.Values;
+import com.cominatyou.util.logging.Log;
 
 public class SendStreakWarning implements Job {
 
@@ -50,6 +51,8 @@ public class SendStreakWarning implements Job {
             });
         }
 
+        Log.eventf("STREAKWARN", "Sent three-day streak expiry warning to %d users.", expireInThreeDays.size());
+
         embed.setTitle("Your streak expires in 1 day!");
 
         for (String i : expireTomorrow) {
@@ -60,6 +63,8 @@ public class SendStreakWarning implements Job {
                 user.openPrivateChannel().join().sendMessage(embed);
             });
         }
+
+        Log.eventf("STREAKWARN", "Sent next-day streak expiry warning to %d users.", expireTomorrow.size());
 
     }
 }

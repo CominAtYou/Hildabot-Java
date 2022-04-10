@@ -52,7 +52,7 @@ public class Stats {
             .setTitle(user.getDisplayName(message.getServer().get()))
             .setThumbnail(user.getAvatar())
             .setColor(roleColor.orElse(Values.HILDA_BLUE))
-            .setDescription(String.format("%s, Level %d", RankUtil.getRankNameFromLevel(userEntry.getLevel()), currentLevel))
+            .setDescription(String.format("%s, Level %d", RankUtil.getRankFromLevel(currentLevel).getName(), currentLevel))
             .addField("Progress", progressCircles.toString())
             .addInlineField("XP", userEntry.getXP() - XPSystemCalculator.determineMinimumTotalXPForLevel(currentLevel) + "/" + xpForLevelUp)
             .addInlineField("Streak", String.valueOf(currentStreak))

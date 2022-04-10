@@ -7,6 +7,7 @@ import com.cominatyou.util.Values;
 import com.cominatyou.util.logging.Log;
 import com.cominatyou.xp.RankUtil;
 
+import org.atteo.evo.inflector.English;
 import org.javacord.api.entity.permission.Role;
 import org.javacord.api.entity.user.User;
 import org.javacord.api.event.message.MessageCreateEvent;
@@ -40,7 +41,7 @@ public class LevelCheck {
 
         if (restoredRoles > 0) {
             message.getMessage().reply("You're all set. The roles you were missing have been added to you.");
-            Log.eventf("LEVELCHECK", "Restored %d role%s for %s (%d)\n", restoredRoles, (restoredRoles == 1 ? "" : "s"), message.getMessageAuthor().getDiscriminatedName(), message.getMessageAuthor().getId());
+            Log.eventf("LEVELCHECK", "Restored %d %s for %s (%d)\n", restoredRoles, English.plural("role", restoredRoles), message.getMessageAuthor().getDiscriminatedName(), message.getMessageAuthor().getId());
         }
         else {
             message.getMessage().reply("You don't seem to be missing any roles, so you're all set!");
