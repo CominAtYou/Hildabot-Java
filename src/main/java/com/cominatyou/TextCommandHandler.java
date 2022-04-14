@@ -88,6 +88,10 @@ public class TextCommandHandler {
                 StreakWarning.setStreakWarningPreference(event);
                 break;
             }
+            case "type": {
+                SendTyping.startTyping(event, messageArgs);
+                break;
+            }
         }
     }
 }
