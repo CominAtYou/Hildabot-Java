@@ -26,11 +26,8 @@ public class SendStreakWarning implements Job {
         final ZonedDateTime threeDaysAhead = midnight.plus(3, ChronoUnit.DAYS);
         final ZonedDateTime tomorrow = midnight.plus(1, ChronoUnit.DAYS);
 
-        int month = midnight.getMonthValue();
-        int day = midnight.getDayOfMonth();
-
-        month = threeDaysAhead.getMonthValue();
-        day = threeDaysAhead.getDayOfMonth();
+        int month = threeDaysAhead.getMonthValue();
+        int day = threeDaysAhead.getDayOfMonth();
 
         final List<String> expireInThreeDays = RedisInstance.getInstance().lrange(String.format("streakexpiries:%d:%d", month, day), 0, -1);
 

@@ -36,6 +36,7 @@ public class Submit {
         final ZonedDateTime midnightToday = now.toLocalDate().atStartOfDay(now.getZone());
         final ZonedDateTime midnightInAWeek = midnightToday.plus(7, ChronoUnit.DAYS);
         final long streakExpiry = midnightInAWeek.toEpochSecond();
+        final long streakWarningKeyExpiry = midnightInAWeek.plus(10, ChronoUnit.MINUTES).toEpochSecond();
 
         final int currentLevel = user.getLevel();
 
@@ -75,7 +76,7 @@ public class Submit {
 
         RedisInstance.getInstance().rpush(newExpiryKey, user.getIdAsString());
         if (RedisInstance.getInstance().ttl(newExpiryKey) == -1) {
-            RedisInstance.getInstance().expireat(newExpiryKey, streakExpiry);
+            RedisInstance.getInstance().expireat(newExpiryKey, streakWarningKeyExpiry);
         }
 
         // If the streak is higher than the user's current high score, set the high score to that.
