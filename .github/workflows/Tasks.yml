@@ -37,3 +37,12 @@ jobs:
         run: curl $SCRIPT_URL -o 'importscript.py'
       - name: Run script
         run: python ./importscript.py
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Deploy bot
+        env:
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+          DEPLOY_URL: ${{ secrets.DEPLOY_URL }}
+        run: "curl -X POST -H \"Authorization: $DEPLOY_KEY\" $DEPLOY_URL"
