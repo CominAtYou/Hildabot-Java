@@ -24,7 +24,8 @@ public class ActivitySwapper {
             new Activity(ActivityType.LISTENING, "the Rat King's secrets"),
             new Activity(ActivityType.LISTENING, "Alfur lecture"),
             new Activity(ActivityType.LISTENING, "the bells"),
-            new Activity(ActivityType.LISTENING, "a campfire story")
+            new Activity(ActivityType.LISTENING, "a campfire story"),
+            new Activity(ActivityType.LISTENING, "The Life of Hilda")
     };
 
     public static void start(DiscordApi client) {
