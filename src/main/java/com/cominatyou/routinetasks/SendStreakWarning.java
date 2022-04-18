@@ -1,5 +1,6 @@
 package com.cominatyou.routinetasks;
 
+import org.atteo.evo.inflector.English;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -26,15 +27,15 @@ public class SendStreakWarning implements Job {
         final ZonedDateTime threeDaysAhead = midnight.plus(3, ChronoUnit.DAYS);
         final ZonedDateTime tomorrow = midnight.plus(1, ChronoUnit.DAYS);
 
-        int month = threeDaysAhead.getMonthValue();
-        int day = threeDaysAhead.getDayOfMonth();
+        final int threeDayMonth = threeDaysAhead.getMonthValue();
+        final int threeDayDay = threeDaysAhead.getDayOfMonth();
 
-        final List<String> expireInThreeDays = RedisInstance.getInstance().lrange(String.format("streakexpiries:%d:%d", month, day), 0, -1);
+        final List<String> expireInThreeDays = RedisInstance.getInstance().lrange(String.format("streakexpiries:%d:%d", threeDayMonth, threeDayDay), 0, -1);
 
-        month = tomorrow.getMonthValue();
-        day = tomorrow.getMonthValue();
+        final int tomorrowMonth = tomorrow.getMonthValue();
+        final int tomorrowDay = tomorrow.getDayOfMonth();
 
-        final List<String> expireTomorrow = RedisInstance.getInstance().lrange(String.format("streakexpiries:%d:%d", month, day), 0, -1);
+        final List<String> expireTomorrow = RedisInstance.getInstance().lrange(String.format("streakexpiries:%d:%d", tomorrowMonth, tomorrowDay), 0, -1);
 
         final EmbedBuilder embed = new EmbedBuilder()
                 .setTitle("Your streak expires in 3 days!")
@@ -50,7 +51,7 @@ public class SendStreakWarning implements Job {
             });
         }
 
-        Log.eventf("STREAKWARN", "Sent three-day streak expiry warning to %d users.\n", expireInThreeDays.size());
+        Log.eventf("STREAKWARN", "Sent three-day streak expiry warning to %d %s.\n", expireInThreeDays.size(), English.plural("user", expireInThreeDays.size()));
 
         embed.setTitle("Your streak expires in 1 day!");
 
@@ -63,7 +64,7 @@ public class SendStreakWarning implements Job {
             });
         }
 
-        Log.eventf("STREAKWARN", "Sent next-day streak expiry warning to %d users.\n", expireTomorrow.size());
+        Log.eventf("STREAKWARN", "Sent next-day streak expiry warning to %d %s.\n", expireTomorrow.size(), English.plural("user", expireTomorrow.size()));
 
     }
 }
