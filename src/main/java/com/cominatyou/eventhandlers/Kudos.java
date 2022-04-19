@@ -1,4 +1,4 @@
-package com.cominatyou.eventhandlers.kudos;
+package com.cominatyou.eventhandlers;
 
 import com.cominatyou.db.RedisUserEntry;
 

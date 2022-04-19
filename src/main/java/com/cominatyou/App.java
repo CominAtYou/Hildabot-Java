@@ -1,8 +1,8 @@
 package com.cominatyou;
 
 import com.cominatyou.db.RedisInstance;
+import com.cominatyou.eventhandlers.Kudos;
 import com.cominatyou.eventhandlers.MessageCreate;
-import com.cominatyou.eventhandlers.kudos.Kudos;
 import com.cominatyou.eventhandlers.memberevents.*;
 import com.cominatyou.routinetasks.RoutineTasks;
 import com.cominatyou.util.StartupInfo;
@@ -34,7 +34,7 @@ public class App {
 
         client.addMessageCreateListener(MessageCreate::route);
 
-        client.addUserRoleAddListener(ReactionGateRoleAdd::greet);
+        client.addUserRoleAddListener(MemberPassGate::greet);
         client.addServerMemberLeaveListener(MemberLeave::removeDBEntries);
         client.addServerMemberBanListener(MemberBan::removeDBEntries);
 

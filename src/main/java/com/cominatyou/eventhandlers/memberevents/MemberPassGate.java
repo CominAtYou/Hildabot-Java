@@ -10,7 +10,7 @@ import com.cominatyou.xp.RestoreRoles;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.server.role.UserRoleAddEvent;
 
-public class ReactionGateRoleAdd {
+public class MemberPassGate {
     private final static String[] welcomeMessages = {"Come on in and have a seat around the fire!", "We're glad to have you here!", "Glad you could make it!", "Make yourself at home!", "The bells ring to welcome your arrival."};
 
     public static void greet(UserRoleAddEvent event) {
