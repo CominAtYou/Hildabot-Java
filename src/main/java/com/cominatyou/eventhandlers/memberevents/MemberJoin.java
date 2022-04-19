@@ -3,11 +3,9 @@ package com.cominatyou.eventhandlers.memberevents;
 import java.util.concurrent.ThreadLocalRandom;
 
 import com.cominatyou.util.Values;
-import com.cominatyou.xp.RankUtil;
 import com.cominatyou.xp.RestoreRoles;
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;
-import org.javacord.api.entity.permission.Role;
 import org.javacord.api.event.server.member.ServerMemberJoinEvent;
 
 public class MemberJoin {
@@ -15,9 +13,6 @@ public class MemberJoin {
 
     public static void greet(ServerMemberJoinEvent event) {
         if (event.getUser().isBot()) return;
-
-        final Role timeWorm = event.getServer().getRoleById(RankUtil.getRankFromLevel(1).getId()).get();
-        event.getUser().addRole(timeWorm);
 
         final int index = ThreadLocalRandom.current().nextInt(0, welcomeMessages.length);
         final String greeting = welcomeMessages[index];
