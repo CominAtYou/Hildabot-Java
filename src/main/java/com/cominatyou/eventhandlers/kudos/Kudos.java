@@ -13,7 +13,6 @@ public class Kudos {
         if (reaction.getChannel().getType() == ChannelType.PRIVATE_CHANNEL) return;
         if (reaction.getEmoji() != reaction.getServer().get().getCustomEmojiById(539313415425097728L).get()) return;
 
-
         final Message message;
 
         try {

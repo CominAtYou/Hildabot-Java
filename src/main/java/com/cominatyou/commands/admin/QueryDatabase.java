@@ -3,11 +3,12 @@ package com.cominatyou.commands.admin;
 import java.util.List;
 
 import com.cominatyou.db.RedisInstance;
+import com.cominatyou.util.Command;
 
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class QueryDatabase {
-    public static void sendQuery(MessageCreateEvent message, List<String> messageArgs) {
+public class QueryDatabase extends Command {
+    public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (!message.getMessageAuthor().isBotOwner()) return;
 
         if (messageArgs.size() == 0) {

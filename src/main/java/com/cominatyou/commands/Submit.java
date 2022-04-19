@@ -8,15 +8,17 @@ import java.util.List;
 
 import com.cominatyou.db.RedisInstance;
 import com.cominatyou.db.RedisUserEntry;
+import com.cominatyou.util.Command;
 import com.cominatyou.util.Values;
 import com.cominatyou.xp.XPSystem;
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class Submit {
+public class Submit extends Command {
     private static final List<Long> allowedChannels = Arrays.asList(492580926111481859L, 492580873628286976L, 492578733442465804L, 492579714674720778L, 492885164993675264L);
-    public static void acceptSubmission(MessageCreateEvent message, List<String> messageArgs) {
+
+    public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (!allowedChannels.contains(message.getChannel().getId())) return;
         if (!String.join(" ", messageArgs).matches("https?://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|].*") && message.getMessage().getAttachments().size() == 0) {
             message.getMessage().reply("You need to provide something to submit!");

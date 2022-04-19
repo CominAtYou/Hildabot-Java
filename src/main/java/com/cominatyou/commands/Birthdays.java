@@ -10,17 +10,18 @@ import java.util.Optional;
 import com.cominatyou.db.RedisInstance;
 import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.util.BirthdayEntry;
+import com.cominatyou.util.Command;
 import com.cominatyou.util.Values;
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.entity.user.User;
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class Birthdays {
+public class Birthdays extends Command {
     private static final List<String> thirtyDayMonths = Arrays.asList("09", "04", "06", "11");
     private static final List<String> thirtyOneDayMonths = Arrays.asList("01", "03", "05", "07", "08", "10", "12");
 
-    public static void run(MessageCreateEvent message, List<String> messageArgs) {
+    public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (messageArgs.size() == 0 || messageArgs.size() == 1 && !messageArgs.get(0).equalsIgnoreCase("list")) {
             message.getMessage().reply("Looks like you're missing some arguments. Please make sure you provided a command (set|edit) and a date (i.e. `h!birthday set 06-21`), or list and a month if you want to view upcoming birthdays!");
         }

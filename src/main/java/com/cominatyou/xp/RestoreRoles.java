@@ -23,7 +23,7 @@ public class RestoreRoles {
             final Role role = event.getServer().getRoleById(levelId).get();
             role.addUser(event.getUser());
         }
+        
         Log.eventf("RESTORE", "Restored roles for %s (%d), starting from level %d\n", event.getUser().getDiscriminatedName(), event.getUser().getId(), rankLevel);
-
     }
 }

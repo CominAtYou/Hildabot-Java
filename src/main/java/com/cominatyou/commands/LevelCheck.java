@@ -1,8 +1,10 @@
 package com.cominatyou.commands;
 
 import java.util.Arrays;
+import java.util.List;
 
 import com.cominatyou.db.RedisUserEntry;
+import com.cominatyou.util.Command;
 import com.cominatyou.util.Values;
 import com.cominatyou.util.logging.Log;
 import com.cominatyou.xp.RankUtil;
@@ -12,8 +14,8 @@ import org.javacord.api.entity.permission.Role;
 import org.javacord.api.entity.user.User;
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class LevelCheck {
-    public static void check(MessageCreateEvent message) { // Essentially the auto-restore, but command-based.
+public class LevelCheck extends Command {
+    public void execute(MessageCreateEvent message, List<String> args) { // Essentially the auto-restore, but command-based.
         if (message.getMessage().getChannel().getId() != Values.BOT_CHANNEL) return;
 
         final RedisUserEntry userEntry = new RedisUserEntry(message.getMessageAuthor());

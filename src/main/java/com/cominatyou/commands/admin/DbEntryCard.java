@@ -3,6 +3,7 @@ package com.cominatyou.commands.admin;
 import java.util.List;
 
 import com.cominatyou.db.RedisUserEntry;
+import com.cominatyou.util.Command;
 import com.cominatyou.util.Values;
 import com.cominatyou.xp.RankUtil;
 import com.cominatyou.xp.XPSystemCalculator;
@@ -11,8 +12,8 @@ import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.entity.server.Server;
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class DbEntryCard {
-    public static void sendCard(MessageCreateEvent message, List<String> messageArgs) {
+public class DbEntryCard extends Command {
+    public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (!message.getMessageAuthor().isBotOwner()) return;
         if (messageArgs.size() == 0) {
             message.getChannel().sendMessage("Please provide a User ID.");

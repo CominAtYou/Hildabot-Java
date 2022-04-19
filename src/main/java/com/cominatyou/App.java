@@ -5,13 +5,12 @@ import com.cominatyou.eventhandlers.MessageCreate;
 import com.cominatyou.eventhandlers.kudos.Kudos;
 import com.cominatyou.eventhandlers.memberevents.*;
 import com.cominatyou.routinetasks.RoutineTasks;
+import com.cominatyou.util.StartupInfo;
 import com.cominatyou.util.activities.ActivitySwapper;
 
-import org.javacord.api.BotInviteBuilder;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.intent.Intent;
-import org.javacord.api.entity.permission.Permissions;
 
 public class App {
     private static final DiscordApi client = new DiscordApiBuilder().setToken(Config.TOKEN).setIntents(Intent.GUILD_MEMBERS, Intent.GUILD_MESSAGES, Intent.DIRECT_MESSAGES, Intent.GUILD_MESSAGE_REACTIONS).login().join();
@@ -20,8 +19,9 @@ public class App {
     }
 
     public static void main(String[] args) {
-        System.out.printf("Logged in as %s\n", client.getYourself().getDiscriminatedName());
-        System.out.println("Invite bot with " + new BotInviteBuilder(client.getClientId()).setPermissions(Permissions.fromBitmask(412652792896L)).build());
+
+        // Write useful info to the output
+        StartupInfo.output(client);
 
         // Open connection to Redis database
         RedisInstance.connect();

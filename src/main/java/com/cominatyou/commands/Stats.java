@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.cominatyou.db.RedisUserEntry;
+import com.cominatyou.util.Command;
 import com.cominatyou.util.Values;
 import com.cominatyou.xp.RankUtil;
 import com.cominatyou.xp.XPSystemCalculator;
@@ -13,8 +14,8 @@ import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.entity.user.User;
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class Stats {
-    public static void execute(MessageCreateEvent message, List<String> messageArgs) {
+public class Stats extends Command {
+    public void execute(MessageCreateEvent message, List<String> messageArgs) {
         final String id;
         if (messageArgs.size() == 0) {
             id = message.getMessageAuthor().getIdAsString();

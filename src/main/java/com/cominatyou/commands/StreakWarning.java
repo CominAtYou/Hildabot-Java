@@ -1,16 +1,19 @@
 package com.cominatyou.commands;
 
+import java.util.List;
+
 import com.cominatyou.db.RedisUserEntry;
+import com.cominatyou.util.Command;
 import com.cominatyou.util.Values;
 
 import org.javacord.api.entity.channel.ChannelType;
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class StreakWarning {
+public class StreakWarning extends Command {
     private static final String warningsDisabledMessage = "Sure thing. Streak warnings have been disabled for you. Should you want to turn them back on, you can re-run this command.";
     private static final String warningsEnabledMessage = "Alright! Level warnings have been enabled again. If you want to turn them off again, re-run this command!";
 
-    public static void setStreakWarningPreference(MessageCreateEvent message) {
+    public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (message.getChannel().getId() != Values.BOT_CHANNEL && message.getChannel().getType() != ChannelType.PRIVATE_CHANNEL) return;
 
         final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor());
