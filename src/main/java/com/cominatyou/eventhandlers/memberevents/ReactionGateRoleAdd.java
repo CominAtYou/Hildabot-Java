@@ -1,18 +1,22 @@
 package com.cominatyou.eventhandlers.memberevents;
 
+import java.time.Instant;
 import java.util.concurrent.ThreadLocalRandom;
 
 import com.cominatyou.util.Values;
+import com.cominatyou.xp.RankUtil;
 import com.cominatyou.xp.RestoreRoles;
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;
-import org.javacord.api.event.server.member.ServerMemberJoinEvent;
+import org.javacord.api.event.server.role.UserRoleAddEvent;
 
-public class MemberJoin {
+public class ReactionGateRoleAdd {
     private final static String[] welcomeMessages = {"Come on in and have a seat around the fire!", "We're glad to have you here!", "Glad you could make it!", "Make yourself at home!", "The bells ring to welcome your arrival."};
 
-    public static void greet(ServerMemberJoinEvent event) {
+    public static void greet(UserRoleAddEvent event) {
         if (event.getUser().isBot()) return;
+        if (event.getRole().getId() != RankUtil.getRankFromLevel(1).getId()) return;
+        if (Instant.now().getEpochSecond() - event.getUser().getJoinedAtTimestamp(event.getServer()).get().getEpochSecond() > 172800) return;
 
         final int index = ThreadLocalRandom.current().nextInt(0, welcomeMessages.length);
         final String greeting = welcomeMessages[index];
