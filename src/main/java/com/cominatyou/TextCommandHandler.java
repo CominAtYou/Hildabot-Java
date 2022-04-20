@@ -33,7 +33,8 @@ public class TextCommandHandler {
         entry("levelcheck", new LevelCheck()),
         entry("ping", new Ping()),
         entry("dbcard", new DbEntryCard()),
-        entry("type", new SendTyping())
+        entry("type", new SendTyping()),
+        entry("inituser", new InitializeUser())
     );
 
     public static void getCommand(MessageCreateEvent event) {

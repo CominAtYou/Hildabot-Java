@@ -16,6 +16,8 @@ public class RoutineTasks {
      * Schedule the routine tasks that run every day at midnight Central Time.
      */
     public static void schedule() {
+        if (!System.getProperty("os.name").equalsIgnoreCase("Linux")) return;
+
         final JobDetail birthdayJob = JobBuilder.newJob(CheckForBirthdays.class).withIdentity("birthdayAnnoucement", "routineTasks").build();
         final JobDetail streakJob = JobBuilder.newJob(SendStreakWarning.class).withIdentity("streakwarning", "routineTasks").build();
 
