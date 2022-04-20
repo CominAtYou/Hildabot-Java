@@ -6,14 +6,14 @@ import java.util.List;
 import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.util.Command;
 import com.cominatyou.xp.RankUtil;
+import com.cominatyou.xp.XPSystemCalculator;
 
 import org.javacord.api.entity.permission.Role;
 import org.javacord.api.event.message.MessageCreateEvent;
 
 public class InitializeUser extends Command {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
-        if (!message.getMessageAuthor().isBotOwner())
-            return;
+        if (!message.getMessageAuthor().isBotOwner()) return;
         if (messageArgs.size() < 2) {
             message.getChannel().sendMessage("You need to provide a user ID and/or a level for that!");
             return;
@@ -29,7 +29,7 @@ public class InitializeUser extends Command {
 
         message.getServer().get().getMemberById(messageArgs.get(0)).ifPresentOrElse(user -> {
             final RedisUserEntry dbUser = new RedisUserEntry(user);
-            final Integer xp = RankUtil.getRankFromLevel(level).getMinimumXP();
+            final Integer xp = XPSystemCalculator.determineMinimumTotalXPForLevel(level);
 
             dbUser.set("xp", xp.toString());
 
