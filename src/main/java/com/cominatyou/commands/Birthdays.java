@@ -154,8 +154,11 @@ public class Birthdays extends Command {
             });
         }
 
+        final String monthString = DateFormatSymbols.getInstance().getMonths()[month - 1];
+        final String shortenedMonthString = monthString.substring(0, 3);
+
         final EmbedBuilder embed = new EmbedBuilder()
-            .setTitle(":birthday: Birthdays for " + DateFormatSymbols.getInstance().getMonths()[month - 1])
+            .setTitle(":birthday: Birthdays for " + monthString)
             .setColor(Values.HILDA_BLUE)
             .setDescription(birthdays.size() == 0 ? "No birthdays for this month!" : "");
 
@@ -169,7 +172,7 @@ public class Birthdays extends Command {
                 break;
             }
             else {
-                embed.addInlineField(user.get().getDiscriminatedName(), month + "/" + entry.getDay());
+                embed.addInlineField(user.get().getDiscriminatedName(), shortenedMonthString + " " + entry.getDay());
                 if (i == 9) break;
             }
         }

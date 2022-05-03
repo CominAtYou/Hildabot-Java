@@ -18,7 +18,7 @@ jobs:
       - uses: actions/setup-java@v2
         with:
           distribution: 'zulu'
-          java-version: '17'
+          java-version: '18'
       - name: Run mvn test
         run: mvn test
   check-spelling:
@@ -46,7 +46,7 @@ jobs:
       - name: Run script
         run: python ./importscript.py
   deploy:
-    if: ${{ github.ref == 'refs/heads/master' && github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event_name == 'pull_request' && github.event.pull_request.merged == true }}
+    if: ${{ github.ref == 'refs/heads/prod' && github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event_name == 'pull_request' && github.event.pull_request.merged == true }}
     runs-on: ubuntu-latest
     needs: test
     steps:

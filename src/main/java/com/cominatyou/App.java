@@ -19,7 +19,6 @@ public class App {
     }
 
     public static void main(String[] args) {
-
         // Write useful info to the output
         StartupInfo.output(client);
 

@@ -56,7 +56,9 @@ public class XPSystem {
         final int currentLevel = XPSystemCalculator.determineLevelFromXP(currentXP);
 
         if (currentLevel > beforeActionLevel) {
-            final String embedTitle = RankUtil.isLevelRankLevel(currentLevel) ? String.format("Congrats on leveling up! You've reached level **%d** and are now the **%s** rank!", currentLevel, RankUtil.getRankFromLevel(currentLevel).getName()) : String.format("Congrats on leveling up! You are now level **%d**! :tada:", currentLevel);
+            final String rankUpMessage = String.format("Congrats on leveling up! You've reached level **%d** and are now the **%s** rank!", currentLevel, RankUtil.getRankFromLevel(currentLevel).getName());
+            final String levelUpMessage = String.format("Congrats on leveling up! You are now level **%d**! :tada:", currentLevel);
+            final String embedTitle = RankUtil.isLevelRankLevel(currentLevel) ? rankUpMessage : levelUpMessage;
 
             Log.eventf("LEVELUP", "%s (%d) leveled up to %d: %d XP\n", message.getMessageAuthor().getDiscriminatedName(), user.getId(), currentLevel, currentXP);
 
@@ -76,16 +78,24 @@ public class XPSystem {
             if (RankUtil.isLevelRankLevel(currentLevel)) {
                 final long roleId = RankUtil.getRankFromLevel(currentLevel).getId();
                 final Role role = message.getServer().get().getRoleById(roleId).get();
+
+                final EmbedBuilder errorEmbed = new EmbedBuilder().setColor(Values.HILDA_BLUE)
+                    .setTitle("Failed to assign a role!")
+                    .setDescription("Role assignment for a level up did not complete successfully. Check `hildabot-error.log` for more information.")
+                    .addInlineField("User", String.format("%s (%d)", message.getMessageAuthor().getDiscriminatedName(), user.getId()))
+                    .addInlineField("Role", String.format("%s (%d)", role.getName(), currentLevel));
                 try {
                     role.addUser(message.getMessageAuthor().asUser().get()).get();
                     Log.eventf("LEVELUP", "Assigned role %s to %s (%d)\n", role.getName(), message.getMessageAuthor().getDiscriminatedName(), message.getMessageAuthor().getId());
                 }
                 catch (ExecutionException e) {
                     Log.errorf("LEVELUP", "Failed to assign %s to %s (%d)!\n", role.getName(), message.getMessageAuthor().getDiscriminatedName(), message.getMessageAuthor().getId());
+                    message.getApi().getOwner().join().openPrivateChannel().join().sendMessage(errorEmbed);
                     e.getCause().printStackTrace();
                 }
                 catch (Exception e) {
                     Log.errorf("LEVELUP", "Failed to assign %s to %s (%d)!\n", role.getName(), message.getMessageAuthor().getDiscriminatedName(), message.getMessageAuthor().getId());
+                    message.getApi().getOwner().join().openPrivateChannel().join().sendMessage(errorEmbed);
                     e.printStackTrace();
                 }
             }

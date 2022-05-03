@@ -29,12 +29,11 @@ public class InitializeUser extends Command {
 
         message.getServer().get().getMemberById(messageArgs.get(0)).ifPresentOrElse(user -> {
             final RedisUserEntry dbUser = new RedisUserEntry(user);
-            final Integer xp = XPSystemCalculator.determineMinimumTotalXPForLevel(level);
 
+            final Integer xp = XPSystemCalculator.determineMinimumTotalXPForLevel(level);
             dbUser.set("xp", xp.toString());
 
             final int rankLevel = RankUtil.getRankFromLevel(dbUser.getLevel()).getLevel();
-
             final Integer[] rankLevels = RankUtil.getRanklevels();
             final int index = Arrays.asList(rankLevels).indexOf(rankLevel);
 
@@ -47,7 +46,7 @@ public class InitializeUser extends Command {
 
             message.getChannel().sendMessage("Completed successfully. The user should have all their XP and roles now.");
         }, () -> {
-            message.getChannel().sendMessage("That ID doesn't look to be the ID of someone in this server!");
+            message.getChannel().sendMessage("That ID doesn't seem to be the ID of someone in this server!");
         });
     }
 }
