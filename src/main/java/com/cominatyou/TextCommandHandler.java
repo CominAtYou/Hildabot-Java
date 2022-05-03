@@ -1,10 +1,10 @@
 package com.cominatyou;
 
+import static java.util.Map.entry;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
-
-import static java.util.Map.entry;
 
 import com.cominatyou.commands.*;
 import com.cominatyou.commands.admin.*;
@@ -14,13 +14,14 @@ import org.javacord.api.entity.channel.ChannelType;
 import org.javacord.api.event.message.MessageCreateEvent;
 
 public class TextCommandHandler {
-
+    // Commands that can be run in both private channels and guild text channels
     private static final Map<String, Command> sharedCommands = Map.ofEntries(
         entry("levelalert", new LevelAlert()),
         entry("querydb", new QueryDatabase()),
         entry("streakwarning", new StreakWarning())
     );
 
+    // Commands that can be run in only guild text channels
     private static final Map<String, Command> guildCommands = Map.ofEntries(
         entry("birthday", new Birthdays()),
         entry("stats", new Stats()),
@@ -38,7 +39,9 @@ public class TextCommandHandler {
     );
 
     public static void getCommand(MessageCreateEvent event) {
-        ArrayList<String> messageArgs = new ArrayList<>(Arrays.asList(event.getMessageContent().substring(Config.PREFIX.length()).split(" +")));
+        final String[] messageContentArray = event.getMessageContent().substring(Config.PREFIX.length()).split(" +");
+        final ArrayList<String> messageArgs = new ArrayList<>(Arrays.asList(messageContentArray));
+
         final String command = messageArgs.remove(0).toLowerCase();
 
         if (sharedCommands.containsKey(command)) {

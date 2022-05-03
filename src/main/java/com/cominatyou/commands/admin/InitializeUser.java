@@ -38,6 +38,7 @@ public class InitializeUser extends Command {
             final Integer[] rankLevels = RankUtil.getRanklevels();
             final int index = Arrays.asList(rankLevels).indexOf(rankLevel);
 
+            // Give roles
             for (int i = index; i > 0; i--) {
                 final long levelId = RankUtil.getRankFromLevel(rankLevels[i]).getId();
                 final Role role = message.getServer().get().getRoleById(levelId).get();
