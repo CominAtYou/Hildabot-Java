@@ -32,6 +32,8 @@ public class ActivitySwapper {
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
+                if (ActivityStatus.isActive()) return;
+                
                 final int index = ThreadLocalRandom.current().nextInt(0, activities.length);
                 client.updateActivity(activities[index].getType(), activities[index].getActivity());
             }

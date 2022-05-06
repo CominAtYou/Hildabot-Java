@@ -18,7 +18,8 @@ public class TextCommandHandler {
     private static final Map<String, Command> sharedCommands = Map.ofEntries(
         entry("levelalert", new LevelAlert()),
         entry("querydb", new QueryDatabase()),
-        entry("streakwarning", new StreakWarning())
+        entry("streakwarning", new StreakWarning()),
+        entry("setactivity", new SetActivity())
     );
 
     // Commands that can be run in only guild text channels
