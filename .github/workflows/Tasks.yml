@@ -54,4 +54,4 @@ jobs:
         env:
           DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
           DEPLOY_URL: ${{ secrets.DEPLOY_URL }}
-        run: "curl -s -f -X POST -H \"Authorization: $DEPLOY_KEY\" -m 45 $DEPLOY_URL"
+        run: "curl -s -f -X POST -H \"Authorization: $DEPLOY_KEY\" -m 60 $DEPLOY_URL"
