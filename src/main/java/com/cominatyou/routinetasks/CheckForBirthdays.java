@@ -9,6 +9,7 @@ import java.util.Optional;
 import com.cominatyou.App;
 import com.cominatyou.db.RedisInstance;
 import com.cominatyou.util.Values;
+import com.cominatyou.util.logging.Log;
 
 import org.atteo.evo.inflector.English;
 import org.javacord.api.DiscordApi;
@@ -24,7 +25,7 @@ public class CheckForBirthdays implements Job {
     public void execute(JobExecutionContext context) throws JobExecutionException {
         final DiscordApi client = App.getClient();
 
-        System.out.println("[BIRTHDAYS] Starting birthdays task.");
+        Log.event("BIRTHDAYS", "Starting birthdays task.");
 
         final Optional<Role> birthdayRole = client.getServerById(Values.HILDACORD_ID).get().getRoleById(609258045759029250L);
         birthdayRole.ifPresent(role -> {
@@ -51,7 +52,7 @@ public class CheckForBirthdays implements Job {
 
         final int birthdaysCount = birthdays.size();
 
-        System.out.printf("[BIRTHDAYS] Got %d %s for %d-%s\n", birthdaysCount, English.plural("birthday", birthdaysCount), month, dayString);
+        Log.eventf("BIRTHDAYS", "Got %d %s for %d-%s\n", birthdaysCount, English.plural("birthday", birthdaysCount), month, dayString);
 
         // Filter out members that are no longer in the server
         birthdays.forEach(i -> {
@@ -83,7 +84,7 @@ public class CheckForBirthdays implements Job {
             client.getServerById(Values.HILDACORD_ID).get().getMemberById(id).ifPresent(user -> {
                 birthdayRole.ifPresent(role -> {
                     role.addUser(user, "Their birthday is today!");
-                    System.out.printf("[BIRTHDAYS] Gave birthday role to %s (%d)\n", user.getDiscriminatedName(), user.getId());
+                    Log.eventf("BIRTHDAYS", "Gave birthday role to %s (%d)\n", user.getDiscriminatedName(), user.getId());
                 });
             });
         });
