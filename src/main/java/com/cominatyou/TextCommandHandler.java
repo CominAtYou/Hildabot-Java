@@ -27,7 +27,6 @@ public class TextCommandHandler {
         entry("birthday", new Birthdays()),
         entry("stats", new Stats()),
         entry("submit", new Submit()),
-        entry("restore", new Restore()),
         entry("help", new Help()),
         entry("commit", new Commit()),
         entry("say", new Say()),
