@@ -48,10 +48,9 @@ public class CheckForBirthdays implements Job {
             final List<String> leapBirthdays = RedisInstance.getInstance().lrange("birthdays:02:29", 0, -1);
             birthdays.addAll(leapBirthdays);
         }
+
         final TextChannel birthdayChannel = client.getServerById(Values.HILDACORD_ID).get().getTextChannelById(609253148564914187L).get();
-
         final int birthdaysCount = birthdays.size();
-
         Log.eventf("BIRTHDAYS", "Got %d %s for %d-%s\n", birthdaysCount, English.plural("birthday", birthdaysCount), month, dayString);
 
         // Filter out members that are no longer in the server

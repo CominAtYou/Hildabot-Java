@@ -11,8 +11,7 @@ public class XPSystemCalculator {
         if (xp < 0) throw new IllegalArgumentException("XP must be a positive value.");
         if (xp < 50) return 1;
 
-        // TODO: Find a less stupid way for this later.
-        for (int i = 1; i < 500; i++) {
+        for (int i = 1; i < 500; i++) { // This was the best way I could think of it
             final int possibleNextLevelXP = determineMinimumTotalXPForLevel(i + 1);
             if (possibleNextLevelXP > xp) return i;
         }

@@ -34,8 +34,6 @@ public class App {
         client.addMessageCreateListener(MessageCreate::route);
 
         client.addUserRoleAddListener(MemberPassGate::greet);
-        client.addServerMemberLeaveListener(MemberLeave::removeDBEntries);
-        client.addServerMemberBanListener(MemberBan::removeDBEntries);
 
         client.addReactionAddListener(Kudos::tally);
         client.addReactionRemoveListener(Kudos::remove);
