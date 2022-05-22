@@ -10,6 +10,6 @@ import org.javacord.api.event.message.MessageCreateEvent;
 public class GetVersion extends Command {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (!message.getMessageAuthor().isBotOwner()) return;
-        message.getChannel().sendMessage(String.format("Version %s (%s)", Version.VERSION, Version.BUILD_NUMBER));
+        message.getChannel().sendMessage("Version " + Version.VERSION_STRING);
     }
 }

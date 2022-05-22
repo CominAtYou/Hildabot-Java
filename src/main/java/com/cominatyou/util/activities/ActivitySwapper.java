@@ -19,7 +19,7 @@ public class ActivitySwapper {
             new Activity(ActivityType.PLAYING, "with the trolls"),
             new Activity(ActivityType.PLAYING, "with Twig"),
             new Activity(ActivityType.PLAYING, "with the water spirits"),
-            new Activity(ActivityType.PLAYING, String.format("Version %s (%s)", Version.VERSION, Version.BUILD_NUMBER)),
+            new Activity(ActivityType.PLAYING, "Version " + Version.VERSION_STRING),
             new Activity(ActivityType.COMPETING, "a dodgeball game"),
             new Activity(ActivityType.LISTENING, "the Rat King's secrets"),
             new Activity(ActivityType.LISTENING, "Alfur lecture"),
@@ -33,7 +33,7 @@ public class ActivitySwapper {
             @Override
             public void run() {
                 if (ActivityStatus.isActive()) return;
-                
+
                 final int index = ThreadLocalRandom.current().nextInt(0, activities.length);
                 client.updateActivity(activities[index].getType(), activities[index].getActivity());
             }
