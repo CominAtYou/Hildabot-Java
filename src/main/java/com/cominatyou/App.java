@@ -13,7 +13,12 @@ import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.intent.Intent;
 
 public class App {
-    private static final DiscordApi client = new DiscordApiBuilder().setToken(Config.TOKEN).setIntents(Intent.GUILD_MEMBERS, Intent.GUILD_MESSAGES, Intent.DIRECT_MESSAGES, Intent.GUILD_MESSAGE_REACTIONS).login().join();
+    private static final DiscordApi client = new DiscordApiBuilder()
+        .setToken(Config.TOKEN)
+        .setIntents(Intent.GUILD_MEMBERS, Intent.GUILD_MESSAGES, Intent.DIRECT_MESSAGES, Intent.GUILD_MESSAGE_REACTIONS)
+        .login()
+        .join();
+
     public static DiscordApi getClient() {
         return client;
     }
