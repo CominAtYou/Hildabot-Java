@@ -33,7 +33,7 @@ public class Submit extends Command {
 
         final int streak = user.getInt("streak");
 
-        final ZonedDateTime now = ZonedDateTime.now(Values.BOT_TIME_ZONE);
+        final ZonedDateTime now = ZonedDateTime.now(Values.TIMEZONE_AMERICA_CHICAGO);
         final ZonedDateTime midnightToday = now.toLocalDate().atStartOfDay(now.getZone());
         final ZonedDateTime midnightInAWeek = midnightToday.plus(7, ChronoUnit.DAYS);
         final long streakExpiry = midnightInAWeek.toEpochSecond();
@@ -43,7 +43,7 @@ public class Submit extends Command {
         // Remove old streak entry for warnings.
         final long oldExpirySec = user.getLong("streakexpiry");
         if (oldExpirySec != 0) {
-            final ZonedDateTime oldExpiry = Instant.ofEpochSecond(oldExpirySec).atZone(Values.BOT_TIME_ZONE);
+            final ZonedDateTime oldExpiry = Instant.ofEpochSecond(oldExpirySec).atZone(Values.TIMEZONE_AMERICA_CHICAGO);
             final int month = oldExpiry.getMonthValue();
             final int day = oldExpiry.getDayOfMonth();
 

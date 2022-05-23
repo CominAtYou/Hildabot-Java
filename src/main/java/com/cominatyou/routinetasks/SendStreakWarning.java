@@ -22,7 +22,7 @@ public class SendStreakWarning implements Job {
     public void execute(JobExecutionContext arg0) throws JobExecutionException {
         Log.event("STREAKWARN", "Starting streak warnings task.");
 
-        final ZonedDateTime now = ZonedDateTime.now(Values.BOT_TIME_ZONE);
+        final ZonedDateTime now = ZonedDateTime.now(Values.TIMEZONE_AMERICA_CHICAGO);
         final ZonedDateTime midnight = now.toLocalDate().atStartOfDay(now.getZone());
         final ZonedDateTime threeDaysAhead = midnight.plus(3, ChronoUnit.DAYS);
         final ZonedDateTime tomorrow = midnight.plus(1, ChronoUnit.DAYS);
