@@ -49,7 +49,7 @@ public class Submit extends Command {
 
             final String key = String.format("streakexpiries:%d:%d", month, day);
 
-            RedisInstance.getInstance().lrem(key, 1, user.getIdAsString());
+            RedisInstance.getInstance().lrem(key, 0, user.getIdAsString());
         }
 
         // Increment the user's streak.

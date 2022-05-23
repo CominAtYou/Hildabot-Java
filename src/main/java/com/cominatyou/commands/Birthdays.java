@@ -119,7 +119,7 @@ public class Birthdays extends Command {
         final String month = monthInt < 10 ? "0" + monthInt : monthInt.toString();
         final String day = dayInt < 10 ? "0" + dayInt : dayInt.toString();
 
-        RedisInstance.getInstance().lrem("birthdays" + ":" + month + ":" + day, 1, String.valueOf(user.getId()));
+        RedisInstance.getInstance().lrem("birthdays" + ":" + month + ":" + day, 0, String.valueOf(user.getId()));
         RedisInstance.getInstance().del("users:" + user.getId() + ":birthday:month", "users:" + user.getId() + ":birthday:day", "users:" + user.getId() + ":birthday:string");
         set(message, messageArgs);
     }
