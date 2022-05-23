@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.cominatyou.commands.*;
 import com.cominatyou.commands.admin.*;
+import com.cominatyou.commands.staff.*;
 
 import org.javacord.api.entity.channel.ChannelType;
 import org.javacord.api.event.message.MessageCreateEvent;
@@ -34,7 +35,8 @@ public class TextCommandHandler {
         entry("ping", new Ping()),
         entry("dbcard", new DbEntryCard()),
         entry("type", new SendTyping()),
-        entry("inituser", new InitializeUser())
+        entry("inituser", new InitializeUser()),
+        entry("revertsubmission", new RevertSubmission())
     );
 
     public static void getCommand(MessageCreateEvent event) {

@@ -15,7 +15,7 @@ import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;
 
 public class Submit extends Command {
-    private static final List<Long> allowedChannels = Arrays.asList(492580926111481859L, 492580873628286976L, 492578733442465804L, 492579714674720778L, 492885164993675264L);
+    private static final List<Long> allowedChannels = Arrays.asList(492580926111481859L, 492580873628286976L, 492578733442465804L, 492579714674720778L, 492885164993675264L, 565327145786802176L);
 
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (!allowedChannels.contains(message.getChannel().getId())) return;
@@ -52,12 +52,19 @@ public class Submit extends Command {
             RedisInstance.getInstance().lrem(key, 0, user.getIdAsString());
         }
 
+        // Save the user's previous streak expiry if they have one.
+        if (user.getLong("streak") > 0) {
+            user.set("previousstreakexpiry", user.getString("streakexpiry"));
+        }
+
         // Increment the user's streak.
         user.incrementKey("streak");
         // Streaks expire after one week of inactivity.
         user.expireKeyAt("streak", streakExpiry);
         // XP for submissions is calculated by taking the user's current streak, and adding 20 to it.
         user.incrementKey("xp", 20 + 2 * streak);
+        // Record the message ID of the submission.
+        user.set("latestsubmissionid", message.getMessage().getIdAsString());
         // One submission is permitted per day.
         user.set("submitted", "true");
         // Increment the total number of submissions from this user.
@@ -68,6 +75,10 @@ public class Submit extends Command {
         user.set("streakexpiry", String.valueOf(streakExpiry));
         // Remove timestamp when streak expires.
         user.expireKeyAt("streakexpiry", streakExpiry);
+
+        if (user.getLong("previousstreakexpiry") != 0) {
+            user.expireKeyAt("previousstreakexpiry", streakExpiry);
+        }
 
         // Add streak expiry to database for warnings
         final int expiryMonth = midnightInAWeek.getMonthValue();
