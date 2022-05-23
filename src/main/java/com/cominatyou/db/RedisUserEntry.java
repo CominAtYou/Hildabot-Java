@@ -13,7 +13,7 @@ public class RedisUserEntry {
     final String redisKey;
 
     private void checkForEmptyKey(String key) throws IllegalArgumentException {
-        if (key.equals("")) {
+        if (key == null || key.equals("")) {
             throw new IllegalArgumentException("Key cannot be empty");
         }
     }
@@ -113,7 +113,7 @@ public class RedisUserEntry {
      * Get a key that represents a boolean in the user's database entry.
      * @param key The key in which to query.
      * @return {@code true} if the string value of the key (ignoring case) equals {@code "true"}. {@code false} if the key does not exist or does not equal {@code "true"}, ignoring case.
-     * @throws IllegalArgumentException If the value of {@code key} is an empty string.
+     * @throws IllegalArgumentException If the value of {@code key} is null or an empty string.
      * @see Boolean#parseBoolean(String) Boolean#parseBoolean for more information on the logic.
      */
     public boolean getBoolean(String key) throws IllegalArgumentException {
@@ -127,7 +127,7 @@ public class RedisUserEntry {
      * Get a key that represents an int in the user's database entry.
      * @param key The key in which to query.
      * @return The integer value if it is present, or {@code 0} if the key does not exist or does not have a numerical representation.
-     * @throws IllegalArgumentException If the value of {@code key} is an empty string.
+     * @throws IllegalArgumentException If the value of {@code key} is null or an empty string.
      */
     public int getInt(String key) throws IllegalArgumentException {
         checkForEmptyKey(key);
@@ -145,7 +145,7 @@ public class RedisUserEntry {
      * Get a string from the user's database entry.
      * @param key The key in which to query.
      * @return The string from the key, or {@code null} if the key does not exist.
-     * @throws IllegalArgumentException If the value of {@code key} is an empty string.
+     * @throws IllegalArgumentException If the value of {@code key} is null or an empty string.
      */
     public String getString(String key) throws IllegalArgumentException {
         checkForEmptyKey(key);
@@ -156,7 +156,7 @@ public class RedisUserEntry {
      * Get a key that represents a long from the user's database entry.
      * @param key The key in which to query.
      * @return The long value of the key, or {@code 0} if the key does not exist or cannot be represented as a {@code long}.
-     * @throws IllegalArgumentException If the value of {@code key} is an empty string.
+     * @throws IllegalArgumentException If the value of {@code key} is null or an empty string.
      */
     public long getLong(String key) throws IllegalArgumentException {
         checkForEmptyKey(key);
@@ -174,7 +174,7 @@ public class RedisUserEntry {
      * @param key The key to set.
      * @param value The value to set.
      * @return {@code OK} if {@code SET} was executed properly.
-     * @throws IllegalArgumentException If the value of {@code key} is an empty string.
+     * @throws IllegalArgumentException If the value of {@code key} is null or an empty string.
      */
     public String set(String key, String value) throws IllegalArgumentException {
         checkForEmptyKey(key);
@@ -191,7 +191,7 @@ public class RedisUserEntry {
      * @param key The key to set the expiry of.
      * @param expiry The expiry, in Unix timestamp form, in seconds. If the timestamp is in the past, the key will be deleted.
      * @return {@code true} if the expiry was set. {@code false} if the key does not exist or if there was an issue setting the expiry.
-     * @throws IllegalArgumentException If the value of {@code key} is an empty string.
+     * @throws IllegalArgumentException If the value of {@code key} is null or an empty string.
      */
     public boolean expireKeyAt(String key, long expiry) throws IllegalArgumentException {
         checkForEmptyKey(key);
@@ -203,7 +203,7 @@ public class RedisUserEntry {
      * @param key The key to set the expiry of.
      * @param seconds The seconds from when set that the key should expire.
      * @return {@code true} if the expiry was set. {@code false} if the key does not exist or if there was an issue setting the expiry.
-     * @throws IllegalArgumentException If the value of {@code key} is an empty string.
+     * @throws IllegalArgumentException If the value of {@code key} is null or an empty string.
      */
     public boolean expireKeyIn(String key, long seconds) throws IllegalArgumentException {
         checkForEmptyKey(key);
@@ -215,7 +215,7 @@ public class RedisUserEntry {
      * @param key The key to increment.
      * @param amount The amount to increment the key by.
      * @return The value of the key post-increment.
-     * @throws IllegalArgumentException If the value of {@code key} is an empty string.
+     * @throws IllegalArgumentException If the value of {@code key} is null or an empty string.
      */
     public long incrementKey(String key, int amount) throws IllegalArgumentException {
         checkForEmptyKey(key);
@@ -226,7 +226,7 @@ public class RedisUserEntry {
      * Increment a key in the user's database entry by {@code 1}.
      * @param key The key to increment.
      * @return The value of the key post-increment.
-     * @throws IllegalArgumentException If the value of {@code key} is an empty string.
+     * @throws IllegalArgumentException If the value of {@code key} is null or an empty string.
      */
     public long incrementKey(String key) throws IllegalArgumentException {
         checkForEmptyKey(key);
@@ -238,7 +238,7 @@ public class RedisUserEntry {
      * @param key The key to decrement.
      * @param amount The amount to decrement the key by.
      * @return The value of the key post-decrement.
-     * @throws IllegalArgumentException If the value of {@code key} is an empty string.
+     * @throws IllegalArgumentException If the value of {@code key} is null or an empty string.
      */
     public long decrementKey(String key, int amount) throws IllegalArgumentException {
         checkForEmptyKey(key);
@@ -249,7 +249,7 @@ public class RedisUserEntry {
      * Decrement a key in the user's database entry by {@code 1}.
      * @param key The key to decrement.
      * @return The value of the key post-decrement.
-     * @throws IllegalArgumentException If the value of {@code key} is an empty string.
+     * @throws IllegalArgumentException If the value of {@code key} is null or an empty string.
      */
     public long decrementKey(String key) throws IllegalArgumentException {
         checkForEmptyKey(key);
