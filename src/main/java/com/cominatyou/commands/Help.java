@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 import static java.util.Map.entry;
 
-import com.cominatyou.util.Command;
 import com.cominatyou.helparticles.*;
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;

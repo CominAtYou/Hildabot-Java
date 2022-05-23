@@ -2,8 +2,8 @@ package com.cominatyou.commands.admin;
 
 import java.util.List;
 
+import com.cominatyou.commands.Command;
 import com.cominatyou.db.RedisUserEntry;
-import com.cominatyou.util.Command;
 import com.cominatyou.util.Values;
 import com.cominatyou.xp.RankUtil;
 import com.cominatyou.xp.XPSystemCalculator;

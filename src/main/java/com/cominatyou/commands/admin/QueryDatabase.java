@@ -2,8 +2,8 @@ package com.cominatyou.commands.admin;
 
 import java.util.List;
 
+import com.cominatyou.commands.Command;
 import com.cominatyou.db.RedisInstance;
-import com.cominatyou.util.Command;
 
 import org.javacord.api.event.message.MessageCreateEvent;
 

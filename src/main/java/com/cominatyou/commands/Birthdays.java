@@ -10,7 +10,6 @@ import java.util.Optional;
 import com.cominatyou.db.RedisInstance;
 import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.util.BirthdayEntry;
-import com.cominatyou.util.Command;
 import com.cominatyou.util.Values;
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;

@@ -3,7 +3,7 @@ package com.cominatyou.commands.admin;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.cominatyou.util.Command;
+import com.cominatyou.commands.Command;
 import com.cominatyou.util.activities.ActivityStatus;
 import com.cominatyou.util.versioning.Version;
 

@@ -8,7 +8,6 @@ import java.util.List;
 
 import com.cominatyou.db.RedisInstance;
 import com.cominatyou.db.RedisUserEntry;
-import com.cominatyou.util.Command;
 import com.cominatyou.util.Values;
 import com.cominatyou.xp.XPSystem;
 

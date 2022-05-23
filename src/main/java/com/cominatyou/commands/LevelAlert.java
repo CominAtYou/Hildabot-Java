@@ -3,7 +3,6 @@ package com.cominatyou.commands;
 import java.util.List;
 
 import com.cominatyou.db.RedisUserEntry;
-import com.cominatyou.util.Command;
 import com.cominatyou.util.Values;
 
 import org.javacord.api.entity.channel.ChannelType;

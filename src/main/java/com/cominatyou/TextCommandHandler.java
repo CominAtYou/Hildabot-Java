@@ -8,7 +8,6 @@ import java.util.Map;
 
 import com.cominatyou.commands.*;
 import com.cominatyou.commands.admin.*;
-import com.cominatyou.util.Command;
 
 import org.javacord.api.entity.channel.ChannelType;
 import org.javacord.api.event.message.MessageCreateEvent;

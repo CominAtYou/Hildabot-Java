@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.cominatyou.db.RedisUserEntry;
-import com.cominatyou.util.Command;
 import com.cominatyou.util.Values;
 import com.cominatyou.util.logging.Log;
 import com.cominatyou.xp.RankUtil;

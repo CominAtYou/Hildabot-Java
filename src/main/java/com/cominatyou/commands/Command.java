@@ -1,4 +1,4 @@
-package com.cominatyou.util;
+package com.cominatyou.commands;
 
 import java.util.List;
 

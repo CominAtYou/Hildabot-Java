@@ -2,7 +2,7 @@ package com.cominatyou.commands.admin;
 
 import java.util.List;
 
-import com.cominatyou.util.Command;
+import com.cominatyou.commands.Command;
 
 import org.javacord.api.event.message.MessageCreateEvent;
 
