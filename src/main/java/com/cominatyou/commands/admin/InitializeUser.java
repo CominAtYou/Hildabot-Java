@@ -11,7 +11,7 @@ import com.cominatyou.xp.XPSystemCalculator;
 import org.javacord.api.entity.permission.Role;
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class InitializeUser extends Command {
+public class InitializeUser implements Command {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (!message.getMessageAuthor().isBotOwner()) return;
         if (messageArgs.size() < 2) {

@@ -16,7 +16,7 @@ import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.entity.user.User;
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class Birthdays extends Command {
+public class Birthdays implements Command {
     private static final List<String> thirtyDayMonths = Arrays.asList("09", "04", "06", "11");
     private static final List<String> thirtyOneDayMonths = Arrays.asList("01", "03", "05", "07", "08", "10", "12");
 

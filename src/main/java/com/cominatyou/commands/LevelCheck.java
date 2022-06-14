@@ -13,7 +13,7 @@ import org.javacord.api.entity.permission.Role;
 import org.javacord.api.entity.user.User;
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class LevelCheck extends Command {
+public class LevelCheck implements Command {
     public void execute(MessageCreateEvent message, List<String> args) { // Essentially the auto-restore, but command-based.
         if (message.getMessage().getChannel().getId() != Values.BOT_CHANNEL) return;
 

@@ -15,7 +15,7 @@ import org.javacord.api.entity.permission.Role;
 import org.javacord.api.entity.server.Server;
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class RevertSubmission extends Command {
+public class RevertSubmission implements Command {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         final Server hildacord = message.getServer().get();
         final Role staffRole = hildacord.getRoleById(492577085743824906L).get();
@@ -60,7 +60,7 @@ public class RevertSubmission extends Command {
             message.getChannel().sendMessage("That submission has been reverted.");
             return;
         }
-        
+
         if (authorEntry.getInt("highscore") == authorEntry.getInt("streak")) {
             authorEntry.decrementKey("highscore");
         }

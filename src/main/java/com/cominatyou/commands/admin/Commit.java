@@ -7,7 +7,7 @@ import com.cominatyou.db.RedisInstance;
 
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class Commit extends Command {
+public class Commit implements Command {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (!message.getMessageAuthor().isBotOwner()) return;
 

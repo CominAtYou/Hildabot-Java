@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public abstract class Command {
+/**
+ * A command that can be run with the bot, either in a DM or server text channel.
+ */
+public interface Command {
    /**
     * Run the command.
     * @param message The message invoking the command

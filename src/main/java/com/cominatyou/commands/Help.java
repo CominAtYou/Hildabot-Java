@@ -9,7 +9,7 @@ import com.cominatyou.helparticles.*;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class Help extends Command {
+public class Help implements Command {
     final static Map<String, EmbedBuilder> helpEmbeds = Map.ofEntries(
         entry("birthday", BirthdayHelp.ARTICLE_EMBED),
         entry("levelalert", LevelAlertHelp.ARTICLE_EMBED),

@@ -6,7 +6,7 @@ import com.cominatyou.commands.Command;
 
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class Say extends Command {
+public class Say implements Command {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (!message.getMessageAuthor().isBotOwner()) return;
 

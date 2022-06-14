@@ -13,7 +13,7 @@ import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.entity.user.User;
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class Stats extends Command {
+public class Stats implements Command {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         final String id;
         if (messageArgs.size() == 0) {

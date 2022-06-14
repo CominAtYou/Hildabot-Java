@@ -8,7 +8,7 @@ import com.cominatyou.commands.Command;
 
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class Ping extends Command {
+public class Ping implements Command {
     public void execute(MessageCreateEvent message, List<String> args) {
         if (!message.getMessageAuthor().isBotOwner()) return;
         final long latency = Duration.between(message.getMessage().getCreationTimestamp(), Instant.now()).toMillis();

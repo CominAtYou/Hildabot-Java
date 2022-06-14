@@ -8,7 +8,7 @@ import com.cominatyou.util.Values;
 import org.javacord.api.entity.channel.ChannelType;
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class LevelAlert extends Command {
+public class LevelAlert implements Command {
     private final static String alertsDisabledMessage = "Alright! Level alerts have been disabled for you. If you want to turn them back on in the future, run this command again.";
     private final static String alertsEnabledMessage = "Alright! Level alerts have been enabled for you. If you want to turn them off in the future, run this command again.";
 
