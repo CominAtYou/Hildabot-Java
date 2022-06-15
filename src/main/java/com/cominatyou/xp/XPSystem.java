@@ -25,6 +25,7 @@ public class XPSystem {
         // XP will only be granted for 7 messages sent within 30 seconds. This might
         // need to be increased.
         if (user.getInt("recentmessagecount") == 7) return;
+        if (RedisInstance.getInstance().lrange("config:xp:ignoredusers", 0, -1).contains(message.getMessageAuthor().getIdAsString())) return;
 
         final int currentXP = user.getXP();
         final int currentLevel = XPSystemCalculator.determineLevelFromXP(currentXP);
