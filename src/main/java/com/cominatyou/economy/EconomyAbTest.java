@@ -18,7 +18,7 @@ import com.cominatyou.util.logging.Log;
  */
 
 public class EconomyAbTest {
-    private static final int MAXIMUM_TEST_PARTICIPANTS = 25 + 1; // 25, excluding me
+    private static final int MAXIMUM_TEST_PARTICIPANTS = 10 + 1; // 25, excluding me
 
     /**
      * Possibly register the user for the A/B test, based on random chance.
@@ -29,10 +29,10 @@ public class EconomyAbTest {
 
         // Check if they are eligible
         if (isParticipating(user)) return;
-        if (entry.getLevel() < 60) return;
-        if (entry.getInt("streak") < 40) return;
+        if (entry.getLevel() < 50) return;
+        if (entry.getInt("streak") < 25) return;
 
-        if (ThreadLocalRandom.current().nextInt(0, 10) != 6) return; // 10% chance for being selected; the bound of ThreadLocalRandom is exclusive
+        if (ThreadLocalRandom.current().nextInt(0, 4) != 1) return; // 25% chance for being selected; the bound of ThreadLocalRandom is exclusive
 
         final long participantsCount = RedisInstance.getInstance().llen("config:abtests:economy");
         if (participantsCount > MAXIMUM_TEST_PARTICIPANTS) return;
