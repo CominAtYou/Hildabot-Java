@@ -12,7 +12,6 @@ public class Kudos {
     public static void tally(ReactionAddEvent reaction) {
         if (reaction.getChannel().getType() == ChannelType.PRIVATE_CHANNEL) return;
         if (reaction.getEmoji() != reaction.getServer().get().getCustomEmojiById(539313415425097728L).get()) return;
-
         final Message message;
 
         try {
@@ -35,7 +34,7 @@ public class Kudos {
             giver.incrementKey("xp", 2);
         }
 
-        if (message.getType() == MessageType.NORMAL) {
+        if (message.getType() == MessageType.NORMAL && !reaction.getMessage().get().getAuthor().isBotUser()) {
             final RedisUserEntry receiver = new RedisUserEntry(message.getAuthor());
             receiver.incrementKey("kudos:received");
             receiver.incrementKey("xp", 2);
@@ -61,7 +60,7 @@ public class Kudos {
             return;
         }
 
-        if (message.getType() == MessageType.NORMAL) {
+        if (message.getType() == MessageType.NORMAL && event.getMessage().get().getAuthor().isBotUser()) {
             final RedisUserEntry receiver = new RedisUserEntry(event.getMessageAuthor().get());
             receiver.decrementKey("kudos:received");
             receiver.decrementKey("xp", 2);
