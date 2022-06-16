@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.cominatyou.db.RedisUserEntry;
+import com.cominatyou.economy.EconomyAbTest;
 import com.cominatyou.util.Values;
 import com.cominatyou.xp.RankUtil;
 import com.cominatyou.xp.XPSystemCalculator;
@@ -58,7 +59,7 @@ public class Stats implements Command {
             .addInlineField("Streak", String.valueOf(currentStreak))
             .addInlineField("High Score", highScore)
             .addField("Kudos", String.format("<:HildaStar:539313415425097728> **Given:** %d | <:HildaStar:539313415425097728> **Received:** %d", userEntry.getInt("kudos:given"), userEntry.getInt("kudos:received")))
-            .addField("Stats", "**Submits:** " + userEntry.getInt("timessubmitted"))
+            .addField("Stats", "**Submits:** " + userEntry.getInt("timessubmitted") + (EconomyAbTest.isParticipating(message.getMessageAuthor()) ? " | **Tokens:** " + userEntry.getInt("economy:tokens") : ""))
             .addField("Submit Status", userEntry.getBoolean("submitted") ? (id.equals(message.getMessageAuthor().getIdAsString()) ? ":white_check_mark: You have submitted today!" : ":white_check_mark: Submitted today!") : (id.equals(message.getMessageAuthor().getIdAsString()) ? "You have not submitted today." : "Nothing yet today!"));
 
         final String streakExpiry = userEntry.getString("streakexpiry");
