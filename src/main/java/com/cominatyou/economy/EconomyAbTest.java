@@ -39,7 +39,7 @@ public class EconomyAbTest {
 
         // Add the user's Discord ID to the list of participants
         RedisInstance.getInstance().rpush("config:abtests:economy", user.getIdAsString());
-        Log.eventf("ECONOMY_TEST", "%s (%d) was added to the economy A/B test, %d slots remaining", user.getDiscriminatedName(), entry.getId(), MAXIMUM_TEST_PARTICIPANTS - participantsCount);
+        Log.eventf("ECONOMY_TEST", "%s (%d) was added to the economy A/B test, %d slots remaining\n", user.getDiscriminatedName(), entry.getId(), MAXIMUM_TEST_PARTICIPANTS - participantsCount);
     }
 
     /**
