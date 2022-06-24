@@ -33,17 +33,17 @@ public class ListBirthdays {
         }
 
         // Single-digit numbers need a leading 0 for the DB.
-        final String monthStr = month < 10 ? "0" + month : month.toString();
-        final int numberOfDays = month == 2 ? 29 : (thirtyDayMonths.contains(monthStr) ? 30 : 31);
+        final String numericalMonthStr = month < 10 ? "0" + month : month.toString();
+        final int numberOfDays = month == 2 ? 29 : (thirtyDayMonths.contains(numericalMonthStr) ? 30 : 31);
         final ArrayList<BirthdayEntry> birthdays = new ArrayList<>();
 
         for (int i = 1; i <= numberOfDays; i++) {
-            final String day = i < 10 ? "0" + i : String.valueOf(i);
-            final int dayInt = i; // needed for forEach loop below
-            final List<String> birthdaysForDay = RedisInstance.getInstance().lrange(String.format("birthdays:%s:%s", monthStr, day), 0, -1);
+            final String dayString = i < 10 ? "0" + i : String.valueOf(i);
+            final int finalDayString = i; // needed for forEach loop below
+            final List<String> birthdaysForDay = RedisInstance.getInstance().lrange(String.format("birthdays:%s:%s", numericalMonthStr, dayString), 0, -1);
 
             birthdaysForDay.forEach(id -> {
-                birthdays.add(new BirthdayEntry(id, dayInt));
+                birthdays.add(new BirthdayEntry(id, finalDayString));
             });
         }
 
@@ -53,7 +53,8 @@ public class ListBirthdays {
         final EmbedBuilder embed = new EmbedBuilder()
             .setTitle(":birthday: Birthdays for " + monthString)
             .setColor(Values.HILDA_BLUE)
-            .setDescription(birthdays.size() == 0 ? "No birthdays for this month!" : "");
+            .setDescription(birthdays.size() == 0 ? "No birthdays for this month!" : "")
+            .setFooter(birthdays.size() > 0 ? String.format("Number of birthdays in %s: %d", monthString, birthdays.size()) : "");
 
         for (int i = 0; i < birthdays.size(); i++) {
             final BirthdayEntry entry = birthdays.get(i);
