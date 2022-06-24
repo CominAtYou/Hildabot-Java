@@ -1,16 +1,17 @@
 package com.cominatyou;
 
-import com.cominatyou.db.RedisInstance;
-import com.cominatyou.eventhandlers.Kudos;
-import com.cominatyou.eventhandlers.MessageCreate;
-import com.cominatyou.eventhandlers.memberevents.*;
-import com.cominatyou.routinetasks.RoutineTasks;
-import com.cominatyou.util.StartupInfo;
-import com.cominatyou.util.activities.ActivitySwapper;
-
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.intent.Intent;
+
+import com.cominatyou.db.RedisInstance;
+import com.cominatyou.eventhandlers.Kudos;
+import com.cominatyou.eventhandlers.MessageCreate;
+import com.cominatyou.eventhandlers.ThreadCreate;
+import com.cominatyou.eventhandlers.memberevents.MemberPassGate;
+import com.cominatyou.routinetasks.RoutineTasks;
+import com.cominatyou.util.StartupInfo;
+import com.cominatyou.util.activities.ActivitySwapper;
 
 public class App {
     private static final DiscordApi client = new DiscordApiBuilder()
@@ -37,6 +38,8 @@ public class App {
         ActivitySwapper.start(client);
 
         client.addMessageCreateListener(MessageCreate::route);
+
+        client.addServerThreadChannelCreateListener(ThreadCreate::onCreate);
 
         client.addUserRoleAddListener(MemberPassGate::greet);
 
