@@ -14,8 +14,7 @@ public class AvailableHelpArticles {
         .append("• **levelcheck** - Didn't get a role that you should have? This'll fix that.\n")
         .append("• **stats** - Get XP-related stats for you or another user.\n")
         .append("• **streakwarning** - Like levelalert, but for streak warnings.\n")
-        .append("• **submit** - Submit content in certain channels to get some XP!\n")
-        .append("• **tokens** - Get info on the Tokens test!").toString();
+        .append("• **submit** - Submit content in certain channels to get some XP!\n").toString();
 
     public static final EmbedBuilder HELP_ARTICLES_EMBED = new EmbedBuilder()
         .setTitle("Help")

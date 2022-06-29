@@ -8,7 +8,6 @@ import java.util.List;
 
 import com.cominatyou.db.RedisInstance;
 import com.cominatyou.db.RedisUserEntry;
-import com.cominatyou.economy.EconomyAbTest;
 import com.cominatyou.util.Values;
 import com.cominatyou.xp.XPSystem;
 
@@ -97,13 +96,6 @@ public class Submit implements Command {
             user.set("highscore", String.valueOf(streak + 1));
         }
 
-        // Economy A/B test stuff
-        EconomyAbTest.register(message.getMessageAuthor());
-
-        if (EconomyAbTest.isParticipating(message.getMessageAuthor())) {
-            user.incrementKey("economy:tokens", (int) Math.ceil((20 + streak) / 2));
-        }
-
         final EmbedBuilder embed = new EmbedBuilder()
             .setTitle("Submission successful!")
             .setAuthor(message.getMessageAuthor())
@@ -111,12 +103,6 @@ public class Submit implements Command {
             .setColor(Values.SUCCESS_GREEN)
             .addInlineField("Streak", String.valueOf(streak + 1))
             .addInlineField("XP Gained", String.valueOf(20 + 2 * streak));
-
-        if (EconomyAbTest.isParticipating(message.getMessageAuthor())) {
-            embed.addInlineField("Tokens Earned", String.valueOf((int) Math.ceil((20 + streak) / 2)));
-            embed.setFooter("You're in the Tokens A/B test. You'll be able to use your tokens soon!");
-        }
-
         embed.addField("Streak Expiry", String.format("<t:%d>", streakExpiry));
         message.getChannel().sendMessage(embed);
 

@@ -5,10 +5,8 @@ import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.intent.Intent;
 
 import com.cominatyou.db.RedisInstance;
-import com.cominatyou.eventhandlers.Kudos;
-import com.cominatyou.eventhandlers.MessageCreate;
-import com.cominatyou.eventhandlers.ThreadCreate;
-import com.cominatyou.eventhandlers.memberevents.MemberPassGate;
+import com.cominatyou.eventhandlers.*;
+import com.cominatyou.eventhandlers.memberevents.*;
 import com.cominatyou.routinetasks.RoutineTasks;
 import com.cominatyou.util.StartupInfo;
 import com.cominatyou.util.activities.ActivitySwapper;

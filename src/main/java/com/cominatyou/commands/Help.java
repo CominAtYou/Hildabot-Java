@@ -16,8 +16,7 @@ public class Help implements Command {
         entry("levelcheck", LevelCheckHelp.ARTICLE_EMBED),
         entry("stats", StatsHelp.ARTICLE_EMBED),
         entry("streakwarning", StreakWarningHelp.ARTICLE_EMBED),
-        entry("submit", SubmitHelp.ARTICLE_EMBED),
-        entry("tokens", EconomyTestHelp.ARTICLE_EMBED)
+        entry("submit", SubmitHelp.ARTICLE_EMBED)
     );
 
     public void execute(MessageCreateEvent message, List<String> args) {
