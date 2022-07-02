@@ -34,8 +34,7 @@ public class XPSystem {
         final int amount = ThreadLocalRandom.current().nextInt(2, 5 + 1); // random number between 2 and 5, inclusive
         user.incrementKey("xp", amount);
 
-        // Check if rate limit key exists. If not, create it, set it to 1, and have it
-        // expire in 30 seconds.
+        // Check if rate limit key exists. If not, create it, set it to 1, and have it expire in 30 seconds.
         if (user.getString("recentmessagecount") == null) {
             user.set("recentmessagecount", "1");
             user.expireKeyIn("recentmessagecount", 30);
@@ -82,7 +81,8 @@ public class XPSystem {
                     .setTitle("Failed to assign a role!")
                     .setDescription("Role assignment for a level up did not complete successfully. Check `hildabot-error.log` for more information.")
                     .addInlineField("User", String.format("%s (%d)", message.getMessageAuthor().getDiscriminatedName(), user.getId()))
-                    .addInlineField("Role", String.format("%s (%d)", role.getName(), currentLevel));
+                    .addInlineField("Role", String.format("%s (%d)", role.getName(), currentLevel))
+                    .setColor(Values.HILDA_BLUE);
                 try {
                     role.addUser(message.getMessageAuthor().asUser().get()).get();
                     Log.eventf("LEVELUP", "Assigned role %s to %s (%d)\n", role.getName(), message.getMessageAuthor().getDiscriminatedName(), message.getMessageAuthor().getId());

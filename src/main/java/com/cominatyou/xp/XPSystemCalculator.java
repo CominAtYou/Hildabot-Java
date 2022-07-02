@@ -3,6 +3,7 @@ package com.cominatyou.xp;
 public class XPSystemCalculator {
     /**
      * Determine the level for an XP value.
+     *
      * @param xp The XP value, represented by a <b>positive</b> integer.
      * @return The level associated with the XP value.
      * @throws IllegalArgumentException If a negative value is passed.

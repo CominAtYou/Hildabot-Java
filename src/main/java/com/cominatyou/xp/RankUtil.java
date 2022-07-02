@@ -1,5 +1,6 @@
 package com.cominatyou.xp;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class RankUtil {
@@ -16,12 +17,12 @@ public class RankUtil {
             new Rank("Mad Scientist", 100, 587846803450363916L), new Rank("Mountain Giant", 120, 644368570352009237L),
             new Rank("Weather Spirit", 140, 547261953421082635L), new Rank("Thunder Bird", 160, 520057898731307009L),
             new Rank("Black Hound", 180, 587846612391297034L), new Rank("Lindworm", 200, 644368923331919892L),
-            new Rank("Trevor", 220, 644369091901259776L), new Rank("Alfur", 240, 644369272474173440L),
+            new Rank("Erik", 220, 644369091901259776L), new Rank("Alfur", 240, 644369272474173440L),
             new Rank("David", 260, 644369376274939916L), new Rank("Frida", 280, 644369526129033217L),
             new Rank("Hilda", 300, 644369712108666903L)
     };
 
-    private static final HashMap<Integer, Rank> ranksMap = new HashMap<>(26);
+    private static final HashMap<Integer, Rank> ranksMap = new HashMap<>(ranks.length);
 
     static {
         for (int i = 0; i < ranks.length; i++) {
@@ -35,8 +36,8 @@ public class RankUtil {
      * @return The minimum rank level for the level provided.
      */
     private static int getRankLevelFromLevel(int level) {
+        if (Arrays.binarySearch(rankLevels, level) > -1) return level;
         for (int i = 0; i < rankLevels.length; i++) {
-            if (level == rankLevels[i]) return level;
             if (level < rankLevels[i + 1]) return rankLevels[i];
         }
         return -1; // This should never happen
