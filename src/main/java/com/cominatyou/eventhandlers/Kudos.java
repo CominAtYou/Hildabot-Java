@@ -34,7 +34,7 @@ public class Kudos {
             giver.incrementKey("xp", 2);
         }
 
-        if (message.getType() == MessageType.NORMAL && !reaction.getMessage().get().getAuthor().isBotUser()) {
+        if (message.getType() == MessageType.NORMAL && message.getAuthor().isBotUser()) {
             final RedisUserEntry receiver = new RedisUserEntry(message.getAuthor());
             receiver.incrementKey("kudos:received");
             receiver.incrementKey("xp", 2);
