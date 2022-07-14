@@ -4,6 +4,7 @@ import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.intent.Intent;
 
+import com.cominatyou.console.Console;
 import com.cominatyou.db.RedisInstance;
 import com.cominatyou.eventhandlers.*;
 import com.cominatyou.eventhandlers.memberevents.*;
@@ -43,5 +44,7 @@ public class App {
 
         client.addReactionAddListener(Kudos::tally);
         client.addReactionRemoveListener(Kudos::remove);
+
+        Console.init(client);
     }
 }
