@@ -34,7 +34,8 @@ public class TextCommandHandler {
         entry("ping", new Ping()),
         entry("dbcard", new DbEntryCard()),
         entry("type", new SendTyping()),
-        entry("inituser", new InitializeUser())
+        entry("inituser", new InitializeUser()),
+        entry("creationdate", new CreationDate())
     );
 
     public static void getCommand(MessageCreateEvent event) {
