@@ -12,7 +12,6 @@ import org.javacord.api.entity.user.User;
 import org.javacord.api.event.message.MessageCreateEvent;
 
 import com.cominatyou.db.RedisInstance;
-import com.cominatyou.util.BirthdayEntry;
 import com.cominatyou.util.Values;
 
 public class ListBirthdays {
@@ -71,5 +70,39 @@ public class ListBirthdays {
         }
 
         message.getChannel().sendMessage(embed);
+    }
+
+    private static class BirthdayEntry {
+        private final int day;
+        private final String userId;
+
+        /**
+         * Create a birthday entry for use with the birthday announcer.
+         *
+         * @param userId The ID of the user.
+         * @param day    The day of the month the user's birthday falls on.
+         */
+        public BirthdayEntry(String userId, int day) {
+            this.userId = userId;
+            this.day = day;
+        }
+
+        /**
+         * Get the day of the month that the user's birthday falls on.
+         *
+         * @return The day of the month that the user's birthday falls on.
+         */
+        public int getDay() {
+            return day;
+        }
+
+        /**
+         * Get the user's ID.
+         *
+         * @return The user's ID.
+         */
+        public String getUserId() {
+            return userId;
+        }
     }
 }
