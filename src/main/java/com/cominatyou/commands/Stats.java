@@ -54,7 +54,7 @@ public class Stats implements Command {
             .setTitle(user.getDisplayName(message.getServer().get()))
             .setThumbnail(user.getAvatar())
             .setColor(roleColor.orElse(Values.HILDA_BLUE))
-            .setDescription((message.getMessageAuthor().isBotOwner() ? "**Idiotic OneShot fanatic**\n" : "") + String.format("%s, Level %d", message.getServer().get().getRoleById(currentRankRoleId).get().getName(), currentLevel))
+            .setDescription((message.getMessageAuthor().isBotOwner() ? "**Idiotic OneShot fanatic**\n" : "") + String.format("Level %d • %s", currentLevel, message.getServer().get().getRoleById(currentRankRoleId).get().getName()))
             .addField("Progress", progressCircles.toString())
             .addInlineField("XP", userEntry.getXP() - XPSystemCalculator.determineMinimumTotalXPForLevel(currentLevel) + "/" + xpForLevelUp)
             .addInlineField("Streak", String.valueOf(currentStreak))
