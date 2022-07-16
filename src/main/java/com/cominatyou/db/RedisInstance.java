@@ -40,6 +40,7 @@ public class RedisInstance {
      * @param key The key of the value.
      * @return The value of the given key, or <code>0</code> if the string does not have a numerical representation or the key does not exist.
      */
+    @Deprecated
     public static int getInt(String key) {
         String resp = syncCommands.get(key);
         try {
@@ -55,6 +56,7 @@ public class RedisInstance {
      * @param key The key of the value.
      * @return <code>true</code> if the value is equal to "true" (case-sensitive), or <code>false</code> if the key does not exist, or the string does not equal "true".
      */
+    @Deprecated
     public static boolean getBoolean(String key) {
         final String resp = syncCommands.get(key);
         return resp == null ? false : resp.equals("true");

@@ -2,7 +2,6 @@ package com.cominatyou.xp;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ThreadLocalRandom;
 
 import com.cominatyou.db.RedisInstance;
@@ -22,8 +21,7 @@ public class XPSystem {
 
         final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor());
 
-        // XP will only be granted for 7 messages sent within 30 seconds. This might
-        // need to be increased.
+        // XP will only be granted for 7 messages sent within 30 seconds.
         if (user.getInt("recentmessagecount") == 7) return;
         if (RedisInstance.getInstance().lrange("config:xp:ignoredusers", 0, -1).contains(message.getMessageAuthor().getIdAsString())) return;
 
@@ -35,7 +33,7 @@ public class XPSystem {
         user.incrementKey("xp", amount);
 
         // Check if rate limit key exists. If not, create it, set it to 1, and have it expire in 30 seconds.
-        if (user.getString("recentmessagecount") == null) {
+        if (!user.hasKey("recentmessagecount")) {
             user.set("recentmessagecount", "1");
             user.expireKeyIn("recentmessagecount", 30);
         }
@@ -60,7 +58,7 @@ public class XPSystem {
 
             Log.eventf("LEVELUP", "%s (%d) leveled up to %d: %d XP\n", message.getMessageAuthor().getDiscriminatedName(), user.getId(), currentLevel, currentXP);
 
-            if (!RedisInstance.getBoolean("users:" + user.getId() + ":levelalertsdisabled")) {
+            if (!user.getBoolean("levelalertsdisabled")) {
                 final EmbedBuilder embed = new EmbedBuilder()
                         .setColor(Values.HILDA_BLUE)
                         .setTitle(embedTitle)
@@ -87,15 +85,12 @@ public class XPSystem {
                     role.addUser(message.getMessageAuthor().asUser().get()).get();
                     Log.eventf("LEVELUP", "Assigned role %s to %s (%d)\n", role.getName(), message.getMessageAuthor().getDiscriminatedName(), message.getMessageAuthor().getId());
                 }
-                catch (ExecutionException e) {
-                    Log.errorf("LEVELUP", "Failed to assign %s to %s (%d)!\n", role.getName(), message.getMessageAuthor().getDiscriminatedName(), message.getMessageAuthor().getId());
-                    message.getApi().getOwner().join().openPrivateChannel().join().sendMessage(errorEmbed);
-                    e.getCause().printStackTrace();
-                }
                 catch (Exception e) {
                     Log.errorf("LEVELUP", "Failed to assign %s to %s (%d)!\n", role.getName(), message.getMessageAuthor().getDiscriminatedName(), message.getMessageAuthor().getId());
                     message.getApi().getOwner().join().openPrivateChannel().join().sendMessage(errorEmbed);
-                    e.printStackTrace();
+
+                    if (e.getCause() == null) e.printStackTrace();
+                    else e.getCause().printStackTrace();
                 }
             }
         }

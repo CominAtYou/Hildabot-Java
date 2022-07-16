@@ -65,6 +65,15 @@ public class RedisUserEntry {
     }
 
     /**
+     * Check if the user's database entry contains a certain key.
+     * @param key The key to query
+     * @return {@code true} if the key exists in the user's database entry, {@code false} otherwise.
+     */
+    public boolean hasKey(String key) {
+        return RedisInstance.keyExists(redisKey + ":" + key);
+    }
+
+    /**
      * Get the ID of the user representing this database entry.
      * @return The user's ID.
      */
