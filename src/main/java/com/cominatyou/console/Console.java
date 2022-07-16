@@ -8,9 +8,12 @@ import java.util.Map;
 import java.util.Scanner;
 
 import org.javacord.api.DiscordApi;
+import org.javacord.api.entity.channel.ServerTextChannel;
 
+import com.cominatyou.console.ConsoleCommands.ChangeChannel;
 import com.cominatyou.console.ConsoleCommands.ConsoleCommand;
 import com.cominatyou.console.ConsoleCommands.Delete;
+import com.cominatyou.console.ConsoleCommands.Edit;
 import com.cominatyou.console.ConsoleCommands.Reply;
 import com.cominatyou.console.ConsoleCommands.Send;
 
@@ -22,7 +25,9 @@ public class Console {
     private static final Map<String, ConsoleCommand> commands = Map.ofEntries(
         entry("delete", new Delete()),
         entry("reply", new Reply()),
-        entry("send", new Send())
+        entry("send", new Send()),
+        entry("cc", new ChangeChannel()),
+        entry("edit", new Edit())
     );
 
     /**
@@ -36,7 +41,9 @@ public class Console {
         new Thread(null, null, "Hildabot Console") {
             public void run() {
                 while (true) {
-                    System.out.print("Hildabot> ");
+                    final ServerTextChannel channel = ConsoleChannel.getCurrentChannel();
+                    System.out.print("Hildabot" + (ConsoleChannel.isChannelSet() ? " " + Colors.BLUE + channel.getServer().getName() + Colors.RESET + "/" + Colors.GREEN + "#" + channel.getName() + Colors.RESET : "") + "> ");
+
                     final String input = scanner.nextLine();
                     final ArrayList<String> args = new ArrayList<>(Arrays.asList(input.split(" +")));
                     final String command = args.remove(0);

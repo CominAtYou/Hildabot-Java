@@ -2,19 +2,16 @@ package com.cominatyou.console.ConsoleCommands;
 
 import java.util.List;
 
-import org.javacord.api.entity.channel.ServerTextChannel;
 import org.javacord.api.entity.message.Message;
 
 import com.cominatyou.console.ConsoleChannel;
 
-public class Reply extends ChannelBasedConsoleCommand implements ConsoleCommand {
+public class Edit extends ChannelBasedConsoleCommand implements ConsoleCommand {
     public void execute(List<String> args) {
         super.execute(args);
     }
 
     protected void command(List<String> args) {
-        final ServerTextChannel channel = ConsoleChannel.getCurrentChannel();
-
         if (args.size() < 2) {
             System.out.println("Not enough arguments were provided; not doing anything.");
             return;
@@ -24,13 +21,17 @@ public class Reply extends ChannelBasedConsoleCommand implements ConsoleCommand 
         final Message message;
 
         try {
-            message = channel.getMessageById(messageId).get();
-        }
-        catch (Exception e) {
-            System.err.println("Couldn't find a message with ID " + messageId);
+            message = ConsoleChannel.getCurrentChannel().getMessageById(messageId).get();
+        } catch (Exception e) {
+            System.err.println("Couldn't find a message with ID" + args.remove(0));
             return;
         }
 
-        message.reply(String.join(" ", args));
+        if (!message.getAuthor().isYourself()) {
+            System.err.println("That message cannot be edited, as it was not sent by the bot.");
+            return;
+        }
+
+        message.edit(String.join(" ", args));
     }
 }

@@ -1,27 +1,28 @@
 package com.cominatyou.console.ConsoleCommands;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.javacord.api.entity.channel.ServerTextChannel;
 import org.javacord.api.entity.message.Message;
 
-import com.cominatyou.App;
+import com.cominatyou.console.ConsoleChannel;
 
-public class Delete implements ConsoleCommand {
+public class Delete extends ChannelBasedConsoleCommand implements ConsoleCommand {
     public void execute(List<String> args) {
-        final String channelId = args.remove(0);
-        final Optional<ServerTextChannel> possibleChannel = App.getClient().getServerTextChannelById(channelId);
+        super.execute(args);
+    }
 
-        if (possibleChannel.isEmpty()) {
-            System.err.println("Couldn't find a channel with ID " + channelId);
+    protected void command(List<String> args) {
+        final ServerTextChannel channel = ConsoleChannel.getCurrentChannel();
+
+        if (args.size() < 2) {
+            System.err.println("Not enough arguments were provided; not doing anything.");
             return;
         }
 
-        final ServerTextChannel channel = possibleChannel.get();
         final String messageId = args.remove(0);
-
         final Message message;
+
         try {
             message = channel.getMessageById(messageId).get();
         }
@@ -36,5 +37,6 @@ public class Delete implements ConsoleCommand {
         }
 
         message.delete();
+        System.out.println("Successfully deleted message " + messageId);
     }
 }

@@ -1,25 +1,25 @@
 package com.cominatyou.console.ConsoleCommands;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.javacord.api.entity.channel.ServerTextChannel;
 
-import com.cominatyou.App;
+import com.cominatyou.console.ConsoleChannel;
 
-public class Send implements ConsoleCommand {
+public class Send extends ChannelBasedConsoleCommand implements ConsoleCommand {
     public void execute(List<String> args) {
-        final String channelId = args.remove(0);
+        super.execute(args);
+    }
 
-        final Optional<ServerTextChannel> possibleChannel = App.getClient().getServerTextChannelById(channelId);
-        if (possibleChannel.isEmpty()) {
-            System.out.println("Couldn't find a channel with ID " + channelId);
+    protected void command(List<String> args) {
+        final ServerTextChannel channel = ConsoleChannel.getCurrentChannel();
+
+        if (args.size() == 0) {
+            System.err.println("You need to provide a message to send!");
             return;
         }
 
-        final ServerTextChannel channel = possibleChannel.get();
-
-        channel.sendMessage(String.join(", ", args));
+        channel.sendMessage(String.join(" ", args));
     }
 
 }
