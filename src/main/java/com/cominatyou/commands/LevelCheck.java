@@ -48,4 +48,8 @@ public class LevelCheck implements Command {
             message.getMessage().reply("You don't seem to be missing any roles, so you're all set!");
         }
     }
+
+    public String getName() {
+        return "LevelCheck";
+    }
 }

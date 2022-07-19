@@ -32,4 +32,8 @@ public class Help implements Command {
 
         message.getChannel().sendMessage(helpEmbeds.get(args.get(0).toLowerCase()));
     }
+
+    public String getName() {
+        return "Help";
+    }
 }

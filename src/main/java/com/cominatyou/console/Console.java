@@ -38,7 +38,7 @@ public class Console {
         @SuppressWarnings("all")
         Scanner scanner = new Scanner(System.in);
 
-        new Thread(null, null, "Hildabot Console") {
+        new Thread("Hildabot Console") {
             public void run() {
                 while (true) {
                     final ServerTextChannel channel = ConsoleChannel.getCurrentChannel();

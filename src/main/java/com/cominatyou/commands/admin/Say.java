@@ -19,4 +19,8 @@ public class Say implements Command {
             message.getChannel().sendMessage(String.join(" ", messageArgs));
         });
     }
+
+    public String getName() {
+        return "Say";
+    }
 }

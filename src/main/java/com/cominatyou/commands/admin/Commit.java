@@ -21,4 +21,8 @@ public class Commit implements Command {
             System.err.println("[REDIS] Save failed: " + response);
         }
     }
+
+    public String getName() {
+        return "Commit";
+    }
 }

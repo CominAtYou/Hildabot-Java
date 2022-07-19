@@ -31,4 +31,8 @@ public class QueryDatabase implements Command {
             }
         }
     }
+
+    public String getName() {
+        return "QueryDatabase";
+    }
 }

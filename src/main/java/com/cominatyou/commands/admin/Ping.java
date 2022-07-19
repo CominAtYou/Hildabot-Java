@@ -16,4 +16,8 @@ public class Ping implements Command {
 
         message.getChannel().sendMessage(String.format(":ping_pong: Pong!\n\n**Bot latency:** %dms\n**Gateway latency:** %dms", latency, apiLatency));
     }
+
+    public String getName() {
+        return "Ping";
+    }
 }

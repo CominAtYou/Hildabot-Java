@@ -45,4 +45,8 @@ public class SetActivity implements Command {
         message.getApi().updateActivity(type, activity);
         message.getMessage().reply(String.format("Activity set to \"%s %s\"!", proposedType.substring(0, 1).toUpperCase() + proposedType.substring(1), activity));
     }
+
+    public String getName() {
+        return "SetActivity";
+    }
 }

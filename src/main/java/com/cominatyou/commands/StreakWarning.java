@@ -29,4 +29,8 @@ public class StreakWarning implements Command {
             else message.getMessage().reply(warningsEnabledMessage);
         }
     }
+
+    public String getName() {
+        return "StreakWarning";
+    }
 }

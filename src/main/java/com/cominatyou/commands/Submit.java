@@ -108,4 +108,8 @@ public class Submit implements Command {
 
         XPSystem.checkForLevelUp(currentLevel, message);
     }
+
+    public String getName() {
+        return "Submit";
+    }
 }

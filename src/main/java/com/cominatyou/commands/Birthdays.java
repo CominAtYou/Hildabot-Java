@@ -20,4 +20,8 @@ public class Birthdays implements Command {
             ListBirthdays.list(message, messageArgs);
         }
     }
+
+    public String getName() {
+        return "Birthdays";
+    }
 }

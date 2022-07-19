@@ -49,4 +49,8 @@ public class InitializeUser implements Command {
             message.getChannel().sendMessage("That ID doesn't seem to be the ID of someone in this server!");
         });
     }
+
+    public String getName() {
+        return "InitializeUser";
+    }
 }

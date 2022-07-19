@@ -86,4 +86,8 @@ public class RevertSubmission implements Command {
 
         message.getChannel().sendMessage("That submission has been reverted.");
     }
+
+    public String getName() {
+        return "RevertSubmission";
+    }
 }

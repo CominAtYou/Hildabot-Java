@@ -12,4 +12,8 @@ public class GetVersion implements Command {
         if (!message.getMessageAuthor().isBotOwner()) return;
         message.getChannel().sendMessage("Version " + Version.VERSION_STRING);
     }
+
+    public String getName() {
+        return "GetVersion";
+    }
 }

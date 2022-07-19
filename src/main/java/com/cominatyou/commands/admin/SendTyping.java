@@ -24,4 +24,8 @@ public class SendTyping implements Command {
             channel.asServerTextChannel().get().type();
         });
     }
+
+    public String getName() {
+        return "SendTyping";
+    }
 }

@@ -15,6 +15,8 @@ import org.javacord.api.event.message.MessageCreateEvent;
 
 public class Stats implements Command {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
+        if (!message.getMessageAuthor().isBotOwner() && message.getChannel().getId() != Values.BOT_CHANNEL) return;
+
         final String id;
         if (messageArgs.size() == 0) {
             id = message.getMessageAuthor().getIdAsString();
@@ -69,5 +71,9 @@ public class Stats implements Command {
         }
 
         message.getChannel().sendMessage(embed);
+    }
+
+    public String getName() {
+        return "Stats";
     }
 }

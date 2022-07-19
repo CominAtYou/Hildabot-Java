@@ -15,4 +15,8 @@ public class CreationDate implements Command {
 
         message.getChannel().sendMessage("<t:" + ((id >> 22) + 1420070400000L) / 1000 + ">");
     }
+
+    public String getName() {
+        return "CreationDate";
+    }
 }

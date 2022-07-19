@@ -28,4 +28,8 @@ public class LevelAlert implements Command {
             else message.getMessage().reply(alertsEnabledMessage);
         }
     }
+
+    public String getName() {
+        return "LevelAlert";
+    }
 }

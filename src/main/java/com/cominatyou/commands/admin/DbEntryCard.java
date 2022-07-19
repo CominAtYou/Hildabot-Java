@@ -46,4 +46,8 @@ public class DbEntryCard implements Command {
             message.getChannel().sendMessage("That doesn't look to be a valid ID, or the user that ID points to is not a member of Hildacord.");
         });
     }
+
+    public String getName() {
+        return "DbEntryCard";
+    }
 }
