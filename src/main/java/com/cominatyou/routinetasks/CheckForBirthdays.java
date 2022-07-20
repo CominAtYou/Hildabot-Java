@@ -49,16 +49,20 @@ public class CheckForBirthdays implements Job {
             birthdays.addAll(leapBirthdays);
         }
 
+        final int birthdayCountBeforeFilter = birthdays.size();
+        Log.eventf("BIRTHDAYS", "Got %d %s from DB for %d-%s\n", birthdayCountBeforeFilter, English.plural("birthday", birthdayCountBeforeFilter), month, dayString);
+
         final TextChannel birthdayChannel = client.getServerById(Values.HILDACORD_ID).get().getTextChannelById(609253148564914187L).get();
-        final int birthdaysCount = birthdays.size();
-        Log.eventf("BIRTHDAYS", "Got %d %s for %d-%s\n", birthdaysCount, English.plural("birthday", birthdaysCount), month, dayString);
 
         // Filter out members that are no longer in the server
-        birthdays.forEach(i -> {
+        for (int i = 0; i < birthdays.size(); i++) {
             if (client.getServerById(Values.HILDACORD_ID).get().getMemberById(i).isEmpty()) {
                 birthdays.remove(i);
             }
-        });
+        }
+
+        final int birthdayCount = birthdays.size();
+        Log.eventf("BIRTHDAYS", "Got %d %s after filtering for %d-%s\n", birthdayCount, English.plural("birthday", birthdayCount), month, dayString);
 
         if (birthdays.size() == 0) {
             return;
@@ -87,5 +91,7 @@ public class CheckForBirthdays implements Job {
                 });
             });
         });
+
+        Log.event("BIRTHDAYS", "Completed birthdays task.");
     }
 }
