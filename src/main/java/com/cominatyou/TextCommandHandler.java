@@ -35,7 +35,8 @@ public class TextCommandHandler {
         entry("dbcard", new DbEntryCard()),
         entry("type", new SendTyping()),
         entry("inituser", new InitializeUser()),
-        entry("creationdate", new CreationDate())
+        entry("creationdate", new CreationDate()),
+        entry("runbirthdays", new RunBirthdays())
     );
 
     public static void getCommand(MessageCreateEvent event) {
