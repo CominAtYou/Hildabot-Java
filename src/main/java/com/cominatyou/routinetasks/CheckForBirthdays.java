@@ -56,7 +56,7 @@ public class CheckForBirthdays implements Job {
 
         // Filter out members that are no longer in the server
         for (int i = 0; i < birthdays.size(); i++) {
-            if (client.getServerById(Values.HILDACORD_ID).get().getMemberById(i).isEmpty()) {
+            if (client.getServerById(Values.HILDACORD_ID).get().getMemberById(birthdays.get(i)).isEmpty()) {
                 birthdays.remove(i);
             }
         }
