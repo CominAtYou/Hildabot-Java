@@ -19,7 +19,7 @@ public class DbEntryCard implements Command {
             message.getChannel().sendMessage("Please provide a User ID.");
             return;
         }
-        if (!messageArgs.get(0).matches("[0-9]{18}")) {
+        if (!messageArgs.get(0).matches("[0-9]{17,19}")) {
             message.getChannel().sendMessage("Please provide a valid user ID.");
             return;
         }

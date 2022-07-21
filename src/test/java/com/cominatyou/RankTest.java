@@ -36,7 +36,7 @@ public class RankTest {
     public void ensureCorrectRankRoleIdFormat() {
         for (final int i : rankLevels) {
             final Rank rank = RankUtil.getRankFromLevel(i);
-            if (!String.valueOf(rank.getId()).matches("^[0-9]{18}$")) {
+            if (!String.valueOf(rank.getId()).matches("^[0-9]{17,19}$")) {
                 fail(String.format("Level %d: ID %d is not a Discord snowflake!", i, rank.getId()));
             }
         }

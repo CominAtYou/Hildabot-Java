@@ -21,7 +21,7 @@ public class Stats implements Command {
         if (messageArgs.size() == 0) {
             id = message.getMessageAuthor().getIdAsString();
         }
-        else if (messageArgs.get(0).matches("[0-9]{18}")) {
+        else if (messageArgs.get(0).matches("[0-9]{17,19}")) {
             final String providedId = messageArgs.get(0);
             id = message.getServer().get().getMemberById(providedId).isEmpty() ? message.getMessageAuthor().getIdAsString() : providedId;
         }
