@@ -4,9 +4,9 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
 
-import com.cominatyou.commands.Command;
-
 import org.javacord.api.event.message.MessageCreateEvent;
+
+import com.cominatyou.commands.interfaces.Command;
 
 public class Ping implements Command {
     public void execute(MessageCreateEvent message, List<String> args) {

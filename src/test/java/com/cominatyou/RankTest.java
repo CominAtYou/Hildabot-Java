@@ -51,6 +51,15 @@ public class RankTest {
     }
 
     @Test
+    public void ensureSortedRankLevels() {
+        for (int i = 0; i < rankLevels.length - 1; i++) {
+            if (rankLevels[i] > rankLevels[i + 1]) {
+                fail(String.format("Level %d: next level is %d, which is less a lower level", rankLevels[i], rankLevels[i + 1]));
+            }
+        }
+    }
+
+    @Test
     public void ensureUniqueRankNames() {
         final ArrayList<String> seenNames = new ArrayList<>(26);
         for (final int i : rankLevels) {

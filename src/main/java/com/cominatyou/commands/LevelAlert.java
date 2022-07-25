@@ -2,6 +2,7 @@ package com.cominatyou.commands;
 
 import java.util.List;
 
+import com.cominatyou.commands.interfaces.Command;
 import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.util.Values;
 

@@ -5,7 +5,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import com.cominatyou.commands.Command;
+import com.cominatyou.commands.interfaces.Command;
 import com.cominatyou.db.RedisInstance;
 import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.util.Values;

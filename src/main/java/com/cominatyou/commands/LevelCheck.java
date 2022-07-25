@@ -3,6 +3,7 @@ package com.cominatyou.commands;
 import java.util.Arrays;
 import java.util.List;
 
+import com.cominatyou.commands.interfaces.Command;
 import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.util.Values;
 import com.cominatyou.util.logging.Log;
