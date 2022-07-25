@@ -64,6 +64,16 @@ public class RedisUserEntry {
         this.redisKey = "users:" + id;
     }
 
+
+    /**
+     * Delete a key from a user's Redis database entry.
+     * @param key The key to delete.
+     * @return The number of keys deleted - {@code 1} if successful, {@code 0} if the key does not exist.
+     */
+    public long deleteKey(String key) {
+        return RedisInstance.getInstance().del(redisKey + ":" + key);
+    }
+
     /**
      * Check if the user's database entry contains a certain key.
      * @param key The key to query

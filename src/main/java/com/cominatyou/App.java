@@ -37,6 +37,7 @@ public class App {
         ActivitySwapper.start(client);
 
         client.addMessageCreateListener(MessageCreate::route);
+        client.addSlashCommandCreateListener(SlashCommandHandler::route);
 
         client.addServerThreadChannelCreateListener(ThreadCreate::onCreate);
 
