@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.javacord.api.event.message.MessageCreateEvent;
 
-import com.cominatyou.commands.interfaces.Command;
+import com.cominatyou.Command;
 
 public class Ping implements Command {
     public void execute(MessageCreateEvent message, List<String> args) {

@@ -2,7 +2,7 @@ package com.cominatyou.commands.admin;
 
 import java.util.List;
 
-import com.cominatyou.commands.interfaces.Command;
+import com.cominatyou.Command;
 import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.util.Values;
 import com.cominatyou.xp.RankUtil;

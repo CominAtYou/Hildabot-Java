@@ -1,9 +1,8 @@
-package com.cominatyou.commands;
+package com.cominatyou.slashcommands;
 
 import org.javacord.api.entity.message.MessageFlag;
 import org.javacord.api.interaction.SlashCommandInteraction;
 
-import com.cominatyou.commands.interfaces.InteractionCommand;
 import com.cominatyou.db.RedisUserEntry;
 
 public class Tagline implements InteractionCommand {

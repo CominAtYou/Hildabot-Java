@@ -3,7 +3,7 @@ package com.cominatyou.commands.admin;
 import java.util.Arrays;
 import java.util.List;
 
-import com.cominatyou.commands.interfaces.Command;
+import com.cominatyou.Command;
 import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.xp.RankUtil;
 import com.cominatyou.xp.XPSystemCalculator;

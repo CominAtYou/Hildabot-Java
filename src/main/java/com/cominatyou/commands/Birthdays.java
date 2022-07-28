@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.javacord.api.event.message.MessageCreateEvent;
 
+import com.cominatyou.Command;
 import com.cominatyou.commands.birthdays.*;
-import com.cominatyou.commands.interfaces.Command;
 
 public class Birthdays implements Command {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {

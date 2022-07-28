@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.util.List;
 import java.util.Optional;
 
-import com.cominatyou.commands.interfaces.Command;
+import com.cominatyou.Command;
 import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.util.Values;
 import com.cominatyou.xp.RankUtil;

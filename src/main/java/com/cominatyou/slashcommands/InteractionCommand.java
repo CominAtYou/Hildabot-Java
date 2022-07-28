@@ -1,4 +1,4 @@
-package com.cominatyou.commands.interfaces;
+package com.cominatyou.slashcommands;
 
 import org.javacord.api.interaction.SlashCommandInteraction;
 

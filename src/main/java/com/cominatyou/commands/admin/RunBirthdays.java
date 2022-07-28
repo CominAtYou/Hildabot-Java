@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.javacord.api.event.message.MessageCreateEvent;
 
-import com.cominatyou.commands.interfaces.Command;
+import com.cominatyou.Command;
 import com.cominatyou.routinetasks.CheckForBirthdays;
 
 public class RunBirthdays implements Command {
