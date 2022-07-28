@@ -15,7 +15,7 @@ public class Delete extends ChannelBasedConsoleCommand implements ConsoleCommand
     protected void command(List<String> args) {
         final ServerTextChannel channel = ConsoleChannel.getCurrentChannel();
 
-        if (args.size() < 2) {
+        if (args.size() < 1) {
             System.err.println("Not enough arguments were provided; not doing anything.");
             return;
         }
