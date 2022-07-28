@@ -1,4 +1,4 @@
-package com.cominatyou.commands.birthdays;
+package com.cominatyou.slashcommands.birthdays;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.Optional;
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.entity.user.User;
-import org.javacord.api.event.message.MessageCreateEvent;
+import org.javacord.api.interaction.SlashCommandInteraction;
 
 import com.cominatyou.db.RedisInstance;
 import com.cominatyou.util.BirthdayEntry;
@@ -18,22 +18,11 @@ import com.cominatyou.util.Values;
 public class ListBirthdays {
     private static final List<String> thirtyDayMonths = Arrays.asList("09", "04", "06", "11");
 
-    public static void list(MessageCreateEvent message, List<String> messageArgs) {
-        final Integer month;
-        // If no month is provided, get birthdays for this month
-        if (messageArgs.size() == 1) {
-            month = Calendar.getInstance().get(Calendar.MONTH) + 1;
-        }
-        else try {
-            month = Integer.valueOf(messageArgs.get(1));
-        }
-        catch (Exception e) {
-            message.getMessage().reply(messageArgs.get(1) + " doesn't seem to be a month! Please specify a month from 1 - 12.");
-            return;
-        }
+    public static void list(SlashCommandInteraction interaction) {
+        final int month = interaction.getArguments().size() == 0 ? Calendar.getInstance().get(Calendar.MONTH) + 1 : Integer.parseInt(interaction.getArguments().get(0).getLongValue().get().toString());
 
         // Single-digit numbers need a leading 0 for the DB.
-        final String numericalMonthStr = month < 10 ? "0" + month : month.toString();
+        final String numericalMonthStr = month < 10 ? "0" + month : String.valueOf(month);
         final int numberOfDays = month == 2 ? 29 : (thirtyDayMonths.contains(numericalMonthStr) ? 30 : 31);
         final ArrayList<BirthdayEntry> birthdays = new ArrayList<>();
 
@@ -58,7 +47,7 @@ public class ListBirthdays {
 
         for (int i = 0; i < birthdays.size(); i++) {
             final BirthdayEntry entry = birthdays.get(i);
-            final Optional<User> user = message.getApi().getServerById(Values.HILDACORD_ID).get().getMemberById(entry.getUserId());
+            final Optional<User> user = interaction.getApi().getServerById(Values.HILDACORD_ID).get().getMemberById(entry.getUserId());
             if (user.isEmpty()) continue; // User is not in guild
 
             if (i == 18) {
@@ -70,6 +59,6 @@ public class ListBirthdays {
             }
         }
 
-        message.getChannel().sendMessage(embed);
+        interaction.createImmediateResponder().addEmbed(embed).respond();
     }
 }

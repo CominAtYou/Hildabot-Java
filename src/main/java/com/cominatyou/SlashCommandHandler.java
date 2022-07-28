@@ -6,13 +6,13 @@ import static java.util.Map.entry;
 import org.javacord.api.event.interaction.SlashCommandCreateEvent;
 import org.javacord.api.interaction.SlashCommandInteraction;
 
-import com.cominatyou.commands.Tagline;
-import com.cominatyou.commands.interfaces.InteractionCommand;
+import com.cominatyou.slashcommands.*;
 
 
 public class SlashCommandHandler {
     private static final Map<String, InteractionCommand> commands = Map.ofEntries(
-        entry("tagline", new Tagline())
+        entry("tagline", new Tagline()),
+        entry("birthday", new Birthdays())
     );
 
     public static void route(SlashCommandCreateEvent interaction) {
