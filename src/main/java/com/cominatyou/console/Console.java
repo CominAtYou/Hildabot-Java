@@ -22,7 +22,8 @@ public class Console {
         entry("reply", new Reply()),
         entry("send", new Send()),
         entry("cc", new ChangeChannel()),
-        entry("edit", new Edit())
+        entry("edit", new Edit()),
+        entry("clear", new Clear())
     );
 
     /**
