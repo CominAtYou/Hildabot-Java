@@ -65,4 +65,4 @@ jobs:
         env:
           DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
           DEPLOY_URL: ${{ secrets.DEPLOY_URL }}
-        run: "curl -s -f -X POST -T $GITHUB_WORKSPACE/target/hildabot-*.jar -H \"Authorization: $DEPLOY_KEY\" -m 30 $DEPLOY_URL"
+        run: "curl -s -f -X POST -T $GITHUB_WORKSPACE/target/hildabot-*.jar -H \"Authorization: $DEPLOY_KEY\" -H \"Content-Type: application/octet-stream\" -m 30 $DEPLOY_URL"
