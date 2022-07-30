@@ -32,13 +32,15 @@ public class Activities implements InteractionCommand {
             entry("watch_together", "880218394199220334"),
             entry("chess", "832012774040141894"),
             entry("checkers", "832013003968348200"),
-            entry("sketch_heads", "902271654783242291"));
+            entry("sketch_heads", "902271654783242291"),
+            entry("golf", "945737671223947305"));
 
     private static final Map<String, String> activityNames = Map.ofEntries(
             entry("watch_together", "Watch Together"),
             entry("chess", "Chess in the Park"),
             entry("heckers", "Checkers in the Park"),
-            entry("sketch_heads", "Sketch Heads"));
+            entry("sketch_heads", "Sketch Heads"),
+            entry("golf", "Putt Party"));
 
     private static long nextAvailable = Instant.now().getEpochSecond();
     private static int remaining = 5;
@@ -89,16 +91,14 @@ public class Activities implements InteractionCommand {
         try {
             responseBody = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
         } catch (Exception e) {
-            interaction.createImmediateResponder().setContent("Something went wrong! Try again in a bit.")
-                    .setFlags(MessageFlag.EPHEMERAL).respond();
+            interaction.createImmediateResponder().setContent("Something went wrong! Try again in a bit.").setFlags(MessageFlag.EPHEMERAL).respond();
             return;
         }
 
         final StatusLine statusLine = response.getStatusLine();
         if (statusLine.getStatusCode() != 200) {
             System.out.println(statusLine.getStatusCode() + ": " + responseBody);
-            interaction.createImmediateResponder().setContent("Something went wrong! Try again in a bit.")
-                    .setFlags(MessageFlag.EPHEMERAL).respond();
+            interaction.createImmediateResponder().setContent("Something went wrong! Try again in a bit.").setFlags(MessageFlag.EPHEMERAL).respond();
             return;
         }
 
@@ -107,8 +107,7 @@ public class Activities implements InteractionCommand {
             resultObject = new JSONObject(responseBody);
         } catch (Exception e) {
             e.printStackTrace();
-            interaction.createImmediateResponder().setContent("Something went wrong! Try again in a bit.")
-                    .setFlags(MessageFlag.EPHEMERAL).respond();
+            interaction.createImmediateResponder().setContent("Something went wrong! Try again in a bit.").setFlags(MessageFlag.EPHEMERAL).respond();
             return;
         }
 
