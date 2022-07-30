@@ -131,7 +131,7 @@ public class Activities implements InteractionCommand {
                 .put("max_age", 180)
                 .put("max_uses", 0)
                 .put("temporary", false)
-                .put("unique", true)
+                .put("unique", false)
                 .put("target_type", 2)
                 .put("target_application_id", activityId)
                 .toString();
