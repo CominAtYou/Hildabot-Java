@@ -31,7 +31,7 @@ public class Delete extends ChannelBasedConsoleCommand implements ConsoleCommand
             return;
         }
 
-        if (!message.getAuthor().isYourself()) {
+        if (message.getAuthor().getId() != message.getApi().getYourself().getId()) {
             System.out.println("That message was not sent by the bot, not deleting.");
             return;
         }
