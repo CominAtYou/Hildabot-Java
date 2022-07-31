@@ -28,19 +28,14 @@ import com.cominatyou.Config;
 import com.cominatyou.util.Values;
 
 public class Activities implements InteractionCommand {
-    private static final Map<String, String> activityIds = Map.ofEntries(
-            entry("watch_together", "880218394199220334"),
-            entry("chess", "832012774040141894"),
-            entry("checkers", "832013003968348200"),
-            entry("sketch_heads", "902271654783242291"),
-            entry("golf", "945737671223947305"));
-
-    private static final Map<String, String> activityNames = Map.ofEntries(
-            entry("watch_together", "Watch Together"),
-            entry("chess", "Chess in the Park"),
-            entry("heckers", "Checkers in the Park"),
-            entry("sketch_heads", "Sketch Heads"),
-            entry("golf", "Putt Party"));
+    private static final Map<String, EmbeddedActivity> availableActivities = Map.ofEntries(
+            entry("watch_together", new EmbeddedActivity("Watch Together", "880218394199220334")),
+            entry("chess", new EmbeddedActivity("Chess in the Park", "832012774040141894")),
+            entry("checkers", new EmbeddedActivity("Checkers in the Park", "832013003968348200")),
+            entry("sketch_heads", new EmbeddedActivity("Sketch Heads", "902271654783242291")),
+            entry("golf", new EmbeddedActivity("Putt Party", "945737671223947305")),
+            entry("ask_away", new EmbeddedActivity("Ask Away", "976052223358406656")),
+            entry("know_what_i_meme", new EmbeddedActivity("Know what I Meme", "950505761862189096")));
 
     private static long nextAvailable = Instant.now().getEpochSecond();
     private static int remaining = 5;
@@ -76,7 +71,7 @@ public class Activities implements InteractionCommand {
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         try {
             final HttpPost request = new HttpPost("https://discord.com/api/v10/channels/" + channel.getIdAsString() + "/invites");
-            final StringEntity body = new StringEntity(createBody(activityIds.get(activity)));
+            final StringEntity body = new StringEntity(createBody(availableActivities.get(activity).getId()));
             request.addHeader("Authorization", "Bot " + Config.TOKEN);
             request.addHeader("Content-Type", "application/json");
             request.setEntity(body);
@@ -112,7 +107,7 @@ public class Activities implements InteractionCommand {
         }
 
         interaction.createImmediateResponder()
-            .setContent(String.format("Started %s in <#%d>.", activityNames.get(activity), channel.getId()))
+            .setContent(String.format("Started %s in <#%d>.", availableActivities.get(activity).getName(), channel.getId()))
             .addComponents(
                 new ActionRowBuilder()
                         .addComponents(
@@ -134,5 +129,23 @@ public class Activities implements InteractionCommand {
                 .put("target_type", 2)
                 .put("target_application_id", activityId)
                 .toString();
+    }
+}
+
+class EmbeddedActivity {
+    private final String name;
+    private final String id;
+
+    public String getName() {
+        return name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public EmbeddedActivity(String name, String id) {
+        this.name = name;
+        this.id = id;
     }
 }
