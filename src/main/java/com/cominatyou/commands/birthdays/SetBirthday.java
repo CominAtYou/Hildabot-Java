@@ -19,7 +19,7 @@ public class SetBirthday {
         final boolean birthdayStringExists = user.getString("birthday:string") != null;
 
         if (birthdayStringExists) {
-            message.getMessage().reply("You already have a birthday set! If you want to change it, please use `h!birthday edit`.");
+            message.getMessage().reply("You already have a birthday set! If you want to change it, please use `h!birthday edit month-day` or use `/birthday edit`.");
             return;
         }
 
