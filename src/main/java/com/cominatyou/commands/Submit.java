@@ -36,7 +36,7 @@ public class Submit implements Command {
 
         final ZonedDateTime now = ZonedDateTime.now(Values.TIMEZONE_AMERICA_CHICAGO);
         final ZonedDateTime midnightToday = now.toLocalDate().atStartOfDay(now.getZone());
-        final ZonedDateTime midnightInAWeek = midnightToday.plus(7, ChronoUnit.DAYS);
+        final ZonedDateTime midnightInAWeek = midnightToday.plusDays(7);
         final long streakExpiry = midnightInAWeek.toEpochSecond();
 
         final int currentLevel = user.getLevel();
