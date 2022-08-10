@@ -36,7 +36,8 @@ public class TextCommandHandler {
         entry("type", new SendTyping()),
         entry("inituser", new InitializeUser()),
         entry("creationdate", new CreationDate()),
-        entry("runbirthdays", new RunBirthdays())
+        entry("runbirthdays", new RunBirthdays()),
+        entry("timeleft", new TimeLeft())
     );
 
     public static void getCommand(MessageCreateEvent event) {
