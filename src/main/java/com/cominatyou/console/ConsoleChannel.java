@@ -4,7 +4,7 @@ import org.javacord.api.entity.channel.ServerTextChannel;
 
 public class ConsoleChannel {
     /**
-     * The current channel the set is linked to.
+     * The current channel the console is linked to.
      */
     private static ServerTextChannel channel = null;
 
@@ -18,7 +18,7 @@ public class ConsoleChannel {
 
     /**
      * Get the current channel the console is set to.
-     * @return The current channel.
+     * @return The current channel
      */
     public static ServerTextChannel getCurrentChannel() {
         return channel;
@@ -26,7 +26,7 @@ public class ConsoleChannel {
 
     /**
      * Set the channel the console should be set to.
-     * @param channel The new channel the console should be set to.
+     * @param channel The new channel the console should be set to
      */
     public static void setChannel(ServerTextChannel channel) {
         ConsoleChannel.channel = channel;
