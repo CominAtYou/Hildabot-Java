@@ -5,6 +5,6 @@ import org.javacord.api.event.message.MessageCreateEvent;
 
 public class MessageValidity {
     public static boolean test(MessageCreateEvent message) {
-        return message.getMessage().getType() != MessageType.NORMAL_WEBHOOK && !message.getMessageAuthor().isBotUser();
+        return message.getMessage().getType() != MessageType.NORMAL_WEBHOOK && !message.getMessageAuthor().isBotUser() && message.getMessageContent().length() != 0;
     }
 }
