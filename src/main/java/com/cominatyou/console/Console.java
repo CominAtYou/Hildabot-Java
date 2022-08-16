@@ -44,6 +44,8 @@ public class Console {
                     final ArrayList<String> args = new ArrayList<>(Arrays.asList(input.split(" +")));
                     final String command = args.remove(0);
 
+                    if (command.length() == 0) continue;
+
                     if (!commands.containsKey(command)) {
                         System.err.println(command + ": command not found");
                         continue;
