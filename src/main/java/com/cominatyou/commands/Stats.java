@@ -39,7 +39,7 @@ public class Stats implements Command {
         final int xpForLevelUp =  XPSystemCalculator.determineMinimumUserFacingXPForLevel(currentLevel + 1);
         final String highScore = String.valueOf(userEntry.getInt("highscore"));
 
-        final Optional<Color> roleColor = message.getServer().get().getRoleColor(message.getMessageAuthor().asUser().get());
+        final Optional<Color> roleColor = message.getServer().get().getRoleColor(user);
 
         final int numberOfFilledInCircles = Math.round((float) (userEntry.getXP() - (float) XPSystemCalculator.determineMinimumTotalXPForLevel(currentLevel)) / (float) xpForLevelUp * 20f);
         final StringBuilder progressCircles = new StringBuilder();
