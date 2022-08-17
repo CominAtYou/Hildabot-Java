@@ -37,6 +37,7 @@ public class Activities implements InteractionCommand {
             entry("ask_away", new EmbeddedActivity("Ask Away", "976052223358406656")),
             entry("know_what_i_meme", new EmbeddedActivity("Know what I Meme", "950505761862189096")));
 
+    // Rate limit stuff since this command makes raw requests to the Discord API
     private static long nextAvailable = Instant.now().getEpochSecond();
     private static int remaining = 5;
 
@@ -44,6 +45,7 @@ public class Activities implements InteractionCommand {
         final Server hildacord = interaction.getApi().getServerById(Values.HILDACORD_ID).get();
         final Role staffRole = hildacord.getRoleById(492577085743824906L).get();
 
+        // Only Hildacord Staff who have the "Start Activities" permission and I can use this command.
         if (interaction.getServer().get().getId() == hildacord.getId() &&
                 !interaction.getUser().getRoles(hildacord).contains(staffRole) &&
                 !interaction.getServer().get().hasPermission(interaction.getUser(), PermissionType.START_EMBEDDED_ACTIVITIES) &&
@@ -136,14 +138,27 @@ class EmbeddedActivity {
     private final String name;
     private final String id;
 
+    /**
+     * Get the name of the activity.
+     * @return The name of the activity
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * The snowflake ID of the activity.
+     * @return The activity ID
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Instantiate a new activity.
+     * @param name The name of the activity
+     * @param id The activity's ID
+     */
     public EmbeddedActivity(String name, String id) {
         this.name = name;
         this.id = id;
