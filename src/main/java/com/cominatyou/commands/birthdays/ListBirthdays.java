@@ -54,7 +54,7 @@ public class ListBirthdays {
             .setTitle(":birthday: Birthdays for " + monthString)
             .setColor(Values.HILDA_BLUE)
             .setDescription(birthdays.size() == 0 ? "No birthdays for this month!" : "")
-            .setFooter(birthdays.size() > 0 ? String.format("Number of birthdays in %s: %d", monthString, birthdays.size()) : "");
+            .setFooter(birthdays.size() > 0 ? String.format("Birthdays in %s: %d", monthString, birthdays.size()) : "");
 
         for (int i = 0; i < birthdays.size(); i++) {
             final BirthdayEntry entry = birthdays.get(i);
