@@ -120,6 +120,14 @@ public class Activities implements InteractionCommand {
                                 .build())
                         .build())
             .respond();
+
+        try {
+            httpClient.close();
+            response.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private String createBody(String activityId) {

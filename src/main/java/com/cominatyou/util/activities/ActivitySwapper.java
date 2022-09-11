@@ -34,8 +34,9 @@ public class ActivitySwapper {
             public void run() {
                 if (ActivityStatus.isActive()) return;
 
-                final int index = ThreadLocalRandom.current().nextInt(0, activities.length);
-                client.updateActivity(activities[index].getType(), activities[index].getActivity());
+                final int index = ThreadLocalRandom.current().nextInt(0, activities.length + 1);
+                if (index == activities.length) NationalDebt.setNationalDebtStatus(client);
+                else client.updateActivity(activities[index].getType(), activities[index].getActivity());
             }
         }, 0, 600000); // Swaps activities every ten minutes.
     }
