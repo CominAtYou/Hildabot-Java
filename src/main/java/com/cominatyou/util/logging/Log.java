@@ -25,12 +25,12 @@ public class Log {
      * @param fString A {@code printf} format string.
      * @param args Format arguments for {@code fString}.
      */
-    public static void eventf(String event, String fString, Object... args) {
+    public static void eventf(String event, String format, Object... args) {
         final DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         final LocalDateTime currentTime = LocalDateTime.now(Values.TIMEZONE_AMERICA_CHICAGO);
         final String timeString = timeFormat.format(currentTime);
 
-        final String info = String.format(fString, args);
+        final String info = String.format(format, args);
         System.out.printf("%s -- [%s] %s", timeString, event.toUpperCase(), info);
     }
 
@@ -53,12 +53,12 @@ public class Log {
      * @param fString A {@code printf} format string.
      * @param args Format arguments for {@code fString}.
      */
-    public static void errorf(String event, String fString, Object... args) {
+    public static void errorf(String event, String format, Object... args) {
         final DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         final LocalDateTime currentTime = LocalDateTime.now(Values.TIMEZONE_AMERICA_CHICAGO);
         final String timeString = timeFormat.format(currentTime);
 
-        final String error = String.format(fString, args);
+        final String error = String.format(format, args);
         System.err.printf("%s -- [%s] %s", timeString, event.toUpperCase(), error);
     }
 }
