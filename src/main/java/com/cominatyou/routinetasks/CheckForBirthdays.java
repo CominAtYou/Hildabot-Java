@@ -30,7 +30,7 @@ public class CheckForBirthdays implements Job {
         final Optional<Role> birthdayRole = client.getServerById(Values.HILDACORD_ID).get().getRoleById(609258045759029250L);
         birthdayRole.ifPresent(role -> {
             final Collection<User> birthdayRoleUsers = role.getUsers();
-            if (birthdayRoleUsers.size() != 0) System.out.printf("[BIRTHDAYS] Removing birthday role from %d %s\n", birthdayRoleUsers.size(), English.plural("user", birthdayRoleUsers.size()));
+            if (birthdayRoleUsers.size() != 0) Log.eventf("BIRTHDAYS", "Removing birthday role from %d %s\n", birthdayRoleUsers.size(), English.plural("user", birthdayRoleUsers.size()));
             birthdayRoleUsers.forEach(user -> {
                 user.removeRole(role, "Their birthday has passed.");
             });
