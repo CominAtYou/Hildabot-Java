@@ -11,7 +11,7 @@ public class EditBirthday {
         final boolean hasBirthdaySet = user.hasKey("birthday:string");
 
         if (!hasBirthdaySet) {
-            interaction.createImmediateResponder().setContent("You don't have a birthday set! If you're trying to set your birthday, please use `/birthday set`.").respond();
+            interaction.createImmediateResponder().setContent("You don't have a birthday set! If you're trying to set your birthday, please use </birthday set:1011153003853643816>.").respond();
             return;
         }
 

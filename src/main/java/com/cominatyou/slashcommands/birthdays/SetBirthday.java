@@ -17,7 +17,7 @@ public class SetBirthday {
     public static void set(SlashCommandInteraction interaction) {
         final RedisUserEntry user = new RedisUserEntry(interaction.getUser());
         if (user.hasKey("birthday:string")) {
-            interaction.createImmediateResponder().setContent("You already have a birthday set! If you want to change it, please use `/birthday edit`.").respond();
+            interaction.createImmediateResponder().setContent("You already have a birthday set! If you want to change it, please use </birthday edit:1011153003853643816>.").respond();
             return;
         }
 
