@@ -1,4 +1,4 @@
-package com.cominatyou.console.ConsoleCommands;
+package com.cominatyou.console.consolecommands;
 
 import java.util.List;
 

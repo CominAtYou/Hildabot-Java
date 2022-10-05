@@ -1,4 +1,4 @@
-package com.cominatyou.console.ConsoleCommands;
+package com.cominatyou.console.consolecommands;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.javacord.api.entity.message.Message;
 
 import com.cominatyou.console.ConsoleChannel;
 
-public class Reply extends ChannelBasedConsoleCommand implements ConsoleCommand {
+public class Delete extends ChannelBasedConsoleCommand implements ConsoleCommand {
     public void execute(List<String> args) {
         super.execute(args);
     }
@@ -15,8 +15,8 @@ public class Reply extends ChannelBasedConsoleCommand implements ConsoleCommand 
     protected void command(List<String> args) {
         final ServerTextChannel channel = ConsoleChannel.getCurrentChannel();
 
-        if (args.size() < 2) {
-            System.out.println("Not enough arguments were provided; not doing anything.");
+        if (args.size() < 1) {
+            System.err.println("Not enough arguments were provided; not doing anything.");
             return;
         }
 
@@ -31,6 +31,12 @@ public class Reply extends ChannelBasedConsoleCommand implements ConsoleCommand 
             return;
         }
 
-        message.reply(String.join(" ", args));
+        if (message.getAuthor().getId() != message.getApi().getYourself().getId()) {
+            System.out.println("That message was not sent by the bot, not deleting.");
+            return;
+        }
+
+        message.delete();
+        System.out.println("Successfully deleted message " + messageId);
     }
 }

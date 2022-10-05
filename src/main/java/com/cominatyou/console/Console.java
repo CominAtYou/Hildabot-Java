@@ -10,7 +10,7 @@ import java.util.Scanner;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.entity.channel.ServerTextChannel;
 
-import com.cominatyou.console.ConsoleCommands.*;
+import com.cominatyou.console.consolecommands.*;
 
 /**
  * A command-line interface that can be used to execute special commands
