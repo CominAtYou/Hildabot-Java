@@ -55,7 +55,7 @@ public class Stats implements Command {
 
         EmbedBuilder embed = new EmbedBuilder()
             .setTitle(user.getDisplayName(message.getServer().get()))
-            .setThumbnail(user.getAvatar())
+            .setThumbnail(user.getEffectiveAvatar(message.getServer().get()))
             .setColor(roleColor.orElse(Values.HILDA_BLUE))
             .setDescription((userEntry.hasKey("tagline") ? "**" + userEntry.getString("tagline") + "**\n" : "") + String.format("Level %d • %s", currentLevel, message.getServer().get().getRoleById(currentRankRoleId).get().getName()))
             .addField("Progress", progressCircles.toString())

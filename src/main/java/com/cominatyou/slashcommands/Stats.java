@@ -45,7 +45,7 @@ public class Stats implements InteractionCommand {
 
         EmbedBuilder embed = new EmbedBuilder()
             .setTitle(user.getDisplayName(server))
-            .setThumbnail(user.getAvatar())
+            .setThumbnail(user.getEffectiveAvatar(interaction.getServer().get()))
             .setColor(roleColor.orElse(Values.HILDA_BLUE))
             .setDescription((userEntry.hasKey("tagline") ? "**" + userEntry.getString("tagline") + "**\n" : "") + String.format("Level %d • %s", currentLevel, server.getRoleById(currentRankRoleId).get().getName()))
             .addField("Progress", progressCircles.toString())
