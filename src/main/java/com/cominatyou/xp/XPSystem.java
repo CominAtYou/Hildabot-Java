@@ -87,7 +87,7 @@ public class XPSystem {
                 }
                 catch (Exception e) {
                     Log.errorf("LEVELUP", "Failed to assign %s to %s (%d)!\n", role.getName(), message.getMessageAuthor().getDiscriminatedName(), message.getMessageAuthor().getId());
-                    message.getApi().getOwner().join().openPrivateChannel().join().sendMessage(errorEmbed);
+                    message.getApi().getOwner().get().join().openPrivateChannel().join().sendMessage(errorEmbed);
 
                     if (e.getCause() == null) e.printStackTrace();
                     else e.getCause().printStackTrace();
