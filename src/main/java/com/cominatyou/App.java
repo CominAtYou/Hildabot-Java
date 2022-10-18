@@ -15,7 +15,7 @@ import com.cominatyou.util.activities.ActivitySwapper;
 public class App {
     private static final DiscordApi client = new DiscordApiBuilder()
         .setToken(Config.TOKEN)
-        .setIntents(Intent.GUILD_MEMBERS, Intent.GUILD_MESSAGES, Intent.DIRECT_MESSAGES, Intent.GUILD_MESSAGE_REACTIONS)
+        .setIntents(Intent.GUILD_MEMBERS, Intent.GUILD_MESSAGES, Intent.MESSAGE_CONTENT, Intent.DIRECT_MESSAGES, Intent.GUILD_MESSAGE_REACTIONS)
         .login()
         .join();
 
