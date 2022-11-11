@@ -14,7 +14,7 @@ public class StreakWarning implements Command {
     private static final String warningsEnabledMessage = "Alright! Level warnings have been enabled again. If you want to turn them off again, re-run this command!";
 
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
-        if (message.getChannel().getId() != Values.BOT_CHANNEL && message.getChannel().getType() != ChannelType.PRIVATE_CHANNEL) return;
+        if (message.getChannel().getId() != Values.TESTING_CHANNEL && message.getChannel().getId() != Values.BOT_CHANNEL && message.getChannel().getType() != ChannelType.PRIVATE_CHANNEL) return;
 
         final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor());
         final boolean userPreference = user.getBoolean("streakwarningsdisabled");
