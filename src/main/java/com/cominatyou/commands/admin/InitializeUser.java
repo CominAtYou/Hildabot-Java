@@ -34,8 +34,8 @@ public class InitializeUser implements Command {
             dbUser.set("xp", xp.toString());
 
             final int rankLevel = RankUtil.getRankFromLevel(dbUser.getLevel()).getLevel();
-            final Integer[] rankLevels = RankUtil.getRanklevels();
-            final int index = Arrays.asList(rankLevels).indexOf(rankLevel);
+            final int[] rankLevels = RankUtil.getRanklevels();
+            final int index = Arrays.binarySearch(rankLevels, rankLevel);
 
             // Give roles
             for (int i = index; i > 0; i--) {

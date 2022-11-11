@@ -15,8 +15,8 @@ public class RestoreRoles {
 
         final int rankLevel = RankUtil.getRankFromLevel(user.getLevel()).getLevel();
 
-        final Integer[] rankLevels = RankUtil.getRanklevels();
-        final int index = Arrays.asList(rankLevels).indexOf(rankLevel);
+        final int[] rankLevels = RankUtil.getRanklevels();
+        final int index = Arrays.binarySearch(rankLevels, rankLevel);
 
         for (int i = index; i > 0; i--) {
             final long levelId = RankUtil.getRankFromLevel(rankLevels[i]).getId();

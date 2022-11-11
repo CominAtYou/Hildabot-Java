@@ -28,8 +28,8 @@ public class LevelCheck implements Command {
 
         final int rankLevel = RankUtil.getRankFromLevel(userEntry.getLevel()).getLevel();
 
-        final Integer[] rankLevels = RankUtil.getRanklevels();
-        final int index = Arrays.asList(rankLevels).indexOf(rankLevel);
+        final int[] rankLevels = RankUtil.getRanklevels();
+        final int index = Arrays.binarySearch(rankLevels, rankLevel);
 
         int restoredRoles = 0;
         for (int i = index; i > 0; i--) {
