@@ -13,7 +13,6 @@ public class SlashCommandHandler {
     private static final Map<String, InteractionCommand> commands = Map.ofEntries(
         entry("tagline", new Tagline()),
         entry("birthday", new Birthdays()),
-        entry("activities", new Activities()),
         entry("stats", new Stats())
     );
 
