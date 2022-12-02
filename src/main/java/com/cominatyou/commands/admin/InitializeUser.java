@@ -9,11 +9,14 @@ import com.cominatyou.xp.RankUtil;
 import com.cominatyou.xp.XPSystemCalculator;
 
 import org.javacord.api.entity.permission.Role;
+import org.javacord.api.entity.server.Server;
 import org.javacord.api.event.message.MessageCreateEvent;
 
 public class InitializeUser implements Command {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
-        if (!message.getMessageAuthor().isBotOwner()) return;
+        final Server hildacord = message.getServer().get();
+        final Role staffRole = hildacord.getRoleById(492577085743824906L).get();
+        if (!message.getMessageAuthor().isBotOwner() && !message.getMessageAuthor().asUser().get().getRoles(hildacord).contains(staffRole)) return;
         if (messageArgs.size() < 2) {
             message.getChannel().sendMessage("You need to provide a user ID and/or a level for that!");
             return;
