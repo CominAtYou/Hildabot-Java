@@ -1,4 +1,4 @@
-package com.cominatyou.commands.admin;
+package com.cominatyou.commands.staff;
 
 import java.util.Arrays;
 import java.util.List;
