@@ -53,11 +53,6 @@ public class Submit implements Command {
             RedisInstance.getInstance().lrem(key, 0, user.getIdAsString());
         }
 
-        // Save the user's previous streak expiry if they have one.
-        if (user.getLong("streak") > 0) {
-            user.set("previousstreakexpiry", user.getString("streakexpiry"));
-        }
-
         // Increment the user's streak.
         user.incrementKey("streak");
         // Streaks expire after one week of inactivity.
@@ -76,10 +71,6 @@ public class Submit implements Command {
         user.set("streakexpiry", String.valueOf(streakExpiry));
         // Remove timestamp when streak expires.
         user.expireKeyAt("streakexpiry", streakExpiry);
-
-        if (user.getLong("previousstreakexpiry") != 0) {
-            user.expireKeyAt("previousstreakexpiry", streakExpiry);
-        }
 
         // Add streak expiry to database for warnings
         final int expiryMonth = midnightInAWeek.getMonthValue();
