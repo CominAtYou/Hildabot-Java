@@ -11,6 +11,8 @@ import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
 
+import com.cominatyou.util.Values;
+
 public class RoutineTasks {
     /**
      * Schedule the routine tasks that run every day at midnight Central Time.
@@ -21,8 +23,8 @@ public class RoutineTasks {
         final JobDetail birthdayJob = JobBuilder.newJob(CheckForBirthdays.class).withIdentity("birthdayAnnoucement", "routineTasks").build();
         final JobDetail streakJob = JobBuilder.newJob(SendStreakWarning.class).withIdentity("streakwarning", "routineTasks").build();
 
-        final Trigger birthdayTrigger = TriggerBuilder.newTrigger().withIdentity("birthdayTrigger", "routineTasks").withSchedule(CronScheduleBuilder.cronSchedule("0 0 0 * * ?").inTimeZone(TimeZone.getTimeZone("America/Chicago"))).build();
-        final Trigger streakTrigger = TriggerBuilder.newTrigger().withIdentity("streakTrigger", "routineTasks").withSchedule(CronScheduleBuilder.cronSchedule("0 0 0 * * ?").inTimeZone(TimeZone.getTimeZone("America/Chicago"))).build();
+        final Trigger birthdayTrigger = TriggerBuilder.newTrigger().withIdentity("birthdayTrigger", "routineTasks").withSchedule(CronScheduleBuilder.cronSchedule("0 0 0 * * ?").inTimeZone(TimeZone.getTimeZone(Values.TIMEZONE_AMERICA_CHICAGO))).build();
+        final Trigger streakTrigger = TriggerBuilder.newTrigger().withIdentity("streakTrigger", "routineTasks").withSchedule(CronScheduleBuilder.cronSchedule("0 0 0 * * ?").inTimeZone(TimeZone.getTimeZone(Values.TIMEZONE_AMERICA_CHICAGO))).build();
 
         try {
             final Scheduler scheduler = new StdSchedulerFactory().getScheduler();
