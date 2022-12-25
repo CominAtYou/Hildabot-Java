@@ -27,7 +27,7 @@ public class RoutineTasks {
         final Trigger streakTrigger = TriggerBuilder.newTrigger().withIdentity("streakTrigger", "routineTasks").withSchedule(CronScheduleBuilder.cronSchedule("0 0 0 * * ?").inTimeZone(TimeZone.getTimeZone(Values.TIMEZONE_AMERICA_CHICAGO))).build();
 
         try {
-            final Scheduler scheduler = new StdSchedulerFactory().getScheduler();
+            final Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
             scheduler.start();
 
             scheduler.scheduleJob(birthdayJob, birthdayTrigger);
