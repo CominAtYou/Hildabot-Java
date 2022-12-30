@@ -2,7 +2,7 @@ package com.cominatyou.commands.admin;
 
 import java.util.List;
 
-import com.cominatyou.Command;
+import com.cominatyou.TextCommand;
 import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.util.Values;
 import com.cominatyou.xp.RankUtil;
@@ -12,7 +12,7 @@ import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.entity.server.Server;
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class DbEntryCard implements Command {
+public class DbEntryCard implements TextCommand {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (!message.getMessageAuthor().isBotOwner()) return;
         if (messageArgs.size() == 0) {

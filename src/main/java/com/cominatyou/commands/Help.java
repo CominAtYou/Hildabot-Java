@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Map;
 import static java.util.Map.entry;
 
-import com.cominatyou.Command;
+import com.cominatyou.TextCommand;
 import com.cominatyou.helparticles.*;
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class Help implements Command {
+public class Help implements TextCommand {
     final static Map<String, EmbedBuilder> helpEmbeds = Map.ofEntries(
         entry("birthday", BirthdayHelp.ARTICLE_EMBED),
         entry("levelalert", LevelAlertHelp.ARTICLE_EMBED),

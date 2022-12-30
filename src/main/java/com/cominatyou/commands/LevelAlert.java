@@ -2,14 +2,14 @@ package com.cominatyou.commands;
 
 import java.util.List;
 
-import com.cominatyou.Command;
+import com.cominatyou.TextCommand;
 import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.util.Values;
 
 import org.javacord.api.entity.channel.ChannelType;
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class LevelAlert implements Command {
+public class LevelAlert implements TextCommand {
     private final static String alertsDisabledMessage = "Alright, level alerts have been disabled for you. If you want to turn them back on in the future, run this command again.";
     private final static String alertsEnabledMessage = "Alright, level alerts have been enabled for you. If you want to turn them off in the future, run this command again.";
 

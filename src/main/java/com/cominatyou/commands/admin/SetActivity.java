@@ -3,7 +3,7 @@ package com.cominatyou.commands.admin;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.cominatyou.Command;
+import com.cominatyou.TextCommand;
 import com.cominatyou.util.activities.ActivityStatus;
 import com.cominatyou.util.versioning.Version;
 
@@ -15,7 +15,7 @@ import org.javacord.api.event.message.MessageCreateEvent;
     (for example, the sublist that is immediately cleared) but they for some reason are.
     It works, though, so I'm not gonna question it.
 */
-public class SetActivity implements Command {
+public class SetActivity implements TextCommand {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (!message.getMessageAuthor().isBotOwner()) return;
 

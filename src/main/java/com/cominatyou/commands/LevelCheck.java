@@ -3,7 +3,7 @@ package com.cominatyou.commands;
 import java.util.Arrays;
 import java.util.List;
 
-import com.cominatyou.Command;
+import com.cominatyou.TextCommand;
 import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.util.Values;
 import com.cominatyou.util.logging.Log;
@@ -14,7 +14,7 @@ import org.javacord.api.entity.permission.Role;
 import org.javacord.api.entity.user.User;
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class LevelCheck implements Command {
+public class LevelCheck implements TextCommand {
     public void execute(MessageCreateEvent message, List<String> args) { // Essentially the auto-restore, but command-based.
         if (message.getMessage().getChannel().getId() != Values.BOT_CHANNEL && message.getMessage().getChannel().getId() != Values.TESTING_CHANNEL) return;
 

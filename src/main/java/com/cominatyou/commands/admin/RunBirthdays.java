@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.javacord.api.event.message.MessageCreateEvent;
 
-import com.cominatyou.Command;
+import com.cominatyou.TextCommand;
 import com.cominatyou.routinetasks.CheckForBirthdays;
 
-public class RunBirthdays implements Command {
+public class RunBirthdays implements TextCommand {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (!message.getMessageAuthor().isBotOwner()) return;
         try {

@@ -3,7 +3,7 @@ package com.cominatyou.commands.staff;
 import java.util.Arrays;
 import java.util.List;
 
-import com.cominatyou.Command;
+import com.cominatyou.TextCommand;
 import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.xp.RankUtil;
 import com.cominatyou.xp.XPSystemCalculator;
@@ -12,7 +12,7 @@ import org.javacord.api.entity.permission.Role;
 import org.javacord.api.entity.server.Server;
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class InitializeUser implements Command {
+public class InitializeUser implements TextCommand {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         final Server hildacord = message.getServer().get();
         final Role staffRole = hildacord.getRoleById(492577085743824906L).get();

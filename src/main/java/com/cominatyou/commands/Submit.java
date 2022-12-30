@@ -6,7 +6,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
 
-import com.cominatyou.Command;
+import com.cominatyou.TextCommand;
 import com.cominatyou.db.RedisInstance;
 import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.util.Values;
@@ -15,7 +15,7 @@ import com.cominatyou.xp.XPSystem;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class Submit implements Command {
+public class Submit implements TextCommand {
     private static final List<Long> allowedChannels = Arrays.asList(492580926111481859L, 492580873628286976L, 492578733442465804L, 492579714674720778L, 492885164993675264L, 565327145786802176L);
 
     public void execute(MessageCreateEvent message, List<String> messageArgs) {

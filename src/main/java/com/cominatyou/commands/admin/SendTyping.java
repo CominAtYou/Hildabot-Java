@@ -5,9 +5,9 @@ import java.util.List;
 import org.javacord.api.entity.channel.ChannelType;
 import org.javacord.api.event.message.MessageCreateEvent;
 
-import com.cominatyou.Command;
+import com.cominatyou.TextCommand;
 
-public class SendTyping implements Command {
+public class SendTyping implements TextCommand {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (!message.getMessageAuthor().isBotOwner()) return;
 

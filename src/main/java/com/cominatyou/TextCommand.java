@@ -7,7 +7,7 @@ import org.javacord.api.event.message.MessageCreateEvent;
 /**
  * A command that can be run with the bot, either in a DM or server text channel.
  */
-public interface Command {
+public interface TextCommand {
    /**
     * Run the command.
     * @param message The message invoking the command

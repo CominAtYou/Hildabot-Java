@@ -2,12 +2,12 @@ package com.cominatyou.commands.admin;
 
 import java.util.List;
 
-import com.cominatyou.Command;
+import com.cominatyou.TextCommand;
 import com.cominatyou.db.RedisInstance;
 
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class Commit implements Command {
+public class Commit implements TextCommand {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (!message.getMessageAuthor().isBotOwner()) return;
 

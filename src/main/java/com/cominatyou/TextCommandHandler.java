@@ -15,7 +15,7 @@ import org.javacord.api.event.message.MessageCreateEvent;
 
 public class TextCommandHandler {
     // Commands that can be run in both private channels and guild text channels
-    private static final Map<String, Command> sharedCommands = Map.ofEntries(
+    private static final Map<String, TextCommand> sharedCommands = Map.ofEntries(
         entry("levelalert", new LevelAlert()),
         entry("querydb", new QueryDatabase()),
         entry("streakwarning", new StreakWarning()),
@@ -23,7 +23,7 @@ public class TextCommandHandler {
     );
 
     // Commands that can be run in only guild text channels
-    private static final Map<String, Command> guildCommands = Map.ofEntries(
+    private static final Map<String, TextCommand> guildCommands = Map.ofEntries(
         entry("birthday", new Birthdays()),
         entry("stats", new Stats()),
         entry("submit", new Submit()),

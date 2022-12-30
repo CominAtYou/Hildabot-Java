@@ -5,10 +5,10 @@ import java.util.List;
 
 import org.javacord.api.event.message.MessageCreateEvent;
 
-import com.cominatyou.Command;
+import com.cominatyou.TextCommand;
 import com.cominatyou.util.Values;
 
-public class TimeLeft implements Command {
+public class TimeLeft implements TextCommand {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (message.getChannel().getId() != Values.BOT_CHANNEL && message.getChannel().getId() != Values.TESTING_CHANNEL) return;
 

@@ -2,14 +2,14 @@ package com.cominatyou.commands;
 
 import java.util.List;
 
-import com.cominatyou.Command;
+import com.cominatyou.TextCommand;
 import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.util.Values;
 
 import org.javacord.api.entity.channel.ChannelType;
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class StreakWarning implements Command {
+public class StreakWarning implements TextCommand {
     private static final String warningsDisabledMessage = "Sure thing. Streak warnings have been disabled for you. Should you want to turn them back on, you can re-run this command.";
     private static final String warningsEnabledMessage = "Alright! Level warnings have been enabled again. If you want to turn them off again, re-run this command!";
 
