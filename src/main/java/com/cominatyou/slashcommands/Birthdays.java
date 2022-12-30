@@ -6,7 +6,7 @@ import com.cominatyou.slashcommands.birthdays.EditBirthday;
 import com.cominatyou.slashcommands.birthdays.ListBirthdays;
 import com.cominatyou.slashcommands.birthdays.SetBirthday;
 
-public class Birthdays implements InteractionCommand {
+public class Birthdays implements SlashCommand {
     public void execute(SlashCommandInteraction interaction) {
         switch (interaction.getOptionByIndex(0).get().getName()) {
             case "set": {

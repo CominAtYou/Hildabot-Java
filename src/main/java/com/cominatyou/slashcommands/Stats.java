@@ -13,7 +13,7 @@ import com.cominatyou.util.Values;
 import com.cominatyou.xp.RankUtil;
 import com.cominatyou.xp.XPSystemCalculator;
 
-public class Stats implements InteractionCommand {
+public class Stats implements SlashCommand {
     public void execute(SlashCommandInteraction interaction) {
         final Server server = interaction.getServer().get();
         User user = interaction.getUser();

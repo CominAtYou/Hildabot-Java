@@ -10,7 +10,7 @@ import com.cominatyou.slashcommands.*;
 
 
 public class SlashCommandHandler {
-    private static final Map<String, InteractionCommand> commands = Map.ofEntries(
+    private static final Map<String, SlashCommand> commands = Map.ofEntries(
         entry("tagline", new Tagline()),
         entry("birthday", new Birthdays()),
         entry("stats", new Stats())
