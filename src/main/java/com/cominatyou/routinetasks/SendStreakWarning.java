@@ -65,6 +65,7 @@ public class SendStreakWarning implements Job {
         }
 
         Log.eventf("STREAKWARN", "Sent next-day streak expiry warning to %d %s.\n", expireTomorrow.size(), English.plural("user", expireTomorrow.size()));
+        Log.event("STREAKWARN", "Finished streak warnings task.");
 
     }
 }
