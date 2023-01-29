@@ -57,6 +57,7 @@ public class SetBirthday {
             else {
                 final String monthString = DateFormatSymbols.getInstance().getMonths()[intMonth - 1];
                 interaction.createImmediateResponder().setContent(String.format("Happy Birthday! Your birthday has been set to %s %d.", monthString, day)).respond();
+                interaction.getServer().get().getRoleById(609258045759029250L).get().addUser(interaction.getUser(), "Today is their birthday!");
                 return;
             }
         }
