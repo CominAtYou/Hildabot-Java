@@ -11,7 +11,7 @@ import org.javacord.api.event.message.MessageCreateEvent;
 
 public class StreakWarning implements TextCommand {
     private static final String warningsDisabledMessage = "Sure thing. Streak warnings have been disabled for you. Should you want to turn them back on, you can re-run this command.";
-    private static final String warningsEnabledMessage = "Alright! Level warnings have been enabled again. If you want to turn them off again, re-run this command!";
+    private static final String warningsEnabledMessage = "Alright! Level warnings have been enabled again. If you want to turn them off again, re-run this command.";
 
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (message.getChannel().getId() != Values.TESTING_CHANNEL && message.getChannel().getId() != Values.BOT_CHANNEL && message.getChannel().getType() != ChannelType.PRIVATE_CHANNEL) return;
