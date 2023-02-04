@@ -6,6 +6,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import com.cominatyou.db.RedisInstance;
 import com.cominatyou.db.RedisUserEntry;
+import com.cominatyou.util.ThousandsFormat;
 import com.cominatyou.util.Values;
 import com.cominatyou.util.logging.Log;
 
@@ -56,7 +57,7 @@ public class XPSystem {
             final String levelUpMessage = String.format("Congrats on leveling up! You are now level **%d**! :tada:", currentLevel);
             final String embedTitle = RankUtil.isLevelRankLevel(currentLevel) ? rankUpMessage : levelUpMessage;
 
-            Log.eventf("LEVELUP", "%s (%d) leveled up to %d: %d XP\n", message.getMessageAuthor().getDiscriminatedName(), user.getId(), currentLevel, currentXP);
+            Log.eventf("LEVELUP", "%s (%d) leveled up to %d: %s XP\n", message.getMessageAuthor().getDiscriminatedName(), user.getId(), currentLevel, ThousandsFormat.format(currentXP));
 
             if (!user.getBoolean("levelalertsdisabled")) {
                 final EmbedBuilder embed = new EmbedBuilder()
