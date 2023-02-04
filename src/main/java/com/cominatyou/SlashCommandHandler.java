@@ -13,7 +13,8 @@ public class SlashCommandHandler {
     private static final Map<String, SlashCommand> commands = Map.ofEntries(
         entry("tagline", new Tagline()),
         entry("birthday", new Birthdays()),
-        entry("stats", new Stats())
+        entry("stats", new Stats()),
+        entry("store", new Store())
     );
 
     public static void route(SlashCommandCreateEvent interaction) {
