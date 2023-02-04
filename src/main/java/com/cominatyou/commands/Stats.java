@@ -63,7 +63,7 @@ public class Stats implements TextCommand {
             .addInlineField("Streak", String.valueOf(currentStreak))
             .addInlineField("High Score", highScore)
             .addField("Kudos", String.format("<:HildaStar:539313415425097728> **Given:** %d | <:HildaStar:539313415425097728> **Received:** %d", userEntry.getInt("kudos:given"), userEntry.getInt("kudos:received")))
-            .addField("Stats", "**Submits:** " + userEntry.getInt("timessubmitted"))
+            .addField("Stats", String.format("**Submits:** %d | **Tokens:** %d", userEntry.getInt("timessubmitted"), userEntry.getInt("tokens")))
             .addField("Submit Status", userEntry.getBoolean("submitted") ? (id.equals(message.getMessageAuthor().getIdAsString()) ? ":white_check_mark: You have submitted today!" : ":white_check_mark: Submitted today!") : (id.equals(message.getMessageAuthor().getIdAsString()) ? "You have not submitted today." : "Nothing yet today!"));
 
         final String streakExpiry = userEntry.getString("streakexpiry");

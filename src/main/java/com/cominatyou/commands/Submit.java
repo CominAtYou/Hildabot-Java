@@ -71,6 +71,8 @@ public class Submit implements TextCommand {
         user.set("streakexpiry", String.valueOf(streakExpiry));
         // Remove timestamp when streak expires.
         user.expireKeyAt("streakexpiry", streakExpiry);
+        // Give the user 30 tokens for submitting.
+        final long tokens = user.incrementKey("tokens", 30);
 
         // Add streak expiry to database for warnings
         final int expiryMonth = midnightInAWeek.getMonthValue();
@@ -94,7 +96,8 @@ public class Submit implements TextCommand {
             .setDescription("Your submission has been accepted!")
             .setColor(Values.SUCCESS_GREEN)
             .addInlineField("Streak", String.valueOf(streak + 1))
-            .addInlineField("XP Gained", String.valueOf(20 + 2 * streak));
+            .addInlineField("XP Gained", String.valueOf(20 + 2 * streak))
+            .addInlineField("Tokens Received", String.format("30 (Total: %d)", tokens));
         embed.addField("Streak Expiry", String.format("<t:%d>", streakExpiry));
         message.getChannel().sendMessage(embed);
 
