@@ -21,7 +21,7 @@ public class Tagline implements SlashCommand {
 
     private void set(SlashCommandInteraction interaction) {
         final RedisUserEntry user = new RedisUserEntry(interaction.getUser());
-        final String newTagline = interaction.getOptionByIndex(0).get().getOptionStringValueByIndex(0).get();
+        final String newTagline = interaction.getOptionByIndex(0).get().getOptionByIndex(0).get().getStringValue().get();
 
         user.set("tagline", newTagline);
         interaction.createImmediateResponder().setContent("Your tagline has been updated.").respond();
