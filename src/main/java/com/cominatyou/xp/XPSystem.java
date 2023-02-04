@@ -76,6 +76,8 @@ public class XPSystem {
                 final long roleId = RankUtil.getRankFromLevel(currentLevel).getId();
                 final Role role = message.getServer().get().getRoleById(roleId).get();
 
+                user.incrementKey("tokens", 40);
+
                 final EmbedBuilder errorEmbed = new EmbedBuilder().setColor(Values.HILDA_BLUE)
                     .setTitle("Failed to assign a role!")
                     .setDescription("Role assignment for a level up did not complete successfully. Check `hildabot-error.log` for more information.")
@@ -93,6 +95,9 @@ public class XPSystem {
                     if (e.getCause() == null) e.printStackTrace();
                     else e.getCause().printStackTrace();
                 }
+            }
+            else {
+                user.incrementKey("tokens", 20);
             }
         }
     }
