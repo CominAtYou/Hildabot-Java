@@ -21,8 +21,8 @@ public class SetBirthday {
             return;
         }
 
-        final String monthValue = interaction.getOptions().get(0).getOptionStringValueByName("month").get();
-        final int day = Integer.parseInt(interaction.getOptions().get(0).getOptionLongValueByName("day").get().toString()); // will not be larger than 31
+        final String monthValue = interaction.getOptions().get(0).getOptionByName("month").get().getStringValue().get();
+        final int day = interaction.getOptions().get(0).getOptionByName("day").get().getLongValue().get().intValue(); // will not be larger than 31
 
         if (thirtyDayMonths.contains(monthValue) && day > 30) {
             interaction.createImmediateResponder().setContent("That month only has 30 days! Double-check the date you provided.");
