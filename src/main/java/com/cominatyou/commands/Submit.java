@@ -78,7 +78,7 @@ public class Submit implements TextCommand {
         final String newExpiryKey = String.format("streakexpiries:%d:%d", expiryMonth, expiryDay);
 
         RedisInstance.getInstance().rpush(newExpiryKey, user.getIdAsString());
-        if (RedisInstance.getInstance().ttl(newExpiryKey) == -1) {
+        if (RedisInstance.getInstance().ttl(newExpiryKey) < 0) {
             RedisInstance.getInstance().expireat(newExpiryKey, streakExpiry);
         }
 
