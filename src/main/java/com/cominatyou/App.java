@@ -39,6 +39,9 @@ public class App {
         client.addMessageCreateListener(MessageCreate::route);
         client.addSlashCommandCreateListener(SlashCommandHandler::route);
 
+        client.addSelectMenuChooseListener(SelectMenuChoose::route);
+        client.addButtonClickListener(ButtonClick::route);
+
         client.addServerThreadChannelCreateListener(ThreadCreate::onCreate);
 
         client.addUserRoleAddListener(MemberPassGate::greet);

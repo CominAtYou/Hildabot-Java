@@ -1,7 +1,9 @@
 package com.cominatyou.store;
 
+import org.javacord.api.interaction.ButtonInteraction;
+
 /** Items that can be purchased in the store. */
-public class StoreItem {
+public abstract class StoreItem {
     private final String name;
     private final String description;
     private final String additionalInfo;
@@ -92,6 +94,8 @@ public class StoreItem {
     public boolean hasAdditionalInfo() {
         return additionalInfo != null;
     }
+
+    public abstract void giveItem(ButtonInteraction interaction);
 
     /** Limits on how often an item can be purchased. */
     public static enum PurchaseLimit {

@@ -12,6 +12,8 @@ import com.cominatyou.util.logging.Log;
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.entity.permission.Role;
+import org.javacord.api.entity.server.Server;
+import org.javacord.api.entity.user.User;
 import org.javacord.api.event.message.MessageCreateEvent;
 
 public class XPSystem {
@@ -43,13 +45,13 @@ public class XPSystem {
             user.incrementKey("recentmessagecount");
         }
 
-        checkForLevelUp(currentLevel, message);
+        checkForLevelUp(currentLevel, message.getMessageAuthor().asUser().get(), message.getServer().get());
     }
 
-    public static void checkForLevelUp(int beforeActionLevel, MessageCreateEvent message) {
-        final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor());
+    public static void checkForLevelUp(int beforeActionLevel, User user, Server server) {
+        final RedisUserEntry userEntry = new RedisUserEntry(user);
 
-        final int currentXP = user.getXP();
+        final int currentXP = userEntry.getXP();
         final int currentLevel = XPSystemCalculator.determineLevelFromXP(currentXP);
 
         if (currentLevel > beforeActionLevel) {
@@ -57,15 +59,15 @@ public class XPSystem {
             final String levelUpMessage = String.format("Congrats on leveling up! You are now level **%d**! :tada:", currentLevel);
             final String embedTitle = RankUtil.isLevelRankLevel(currentLevel) ? rankUpMessage : levelUpMessage;
 
-            Log.eventf("LEVELUP", "%s (%d) leveled up to %d: %s XP\n", message.getMessageAuthor().getDiscriminatedName(), user.getId(), currentLevel, ThousandsFormat.format(currentXP));
+            Log.eventf("LEVELUP", "%s (%d) leveled up to %d: %s XP\n", user.getDiscriminatedName(), user.getId(), currentLevel, ThousandsFormat.format(currentXP));
 
-            if (!user.getBoolean("levelalertsdisabled")) {
+            if (!userEntry.getBoolean("levelalertsdisabled")) {
                 final EmbedBuilder embed = new EmbedBuilder()
                         .setColor(Values.HILDA_BLUE)
                         .setTitle(embedTitle)
                         .setDescription("To disable this message going forward, run `h!levelalert` in this DM or <#495034452422950915>.");
                 try {
-                    message.getMessageAuthor().asUser().get().openPrivateChannel().join().sendMessage(embed);
+                    user.openPrivateChannel().join().sendMessage(embed);
                 }
                 catch (Exception e) {
                     e.printStackTrace();
@@ -74,30 +76,30 @@ public class XPSystem {
 
             if (RankUtil.isLevelRankLevel(currentLevel)) {
                 final long roleId = RankUtil.getRankFromLevel(currentLevel).getId();
-                final Role role = message.getServer().get().getRoleById(roleId).get();
+                final Role role = server.getRoleById(roleId).get();
 
-                user.incrementKey("tokens", 40);
+                userEntry.incrementKey("tokens", 40);
 
                 final EmbedBuilder errorEmbed = new EmbedBuilder().setColor(Values.HILDA_BLUE)
                     .setTitle("Failed to assign a role!")
                     .setDescription("Role assignment for a level up did not complete successfully. Check `hildabot-error.log` for more information.")
-                    .addInlineField("User", String.format("%s (%d)", message.getMessageAuthor().getDiscriminatedName(), user.getId()))
+                    .addInlineField("User", String.format("%s (%d)", user.getDiscriminatedName(), user.getId()))
                     .addInlineField("Role", String.format("%s (%d)", role.getName(), currentLevel))
                     .setColor(Values.HILDA_BLUE);
                 try {
-                    role.addUser(message.getMessageAuthor().asUser().get()).get();
-                    Log.eventf("LEVELUP", "Assigned role %s to %s (%d)\n", role.getName(), message.getMessageAuthor().getDiscriminatedName(), message.getMessageAuthor().getId());
+                    role.addUser(user).get();
+                    Log.eventf("LEVELUP", "Assigned role %s to %s (%d)\n", role.getName(), user.getDiscriminatedName(), user.getId());
                 }
                 catch (Exception e) {
-                    Log.errorf("LEVELUP", "Failed to assign %s to %s (%d)!\n", role.getName(), message.getMessageAuthor().getDiscriminatedName(), message.getMessageAuthor().getId());
-                    message.getApi().getOwner().get().join().openPrivateChannel().join().sendMessage(errorEmbed);
+                    Log.errorf("LEVELUP", "Failed to assign %s to %s (%d)!\n", role.getName(), user.getDiscriminatedName(), user.getId());
+                    user.getApi().getOwner().get().join().openPrivateChannel().join().sendMessage(errorEmbed);
 
                     if (e.getCause() == null) e.printStackTrace();
                     else e.getCause().printStackTrace();
                 }
             }
             else {
-                user.incrementKey("tokens", 20);
+                userEntry.incrementKey("tokens", 20);
             }
         }
     }

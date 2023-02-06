@@ -38,6 +38,7 @@ public class Submit implements TextCommand {
         final ZonedDateTime midnightToday = now.toLocalDate().atStartOfDay(now.getZone());
         final ZonedDateTime midnightInAWeek = midnightToday.plusDays(7);
         final long streakExpiry = midnightInAWeek.toEpochSecond();
+        final List<String> submitBoosts = user.getList("items:submitboosts");
 
         final int currentLevel = user.getLevel();
 
@@ -58,7 +59,15 @@ public class Submit implements TextCommand {
         // Streaks expire after one week of inactivity.
         user.expireKeyAt("streak", streakExpiry);
         // XP for submissions is calculated by taking the user's current streak, and adding 20 to it.
-        user.incrementKey("xp", 20 + 2 * streak);
+        int amount = 20 + 2 * streak;
+        // If the user has a submit boost, apply it.
+        double multiplier = 1;
+        if (!submitBoosts.isEmpty()) {
+            multiplier = Double.parseDouble(user.listShift("items:submitboosts"));
+            amount *= multiplier;
+        }
+        // Give the user their XP.
+        user.incrementKey("xp", amount);
         // Record the message ID of the submission.
         user.set("latestsubmissionid", message.getMessage().getIdAsString());
         // One submission is permitted per day.
@@ -96,12 +105,13 @@ public class Submit implements TextCommand {
             .setDescription("Your submission has been accepted!")
             .setColor(Values.SUCCESS_GREEN)
             .addInlineField("Streak", String.valueOf(streak + 1))
-            .addInlineField("XP Gained", String.valueOf(20 + 2 * streak))
-            .addInlineField("Tokens Received", String.format("30 (Total: %d)", tokens));
-        embed.addField("Streak Expiry", String.format("<t:%d>", streakExpiry));
+            .addInlineField("XP Gained", amount + (multiplier == 1 ? "" : String.format(" (%.2fx)", multiplier)))
+            .addInlineField("Tokens Received", String.format("30 (Total: %d)", tokens))
+            .addField("Streak Expiry", String.format("<t:%d>", streakExpiry))
+            .setFooter("Tokens can be used with the /store command.");
         message.getChannel().sendMessage(embed);
 
-        XPSystem.checkForLevelUp(currentLevel, message);
+        XPSystem.checkForLevelUp(currentLevel, message.getMessageAuthor().asUser().get(), message.getServer().get());
     }
 
     public String getName() {
