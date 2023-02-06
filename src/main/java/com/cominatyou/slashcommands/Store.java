@@ -31,7 +31,7 @@ public class Store implements SlashCommand {
         final RedisUserEntry user = new RedisUserEntry(interaction.getUser());
         final List<StoreItem> items = StoreItems.getItems();
         final List<String> purchasedItems = user.getList("items:inventory");
-        final EmbedBuilder embed = new EmbedBuilder().setAuthor(interaction.getUser()).setTitle("Store").setColor(Values.HILDA_BLUE).setFooter("Your token balance: " + user.getString("tokens"));
+        final EmbedBuilder embed = new EmbedBuilder().setAuthor(interaction.getUser()).setTitle("Store").setColor(Values.HILDA_BLUE).setFooter("Your token balance: " + user.getInt("tokens"));
         final SelectMenuBuilder selectMenu = new SelectMenuBuilder(ComponentType.SELECT_MENU_STRING, "store_menu")
             .setPlaceholder("Purchase an item")
             .setMaximumValues(1);
