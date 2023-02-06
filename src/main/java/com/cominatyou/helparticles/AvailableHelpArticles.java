@@ -13,6 +13,7 @@ public class AvailableHelpArticles {
         .append("• **levelalert** - Configure whether or not you want the bot to DM you on level-up.\n")
         .append("• **levelcheck** - Didn't get a role that you should have? This'll fix that.\n")
         .append("• **stats** - Get XP-related stats for you or another user.\n")
+        .append("• **store** - View and purchase items with tokens!\n")
         .append("• **streakwarning** - Like levelalert, but for streak warnings.\n")
         .append("• **submit** - Submit content in certain channels to get some XP!\n")
         .append("• **timeleft** - See how much time is left for the current submit period.").toString();

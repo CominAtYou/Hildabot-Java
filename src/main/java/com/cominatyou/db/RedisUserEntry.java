@@ -2,6 +2,8 @@ package com.cominatyou.db;
 
 import com.cominatyou.xp.XPSystemCalculator;
 
+import java.util.List;
+
 import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.entity.user.User;
 
@@ -186,6 +188,43 @@ public class RedisUserEntry {
         catch (NumberFormatException e) {
             return 0L;
         }
+    }
+
+    /**
+     * Get a key that represents a list from the user's database entry.
+     * @param key The key in which to query.
+     * @return The list of strings from the key, or an empty list if the key does not exist.
+     * @throws IllegalArgumentException If the value of {@code key} is null or an empty string.
+     */
+    public List<String> getList(String key) throws IllegalArgumentException {
+        checkForEmptyKey(key);
+
+        return RedisInstance.getInstance().lrange(redisKey + ":" + key, 0, -1);
+    }
+
+    /**
+     * Append the given values to the end of a list in the user's database entry.
+     * @param key The list to append to.
+     * @param values The values to append to the list.
+     * @return The new length of the list.
+     * @throws IllegalArgumentException
+     */
+    public long pushToList(String key, String... values) throws IllegalArgumentException {
+        checkForEmptyKey(key);
+
+        return RedisInstance.getInstance().rpush(redisKey + ":" + key, values);
+    }
+
+    /**
+     * Remove the first element from a list and return it.
+     * @param key The key in which to query.
+     * @return The first element of the list, or {@code null} if the key does not exist.
+     * @throws IllegalArgumentException If the value of {@code key} is null or an empty string.
+     */
+    public String listShift(String key) {
+        checkForEmptyKey(key);
+
+        return RedisInstance.getInstance().lpop(redisKey + ":" + key);
     }
 
     /**

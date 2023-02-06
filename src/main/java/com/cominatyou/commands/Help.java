@@ -16,6 +16,7 @@ public class Help implements TextCommand {
         entry("levelalert", LevelAlertHelp.ARTICLE_EMBED),
         entry("levelcheck", LevelCheckHelp.ARTICLE_EMBED),
         entry("stats", StatsHelp.ARTICLE_EMBED),
+        entry("store", StoreHelp.ARTICLE_EMBED),
         entry("streakwarning", StreakWarningHelp.ARTICLE_EMBED),
         entry("submit", SubmitHelp.ARTICLE_EMBED),
         entry("timeleft", TimeLeftHelp.ARTICLE_EMBED)

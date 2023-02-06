@@ -10,6 +10,8 @@ import com.cominatyou.util.Values;
 import com.cominatyou.xp.RankUtil;
 import com.cominatyou.xp.XPSystemCalculator;
 
+import static com.cominatyou.util.ThousandsFormat.format;
+
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.entity.user.User;
 import org.javacord.api.event.message.MessageCreateEvent;
@@ -37,7 +39,7 @@ public class Stats implements TextCommand {
         final int currentStreak = userEntry.getInt("streak");
 
         final int xpForLevelUp =  XPSystemCalculator.determineMinimumUserFacingXPForLevel(currentLevel + 1);
-        final String highScore = String.valueOf(userEntry.getInt("highscore"));
+        final int highScore = userEntry.getInt("highscore");
 
         final Optional<Color> roleColor = message.getServer().get().getRoleColor(user);
 
@@ -59,11 +61,11 @@ public class Stats implements TextCommand {
             .setColor(roleColor.orElse(Values.HILDA_BLUE))
             .setDescription((userEntry.hasKey("tagline") ? "**" + userEntry.getString("tagline") + "**\n" : "") + String.format("Level %d • %s", currentLevel, message.getServer().get().getRoleById(currentRankRoleId).get().getName()))
             .addField("Progress", progressCircles.toString())
-            .addInlineField("XP", userEntry.getXP() - XPSystemCalculator.determineMinimumTotalXPForLevel(currentLevel) + "/" + xpForLevelUp)
-            .addInlineField("Streak", String.valueOf(currentStreak))
-            .addInlineField("High Score", highScore)
-            .addField("Kudos", String.format("<:HildaStar:539313415425097728> **Given:** %d | <:HildaStar:539313415425097728> **Received:** %d", userEntry.getInt("kudos:given"), userEntry.getInt("kudos:received")))
-            .addField("Stats", "**Submits:** " + userEntry.getInt("timessubmitted"))
+            .addInlineField("XP", String.format("%s/%s", format(userEntry.getXP() - XPSystemCalculator.determineMinimumTotalXPForLevel(currentLevel)), format(xpForLevelUp)))
+            .addInlineField("Streak", format(currentStreak))
+            .addInlineField("High Score", format(highScore))
+            .addField("Kudos", String.format("<:HildaStar:539313415425097728> **Given:** %s | <:HildaStar:539313415425097728> **Received:** %s", format(userEntry.getInt("kudos:given")), format(userEntry.getInt("kudos:received"))))
+            .addField("Stats", String.format("**Submits:** %s | **Tokens:** %s", format(userEntry.getInt("timessubmitted")), format(userEntry.getInt("tokens"))))
             .addField("Submit Status", userEntry.getBoolean("submitted") ? (id.equals(message.getMessageAuthor().getIdAsString()) ? ":white_check_mark: You have submitted today!" : ":white_check_mark: Submitted today!") : (id.equals(message.getMessageAuthor().getIdAsString()) ? "You have not submitted today." : "Nothing yet today!"));
 
         final String streakExpiry = userEntry.getString("streakexpiry");
