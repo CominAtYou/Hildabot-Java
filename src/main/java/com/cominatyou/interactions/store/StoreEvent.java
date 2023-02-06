@@ -24,7 +24,7 @@ public class StoreEvent implements SelectMenuChooseHandler {
 
         if (!selectorIsAuthor) {
             interaction.createImmediateResponder()
-                .setContent("You can't use this menu. If you wish to access the store, please use the `/store` command.")
+                .setContent("You can't use this menu. If you wish to access the store, please use the </store:1071965429012107486> command.")
                 .setFlags(MessageFlag.EPHEMERAL)
                 .respond();
             return;
