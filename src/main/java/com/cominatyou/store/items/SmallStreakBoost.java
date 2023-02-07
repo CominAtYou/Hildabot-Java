@@ -1,5 +1,6 @@
 package com.cominatyou.store.items;
 
+import java.time.Instant;
 import java.time.ZonedDateTime;
 
 import org.javacord.api.entity.message.component.ActionRow;
@@ -8,6 +9,7 @@ import org.javacord.api.entity.message.component.ButtonStyle;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.interaction.ButtonInteraction;
 
+import com.cominatyou.db.RedisInstance;
 import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.store.StoreItem;
 import com.cominatyou.store.SuccessfulPurchaseEmbed;
@@ -35,9 +37,11 @@ public class SmallStreakBoost extends StoreItem {
             return;
         }
 
+        final ZonedDateTime newExpiry = Instant.ofEpochSecond(currentExpiry).atZone(Values.TIMEZONE_AMERICA_CHICAGO).plusDays(3);
+
         userEntry.decrementKey("tokens", getPrice());
-        userEntry.incrementKey("streakexpiry", 259200);
-        userEntry.expireKeyAt("streakexpiry", currentExpiry + 259200);
+        userEntry.set("streakexpiry", String.valueOf(newExpiry.toEpochSecond()));
+        userEntry.expireKeyAt("streakexpiry", newExpiry.toEpochSecond());
 
         final long oneWeek = ZonedDateTime.now(Values.TIMEZONE_AMERICA_CHICAGO)
             .toLocalDate()
@@ -48,6 +52,21 @@ public class SmallStreakBoost extends StoreItem {
 
         userEntry.set("items:" + getId() + ":purchasableagain", String.valueOf(oneWeek));
         userEntry.expireKeyAt("items:" + getId() + ":purchasableagain", oneWeek);
+
+        // Remove old streak expiry warning
+        final ZonedDateTime oldExpiry = Instant.ofEpochSecond(currentExpiry).atZone(Values.TIMEZONE_AMERICA_CHICAGO);
+        final int month = oldExpiry.getMonthValue();
+        final int day = oldExpiry.getDayOfMonth();
+
+        final String key = String.format("streakexpiries:%d:%d", month, day);
+        RedisInstance.getInstance().lrem(key, 0, interaction.getUser().getIdAsString());
+
+        // Create new streak expiry warning
+        final String newExpiryKey = String.format("streakexpiries:%d:%d", newExpiry.getMonthValue(), newExpiry.getDayOfMonth());
+        RedisInstance.getInstance().rpush(newExpiryKey, userEntry.getIdAsString());
+        if (RedisInstance.getInstance().ttl(newExpiryKey) < 0) {
+            RedisInstance.getInstance().expireat(newExpiryKey, newExpiry.toEpochSecond());
+        }
 
         final EmbedBuilder embed = SuccessfulPurchaseEmbed.create(interaction.getUser(), String.format("Your streak has been extended by 3 days!\nYour streak will now expire on <t:%d>.", userEntry.getLong("streakexpiry")));
 
