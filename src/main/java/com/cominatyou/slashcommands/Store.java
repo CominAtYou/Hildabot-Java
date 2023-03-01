@@ -3,6 +3,7 @@ package com.cominatyou.slashcommands;
 import java.util.List;
 
 import org.javacord.api.entity.message.component.ActionRow;
+import org.javacord.api.entity.message.component.ComponentType;
 import org.javacord.api.entity.message.component.SelectMenuBuilder;
 import org.javacord.api.entity.message.component.SelectMenuOption;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
@@ -31,7 +32,7 @@ public class Store implements SlashCommand {
         final List<StoreItem> items = StoreItems.getItems();
         final List<String> purchasedItems = user.getList("items:inventory");
         final EmbedBuilder embed = new EmbedBuilder().setAuthor(interaction.getUser()).setTitle("Store").setColor(Values.HILDA_BLUE).setFooter("Your token balance: " + user.getInt("tokens"));
-        final SelectMenuBuilder selectMenu = new SelectMenuBuilder().setCustomId("store_menu").setPlaceholder("Purchase an item").setMaximumValues(1);
+        final SelectMenuBuilder selectMenu = new SelectMenuBuilder(ComponentType.SELECT_MENU_STRING, "store_menu").setPlaceholder("Purchase an item").setMaximumValues(1);
 
 
 
