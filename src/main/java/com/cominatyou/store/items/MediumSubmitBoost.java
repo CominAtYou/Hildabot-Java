@@ -10,9 +10,9 @@ import com.cominatyou.store.StoreItem;
 import com.cominatyou.store.SuccessfulPurchaseEmbed;
 import com.cominatyou.util.Values;
 
-public class LargeSubmitBoost extends StoreItem {
-    public LargeSubmitBoost(String name, String description, String additionalInfo, String id, int cost, PurchaseLimit limit) throws IllegalArgumentException {
-        super(name, description, additionalInfo, id, cost, limit);
+public class MediumSubmitBoost extends StoreItem {
+    public MediumSubmitBoost(String name, String description, String additionalInfo, String id, int price, PurchaseLimit purchaseLimit) throws IllegalArgumentException {
+        super(name, description, additionalInfo, id, price, purchaseLimit);
     }
 
     public void giveItem(ButtonInteraction interaction) {
@@ -29,9 +29,9 @@ public class LargeSubmitBoost extends StoreItem {
         user.expireKeyAt("items:" + getId() + ":purchasableagain", oneWeek);
 
         user.decrementKey("tokens", getPrice());
-        user.pushToList("items:submitboosts", "1.25", "1.25", "1.25");
+        user.pushToList("items:submitboosts", "1.1", "1.1", "1.1");
 
-        final EmbedBuilder embed = SuccessfulPurchaseEmbed.create(interaction.getUser(), "Your next 3 submissions will be given a 25% increase in XP.");
+        final EmbedBuilder embed = SuccessfulPurchaseEmbed.create(interaction.getUser(), "Your next 3 submissions will be given a 10% increase in XP.");
 
         interaction.getMessage().createUpdater()
             .removeAllComponents()

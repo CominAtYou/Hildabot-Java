@@ -7,10 +7,10 @@ import com.cominatyou.store.items.*;
 
 public class StoreItems {
     private static final List<StoreItem> items = List.of(
-        new SmallXPIncrease("50 XP", "Instantly get an extra 50 XP!", "", "smallxp", 150, PurchaseLimit.UNLIMITED),
-        new SmallStreakBoost("3-Day Streak Boost", "Delay your streak expiry 3 days.", "This item can only be purchased once every 7 days.", "smallstreakboost", 280, PurchaseLimit.WEEKLY),
-        new LargeSubmitBoost("3 Large Submission Boosts", "Increase the XP you receive for your next 3 submissions by 25%.", "", "largesubmissionboost", 400, PurchaseLimit.UNLIMITED),
-        new StreakBoost("7-Day Streak Boost", "Delay your streak expiry by a week.", "This item can only be purchased once every 14 days.", "streakboost", 650, StoreItem.PurchaseLimit.BI_WEEKLY)
+        new SmallXPIncrease("50 XP", "Instantly get an extra 50 XP!", null, "smallxp", 150, PurchaseLimit.UNLIMITED),
+        new MediumXPIncrease("250 XP", "Instantly get an extra 250 XP!", null, "mediumxp", 300, PurchaseLimit.UNLIMITED),
+        new MediumSubmitBoost("3 Medium Submission Boosts", "Increase the XP you receive for your next submission by 10%.", "This item can only be purchased once every seven days.", "mediumsubmissionboost", 200, PurchaseLimit.WEEKLY),
+        new LargeSubmitBoost("3 Large Submission Boosts", "Increase the XP you receive for your next 3 submissions by 25%.", "This item can only be purchased once every seven days.", "largesubmissionboost", 400, PurchaseLimit.WEEKLY)
     );
 
     public static List<StoreItem> getItems() {

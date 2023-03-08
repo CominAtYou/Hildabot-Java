@@ -8,8 +8,8 @@ import com.cominatyou.store.StoreItem;
 import com.cominatyou.store.SuccessfulPurchaseEmbed;
 import com.cominatyou.xp.XPSystem;
 
-public class SmallXPIncrease extends StoreItem {
-    public SmallXPIncrease(String name, String description, String additionalInfo, String id, int price, PurchaseLimit purchaseLimit) throws IllegalArgumentException {
+public class MediumXPIncrease extends StoreItem {
+    public MediumXPIncrease(String name, String description, String additionalInfo, String id, int price, PurchaseLimit purchaseLimit) throws IllegalArgumentException {
         super(name, description, additionalInfo, id, price, purchaseLimit);
     }
 
@@ -18,9 +18,9 @@ public class SmallXPIncrease extends StoreItem {
 
         final int currentXP = user.getXP();
         user.decrementKey("tokens", getPrice());
-        user.incrementKey("xp", 50);
+        user.incrementKey("xp", 100);
 
-        final EmbedBuilder embed = SuccessfulPurchaseEmbed.create(interaction.getUser(), "You've recieved an extra 50 XP.");
+        final EmbedBuilder embed = SuccessfulPurchaseEmbed.create(interaction.getUser(), "You've recieved an extra 100 XP.");
 
         interaction.getMessage().createUpdater()
             .removeAllComponents()
