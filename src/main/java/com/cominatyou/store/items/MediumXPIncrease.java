@@ -20,7 +20,7 @@ public class MediumXPIncrease extends StoreItem {
         user.decrementKey("tokens", getPrice());
         user.incrementKey("xp", 100);
 
-        final EmbedBuilder embed = SuccessfulPurchaseEmbed.create(interaction.getUser(), "You've recieved an extra 100 XP.");
+        final EmbedBuilder embed = SuccessfulPurchaseEmbed.create(interaction.getUser(), "You've received an extra 100 XP.");
 
         interaction.getMessage().createUpdater()
             .removeAllComponents()

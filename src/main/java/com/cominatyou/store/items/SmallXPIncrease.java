@@ -20,7 +20,7 @@ public class SmallXPIncrease extends StoreItem {
         user.decrementKey("tokens", getPrice());
         user.incrementKey("xp", 50);
 
-        final EmbedBuilder embed = SuccessfulPurchaseEmbed.create(interaction.getUser(), "You've recieved an extra 50 XP.");
+        final EmbedBuilder embed = SuccessfulPurchaseEmbed.create(interaction.getUser(), "You've received an extra 50 XP.");
 
         interaction.getMessage().createUpdater()
             .removeAllComponents()
