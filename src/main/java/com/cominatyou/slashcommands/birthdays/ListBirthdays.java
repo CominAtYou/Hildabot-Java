@@ -47,7 +47,7 @@ public class ListBirthdays {
 
         for (int i = 0; i < birthdays.size(); i++) {
             final BirthdayEntry entry = birthdays.get(i);
-            final Optional<User> user = interaction.getApi().getServerById(Values.HILDACORD_ID).get().getMemberById(entry.getUserId());
+            final Optional<User> user = interaction.getApi().getServerById(Values.BASE_GUILD_ID).get().getMemberById(entry.getUserId());
             if (user.isEmpty()) continue; // User is not in guild
 
             if (i == 18) {

@@ -15,7 +15,7 @@ public class MessageCreate {
         if (!System.getProperty("os.name").equalsIgnoreCase("Linux") && !event.getMessageAuthor().isBotOwner()) return;
 
         if (!MessageValidity.test(event)) return;
-        if (!event.getMessageContent().startsWith(Config.PREFIX) && event.getChannel().getType() == ChannelType.SERVER_TEXT_CHANNEL && event.getServer().get().getId() == Values.HILDACORD_ID && (event.getMessage().getType() == MessageType.NORMAL || event.getMessage().getType() == MessageType.REPLY)) {
+        if (!event.getMessageContent().startsWith(Config.PREFIX) && event.getChannel().getType() == ChannelType.SERVER_TEXT_CHANNEL && event.getServer().get().getId() == Values.BASE_GUILD_ID && (event.getMessage().getType() == MessageType.NORMAL || event.getMessage().getType() == MessageType.REPLY)) {
             XPSystem.giveXPForMessage(event);
         }
         else {

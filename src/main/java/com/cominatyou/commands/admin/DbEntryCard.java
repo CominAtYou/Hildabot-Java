@@ -24,7 +24,7 @@ public class DbEntryCard implements TextCommand {
             return;
         }
 
-        final Server hildacord = message.getApi().getServerById(Values.HILDACORD_ID).get();
+        final Server hildacord = message.getApi().getServerById(Values.BASE_GUILD_ID).get();
         hildacord.getMemberById(messageArgs.get(0)).ifPresentOrElse(member -> {
             final RedisUserEntry userEntry = new RedisUserEntry(member);
             final int level = userEntry.getLevel();

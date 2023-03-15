@@ -27,7 +27,7 @@ public class CheckForBirthdays implements Job {
 
         Log.event("BIRTHDAYS", "Starting birthdays task.");
 
-        final Optional<Role> birthdayRole = client.getServerById(Values.HILDACORD_ID).get().getRoleById(609258045759029250L);
+        final Optional<Role> birthdayRole = client.getServerById(Values.BASE_GUILD_ID).get().getRoleById(609258045759029250L);
         birthdayRole.ifPresent(role -> {
             final Collection<User> birthdayRoleUsers = role.getUsers();
             if (birthdayRoleUsers.size() != 0) Log.eventf("BIRTHDAYS", "Removing birthday role from %d %s\n", birthdayRoleUsers.size(), English.plural("user", birthdayRoleUsers.size()));
@@ -52,11 +52,11 @@ public class CheckForBirthdays implements Job {
         final int birthdayCountBeforeFilter = birthdays.size();
         Log.eventf("BIRTHDAYS", "Got %d %s from DB for %d-%s\n", birthdayCountBeforeFilter, English.plural("birthday", birthdayCountBeforeFilter), month, dayString);
 
-        final TextChannel birthdayChannel = client.getServerById(Values.HILDACORD_ID).get().getTextChannelById(609253148564914187L).get();
+        final TextChannel birthdayChannel = client.getServerById(Values.BASE_GUILD_ID).get().getTextChannelById(609253148564914187L).get();
 
         // Filter out members that are no longer in the server
         for (int i = 0; i < birthdays.size(); i++) {
-            if (client.getServerById(Values.HILDACORD_ID).get().getMemberById(birthdays.get(i)).isEmpty()) {
+            if (client.getServerById(Values.BASE_GUILD_ID).get().getMemberById(birthdays.get(i)).isEmpty()) {
                 birthdays.remove(i);
             }
         }
@@ -84,7 +84,7 @@ public class CheckForBirthdays implements Job {
         }
 
         birthdays.forEach(id -> {
-            client.getServerById(Values.HILDACORD_ID).get().getMemberById(id).ifPresent(user -> {
+            client.getServerById(Values.BASE_GUILD_ID).get().getMemberById(id).ifPresent(user -> {
                 birthdayRole.ifPresent(role -> {
                     role.addUser(user, "Their birthday is today!");
                     Log.eventf("BIRTHDAYS", "Gave birthday role to %s (%d)\n", user.getDiscriminatedName(), user.getId());

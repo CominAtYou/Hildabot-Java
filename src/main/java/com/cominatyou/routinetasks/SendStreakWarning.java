@@ -43,7 +43,7 @@ public class SendStreakWarning implements Job {
                 .setDescription("If you want to disable this warning in the future, run `h!streakwarning` in this DM or <#" + Values.BOT_CHANNEL + ">.");
 
         for (String i : expireInThreeDays) {
-            App.getClient().getServerById(Values.HILDACORD_ID).get().getMemberById(i).ifPresent(user -> {
+            App.getClient().getServerById(Values.BASE_GUILD_ID).get().getMemberById(i).ifPresent(user -> {
                 final RedisUserEntry userEntry = new RedisUserEntry(user);
                 if (userEntry.getBoolean("streakwarningsdisabled")) return;
 
@@ -56,7 +56,7 @@ public class SendStreakWarning implements Job {
         embed.setTitle("Your streak expires in 1 day!");
 
         for (String i : expireTomorrow) {
-            App.getClient().getServerById(Values.HILDACORD_ID).get().getMemberById(i).ifPresent(user -> {
+            App.getClient().getServerById(Values.BASE_GUILD_ID).get().getMemberById(i).ifPresent(user -> {
                 final RedisUserEntry userEntry = new RedisUserEntry(user);
                 if (userEntry.getBoolean("streakwarningsdisabled")) return;
 
