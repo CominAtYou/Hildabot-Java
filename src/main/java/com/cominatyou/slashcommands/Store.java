@@ -19,12 +19,12 @@ import com.cominatyou.util.Values;
 
 public class Store implements SlashCommand {
     public void execute(SlashCommandInteraction interaction) {
-        showStore((InteractionBase) interaction);
+        showStore(interaction);
     }
 
     // This exists to let the showStore method be accessible to "store-return-to-menu" buttons
     public void execute(ButtonInteraction interaction) {
-        showStore((InteractionBase) interaction);
+        showStore(interaction);
     }
 
     private void showStore(InteractionBase interaction) {
