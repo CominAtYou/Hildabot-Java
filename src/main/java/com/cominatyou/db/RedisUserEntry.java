@@ -207,7 +207,7 @@ public class RedisUserEntry {
      * @param key The list to append to.
      * @param values The values to append to the list.
      * @return The new length of the list.
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException If the value of {@code key} is null or an empty string.
      */
     public long pushToList(String key, String... values) throws IllegalArgumentException {
         checkForEmptyKey(key);

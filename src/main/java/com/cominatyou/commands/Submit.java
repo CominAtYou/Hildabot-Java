@@ -26,16 +26,17 @@ public class Submit implements TextCommand {
         }
 
         final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor());
+        final ZonedDateTime now = ZonedDateTime.now(Values.TIMEZONE_AMERICA_CHICAGO);
+        final ZonedDateTime midnightToday = now.toLocalDate().atStartOfDay(now.getZone());
 
         if (user.getBoolean("submitted")) {
-            message.getMessage().reply("You've already submitted today!");
+            final ZonedDateTime midnightTomorrow = midnightToday.plusDays(1);
+            message.getMessage().reply("You've already submitted today! You can submit again <t:" + midnightTomorrow.toEpochSecond() + ":R>.");
             return;
         }
 
         final int streak = user.getInt("streak");
 
-        final ZonedDateTime now = ZonedDateTime.now(Values.TIMEZONE_AMERICA_CHICAGO);
-        final ZonedDateTime midnightToday = now.toLocalDate().atStartOfDay(now.getZone());
         final ZonedDateTime midnightInAWeek = midnightToday.plusDays(7);
         final long streakExpiry = midnightInAWeek.toEpochSecond();
         final List<String> submitBoosts = user.getList("items:submitboosts");
