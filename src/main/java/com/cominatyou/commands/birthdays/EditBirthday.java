@@ -6,6 +6,7 @@ import org.javacord.api.event.message.MessageCreateEvent;
 
 import com.cominatyou.db.RedisInstance;
 import com.cominatyou.db.RedisUserEntry;
+import com.cominatyou.util.MessageUtil;
 
 public class EditBirthday {
     public static void edit(MessageCreateEvent message, List<String> messageArgs) {
@@ -13,11 +14,11 @@ public class EditBirthday {
         final boolean birthdayStringExists = user.getString("birthday:string") != null;
 
         if (!birthdayStringExists) {
-            message.getMessage().reply("You don't have a birthday set! If you're trying to set your birthday, please use `h!birthday set` or </birthday set:1011153003853643816>.");
+            MessageUtil.sendTextReply(message, "You don't have a birthday set! If you're trying to set your birthday, please use `h!birthday set` or </birthday set:1011153003853643816>.");
             return;
         }
         else if (!messageArgs.get(1).matches("(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])")) {
-            message.getMessage().reply("Invalid birthday provided. Please provide your birthday in `mm-dd` format. (i.e., 06-21 is June 21)");
+            MessageUtil.sendTextReply(message, "Invalid birthday provided. Please provide your birthday in `mm-dd` format. (i.e., 06-21 is June 21)");
             return;
         }
 

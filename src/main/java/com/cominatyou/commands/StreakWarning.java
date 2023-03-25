@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cominatyou.TextCommand;
 import com.cominatyou.db.RedisUserEntry;
+import com.cominatyou.util.MessageUtil;
 import com.cominatyou.util.Values;
 
 import org.javacord.api.entity.channel.ChannelType;
@@ -22,12 +23,12 @@ public class StreakWarning implements TextCommand {
         if (!userPreference) {
             user.set("streakwarningsdisabled", "true");
             if (message.getChannel().getType() == ChannelType.PRIVATE_CHANNEL) message.getChannel().sendMessage(warningsDisabledMessage);
-            else message.getMessage().reply(warningsDisabledMessage);
+            else MessageUtil.sendTextReply(message, warningsDisabledMessage);
         }
         else {
             user.set("streakwarningsdisabled", "false");
             if (message.getChannel().getType() == ChannelType.PRIVATE_CHANNEL) message.getChannel().sendMessage(warningsEnabledMessage);
-            else message.getMessage().reply(warningsEnabledMessage);
+            else MessageUtil.sendTextReply(message, warningsEnabledMessage);
         }
     }
 

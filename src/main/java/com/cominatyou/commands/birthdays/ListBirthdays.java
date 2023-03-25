@@ -13,6 +13,7 @@ import org.javacord.api.event.message.MessageCreateEvent;
 
 import com.cominatyou.db.RedisInstance;
 import com.cominatyou.util.BirthdayEntry;
+import com.cominatyou.util.MessageUtil;
 import com.cominatyou.util.Values;
 
 public class ListBirthdays {
@@ -28,7 +29,7 @@ public class ListBirthdays {
             month = Integer.valueOf(messageArgs.get(1));
         }
         catch (Exception e) {
-            message.getMessage().reply(messageArgs.get(1) + " doesn't seem to be a month! Please specify a month from 1 - 12.");
+            MessageUtil.sendTextReply(message, messageArgs.get(1) + " doesn't seem to be a month! Please specify a month from 1 - 12.");
             return;
         }
 

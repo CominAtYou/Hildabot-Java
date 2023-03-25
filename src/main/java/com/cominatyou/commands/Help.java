@@ -6,6 +6,7 @@ import static java.util.Map.entry;
 
 import com.cominatyou.TextCommand;
 import com.cominatyou.helparticles.*;
+import com.cominatyou.util.MessageUtil;
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;
@@ -29,7 +30,7 @@ public class Help implements TextCommand {
         }
 
         if (!helpEmbeds.containsKey(args.get(0).toLowerCase())) {
-            message.getMessage().reply("There isn't a help article with that name!");
+            MessageUtil.sendTextReply(message, "There isn't a help article with that name!");
             return;
         }
 

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.cominatyou.TextCommand;
 import com.cominatyou.db.RedisUserEntry;
+import com.cominatyou.util.MessageUtil;
 import com.cominatyou.util.Values;
 import com.cominatyou.util.logging.Log;
 import com.cominatyou.xp.RankUtil;
@@ -22,7 +23,7 @@ public class LevelCheck implements TextCommand {
         final User user = message.getMessageAuthor().asUser().get();
 
         if (userEntry.getXP() < 290) {
-            message.getMessage().reply("You don't seem to be missing any roles, so you're all set!");
+            MessageUtil.sendTextReply(message, "You don't seem to be missing any roles, so you're all set!");
             return;
         }
 
@@ -42,11 +43,11 @@ public class LevelCheck implements TextCommand {
         }
 
         if (restoredRoles > 0) {
-            message.getMessage().reply("You're all set. The roles you were missing have been added to you.");
+            MessageUtil.sendTextReply(message, "You're all set. The roles you were missing have been added to you.");
             Log.eventf("LEVELCHECK", "Restored %d %s for %s (%d)\n", restoredRoles, English.plural("role", restoredRoles), message.getMessageAuthor().getDiscriminatedName(), message.getMessageAuthor().getId());
         }
         else {
-            message.getMessage().reply("You don't seem to be missing any roles, so you're all set!");
+            MessageUtil.sendTextReply(message, "You don't seem to be missing any roles, so you're all set!");
         }
     }
 

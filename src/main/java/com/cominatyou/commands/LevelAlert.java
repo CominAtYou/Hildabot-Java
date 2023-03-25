@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cominatyou.TextCommand;
 import com.cominatyou.db.RedisUserEntry;
+import com.cominatyou.util.MessageUtil;
 import com.cominatyou.util.Values;
 
 import org.javacord.api.entity.channel.ChannelType;
@@ -21,12 +22,12 @@ public class LevelAlert implements TextCommand {
         if (!userPreference) {
             user.set("levelalertsdisabled", "true");
             if (message.getChannel().getType() == ChannelType.PRIVATE_CHANNEL) message.getChannel().sendMessage(alertsDisabledMessage);
-            else message.getMessage().reply(alertsDisabledMessage);
+            else MessageUtil.sendTextReply(message, alertsDisabledMessage);
         }
         else {
             user.set("levelalertsdisabled", "false");
             if (message.getChannel().getType() == ChannelType.PRIVATE_CHANNEL) message.getChannel().sendMessage(alertsEnabledMessage);
-            else message.getMessage().reply(alertsEnabledMessage);
+            else MessageUtil.sendTextReply(message, alertsEnabledMessage);
         }
     }
 

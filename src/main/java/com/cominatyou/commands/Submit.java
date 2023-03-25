@@ -9,6 +9,7 @@ import java.util.List;
 import com.cominatyou.TextCommand;
 import com.cominatyou.db.RedisInstance;
 import com.cominatyou.db.RedisUserEntry;
+import com.cominatyou.util.MessageUtil;
 import com.cominatyou.util.Values;
 import com.cominatyou.xp.XPSystem;
 
@@ -21,7 +22,7 @@ public class Submit implements TextCommand {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (!allowedChannels.contains(message.getChannel().getId())) return;
         if (!String.join(" ", messageArgs).matches("https?://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|].*") && message.getMessage().getAttachments().size() == 0) {
-            message.getMessage().reply("You need to provide something to submit!");
+            MessageUtil.sendTextReply(message, "You need to provide something to submit!");
             return;
         }
 
@@ -31,7 +32,7 @@ public class Submit implements TextCommand {
 
         if (user.getBoolean("submitted")) {
             final ZonedDateTime midnightTomorrow = midnightToday.plusDays(1);
-            message.getMessage().reply("You've already submitted today! You can submit again <t:" + midnightTomorrow.toEpochSecond() + ":R>.");
+            MessageUtil.sendTextReply(message, "You've already submitted today! You can submit again <t:" + midnightTomorrow.toEpochSecond() + ":R>.");
             return;
         }
 
