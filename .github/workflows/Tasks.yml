@@ -39,9 +39,7 @@ jobs:
         with:
           python-version: '3.10'
       - name: Download script
-        env:
-          SCRIPT_URL: ${{ secrets.IMPORT_TEST_SCRIPT_URL }}
-        run: curl $SCRIPT_URL -o 'importscript.py'
+        run: curl https://gist.githubusercontent.com/CominAtYou/5538252475fbe317064daa5ff5d26489/raw/36a96d30fbc4d8129edac95d005c147d26259a43/CheckForImports.py -o 'importscript.py'
       - name: Run script
         run: python ./importscript.py
   deploy:
