@@ -36,7 +36,7 @@ public class Store implements SlashCommand {
 
 
 
-        for (StoreItem i : items) {
+        for (final StoreItem i : items) {
             if (i.getPurchaseLimit() == StoreItem.PurchaseLimit.ONESHOT && purchasedItems.contains(i.getId())) {
                 continue;
             }
