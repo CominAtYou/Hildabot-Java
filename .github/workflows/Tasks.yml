@@ -17,7 +17,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: '18'
+          java-version: '19'
       - name: Run mvn test
         run: mvn test
   check-spelling:
@@ -51,7 +51,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: '18'
+          java-version: '19'
       - name: Prepare files
         env:
           CONFIG_DATA: ${{ secrets.CONFIG_DATA }}
