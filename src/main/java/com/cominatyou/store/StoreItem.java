@@ -103,7 +103,7 @@ public abstract class StoreItem {
         ONESHOT(-1),
         /** Purchasable once per day. */
         DAILY(1),
-        /** Purchasable once every two days. */
+        /** Purchasable once every seven days. */
         WEEKLY(7),
         /** Purchasable once every two weeks. */
         BI_WEEKLY(14),
