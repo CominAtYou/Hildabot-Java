@@ -23,12 +23,12 @@ public class StreakWarning implements TextCommand {
         if (!userPreference) {
             user.set("streakwarningsdisabled", "true");
             if (message.getChannel().getType() == ChannelType.PRIVATE_CHANNEL) message.getChannel().sendMessage(warningsDisabledMessage);
-            else MessageUtil.sendTextReply(message, warningsDisabledMessage);
+            else MessageUtil.sendTextReply(message.getMessage(), warningsDisabledMessage);
         }
         else {
             user.set("streakwarningsdisabled", "false");
             if (message.getChannel().getType() == ChannelType.PRIVATE_CHANNEL) message.getChannel().sendMessage(warningsEnabledMessage);
-            else MessageUtil.sendTextReply(message, warningsEnabledMessage);
+            else MessageUtil.sendTextReply(message.getMessage(), warningsEnabledMessage);
         }
     }
 

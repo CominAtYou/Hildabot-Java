@@ -22,12 +22,12 @@ public class LevelAlert implements TextCommand {
         if (!userPreference) {
             user.set("levelalertsdisabled", "true");
             if (message.getChannel().getType() == ChannelType.PRIVATE_CHANNEL) message.getChannel().sendMessage(alertsDisabledMessage);
-            else MessageUtil.sendTextReply(message, alertsDisabledMessage);
+            else MessageUtil.sendTextReply(message.getMessage(), alertsDisabledMessage);
         }
         else {
             user.set("levelalertsdisabled", "false");
             if (message.getChannel().getType() == ChannelType.PRIVATE_CHANNEL) message.getChannel().sendMessage(alertsEnabledMessage);
-            else MessageUtil.sendTextReply(message, alertsEnabledMessage);
+            else MessageUtil.sendTextReply(message.getMessage(), alertsEnabledMessage);
         }
     }
 

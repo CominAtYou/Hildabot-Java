@@ -1,8 +1,8 @@
 package com.cominatyou.util;
 
+import org.javacord.api.entity.message.Message;
 import org.javacord.api.entity.message.MessageBuilder;
 import org.javacord.api.entity.message.mention.AllowedMentionsBuilder;
-import org.javacord.api.event.message.MessageCreateEvent;
 
 public class MessageUtil {
     /**
@@ -10,9 +10,9 @@ public class MessageUtil {
      * @param message The message to reply to.
      * @param text The text to send.
      */
-    public static void sendTextReply(MessageCreateEvent message, String text) {
+    public static void sendTextReply(Message message, String text) {
         new MessageBuilder()
-            .replyTo(message.getMessage())
+            .replyTo(message)
             .setContent(text)
             .setAllowedMentions(new AllowedMentionsBuilder().setMentionRepliedUser(false).build())
             .send(message.getChannel());
@@ -24,9 +24,9 @@ public class MessageUtil {
      * @param text The text to send.
      * @param mention Whether or not to mention the user who sent the message.
      */
-    public static void sendTextReply(MessageCreateEvent message, String text, boolean mention) {
+    public static void sendTextReply(Message message, String text, boolean mention) {
         new MessageBuilder()
-            .replyTo(message.getMessage())
+            .replyTo(message)
             .setContent(text)
             .setAllowedMentions(new AllowedMentionsBuilder().setMentionRepliedUser(mention).build())
             .send(message.getChannel());

@@ -30,7 +30,7 @@ public class Help implements TextCommand {
         }
 
         if (!helpEmbeds.containsKey(args.get(0).toLowerCase())) {
-            MessageUtil.sendTextReply(message, "There isn't a help article with that name!");
+            MessageUtil.sendTextReply(message.getMessage(), "There isn't a help article with that name!");
             return;
         }
 

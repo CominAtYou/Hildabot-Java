@@ -11,7 +11,7 @@ import com.cominatyou.util.MessageUtil;
 public class Birthdays implements TextCommand {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (messageArgs.size() == 0 || messageArgs.size() == 1 && !messageArgs.get(0).equalsIgnoreCase("list")) {
-            MessageUtil.sendTextReply(message, "Looks like you're missing some arguments. Please make sure you provided a command (set|edit) and a date (i.e. `h!birthday set 06-21`), or list and a month if you want to view upcoming birthdays!");
+            MessageUtil.sendTextReply(message.getMessage(), "Looks like you're missing some arguments. Please make sure you provided a command (set|edit) and a date (i.e. `h!birthday set 06-21`), or list and a month if you want to view upcoming birthdays!");
         }
         else if (messageArgs.get(0).equalsIgnoreCase("set")) {
             SetBirthday.set(message, messageArgs);

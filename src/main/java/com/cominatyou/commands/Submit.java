@@ -22,7 +22,7 @@ public class Submit implements TextCommand {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (!allowedChannels.contains(message.getChannel().getId())) return;
         if (!String.join(" ", messageArgs).matches("https?://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|].*") && message.getMessage().getAttachments().size() == 0) {
-            MessageUtil.sendTextReply(message, "You need to provide something to submit!");
+            MessageUtil.sendTextReply(message.getMessage(), "You need to provide something to submit!");
             return;
         }
 
@@ -32,7 +32,7 @@ public class Submit implements TextCommand {
 
         if (user.getBoolean("submitted")) {
             final ZonedDateTime midnightTomorrow = midnightToday.plusDays(1);
-            MessageUtil.sendTextReply(message, "You've already submitted today! You can submit again <t:" + midnightTomorrow.toEpochSecond() + ":R>.");
+            MessageUtil.sendTextReply(message.getMessage(), "You've already submitted today! You can submit again <t:" + midnightTomorrow.toEpochSecond() + ":R>.");
             return;
         }
 

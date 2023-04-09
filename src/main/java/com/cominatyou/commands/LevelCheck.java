@@ -23,7 +23,7 @@ public class LevelCheck implements TextCommand {
         final User user = message.getMessageAuthor().asUser().get();
 
         if (userEntry.getXP() < 290) {
-            MessageUtil.sendTextReply(message, "You don't seem to be missing any roles, so you're all set!");
+            MessageUtil.sendTextReply(message.getMessage(), "You don't seem to be missing any roles, so you're all set!");
             return;
         }
 
@@ -43,11 +43,11 @@ public class LevelCheck implements TextCommand {
         }
 
         if (restoredRoles > 0) {
-            MessageUtil.sendTextReply(message, "You're all set. The roles you were missing have been added to you.");
+            MessageUtil.sendTextReply(message.getMessage(), "You're all set. The roles you were missing have been added to you.");
             Log.eventf("LEVELCHECK", "Restored %d %s for %s (%d)\n", restoredRoles, English.plural("role", restoredRoles), message.getMessageAuthor().getDiscriminatedName(), message.getMessageAuthor().getId());
         }
         else {
-            MessageUtil.sendTextReply(message, "You don't seem to be missing any roles, so you're all set!");
+            MessageUtil.sendTextReply(message.getMessage(), "You don't seem to be missing any roles, so you're all set!");
         }
     }
 

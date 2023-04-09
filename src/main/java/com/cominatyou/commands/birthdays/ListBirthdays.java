@@ -29,7 +29,7 @@ public class ListBirthdays {
             month = Integer.valueOf(messageArgs.get(1));
         }
         catch (Exception e) {
-            MessageUtil.sendTextReply(message, messageArgs.get(1) + " doesn't seem to be a month! Please specify a month from 1 - 12.");
+            MessageUtil.sendTextReply(message.getMessage(), messageArgs.get(1) + " doesn't seem to be a month! Please specify a month from 1 - 12.");
             return;
         }
 
