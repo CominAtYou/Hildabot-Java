@@ -21,7 +21,7 @@ public class Stats implements TextCommand {
         if (!message.getMessageAuthor().isBotOwner() && message.getChannel().getId() != Values.BOT_CHANNEL) return;
 
         final String id;
-        if (messageArgs.size() == 0) {
+        if (messageArgs.isEmpty()) {
             id = message.getMessageAuthor().getIdAsString();
         }
         else if (messageArgs.get(0).matches("[0-9]{17,19}")) {

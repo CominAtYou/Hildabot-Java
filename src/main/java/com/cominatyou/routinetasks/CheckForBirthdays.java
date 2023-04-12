@@ -64,7 +64,7 @@ public class CheckForBirthdays implements Job {
         final int birthdayCount = birthdays.size();
         Log.eventf("BIRTHDAYS", "Got %d %s after filtering for %d-%s\n", birthdayCount, English.plural("birthday", birthdayCount), month, dayString);
 
-        if (birthdays.size() == 0) {
+        if (birthdays.isEmpty()) {
             return;
         }
         else if (birthdays.size() == 1) {

@@ -21,7 +21,7 @@ public class Submit implements TextCommand {
 
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (!allowedChannels.contains(message.getChannel().getId())) return;
-        if (!String.join(" ", messageArgs).matches("https?://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|].*") && message.getMessage().getAttachments().size() == 0) {
+        if (!String.join(" ", messageArgs).matches("https?://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|].*") && message.getMessage().getAttachments().isEmpty()) {
             MessageUtil.sendTextReply(message.getMessage(), "You need to provide something to submit!");
             return;
         }

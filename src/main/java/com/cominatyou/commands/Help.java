@@ -24,7 +24,7 @@ public class Help implements TextCommand {
     );
 
     public void execute(MessageCreateEvent message, List<String> args) {
-        if (args.size() == 0) {
+        if (args.isEmpty()) {
             message.getChannel().sendMessage(AvailableHelpArticles.HELP_ARTICLES_EMBED);
             return;
         }

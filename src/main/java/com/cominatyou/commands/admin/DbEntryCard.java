@@ -15,7 +15,7 @@ import org.javacord.api.event.message.MessageCreateEvent;
 public class DbEntryCard implements TextCommand {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (!message.getMessageAuthor().isBotOwner()) return;
-        if (messageArgs.size() == 0) {
+        if (messageArgs.isEmpty()) {
             message.getChannel().sendMessage("Please provide a User ID.");
             return;
         }

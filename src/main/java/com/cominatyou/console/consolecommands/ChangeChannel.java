@@ -10,7 +10,7 @@ import com.cominatyou.console.ConsoleChannel;
 
 public class ChangeChannel implements ConsoleCommand {
     public void execute(List<String> args) {
-        if (args.size() == 0) {
+        if (args.isEmpty()) {
             System.err.println("No channel ID was provided; not doing anything.");
             return;
         }

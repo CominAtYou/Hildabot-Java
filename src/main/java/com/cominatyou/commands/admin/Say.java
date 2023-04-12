@@ -11,7 +11,7 @@ public class Say implements TextCommand {
         if (!message.getMessageAuthor().isBotOwner()) return;
 
         message.deleteMessage();
-        if (messageArgs.size() == 0) return;
+        if (messageArgs.isEmpty()) return;
 
         message.getMessage().getReferencedMessage().ifPresentOrElse(replyMessage -> { // Reply to the replied-to message if the invoking message was in reply to another.
             replyMessage.reply(String.join(" ", messageArgs));

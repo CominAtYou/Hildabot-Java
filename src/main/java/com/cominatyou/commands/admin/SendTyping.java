@@ -12,7 +12,7 @@ public class SendTyping implements TextCommand {
         if (!message.getMessageAuthor().isBotOwner()) return;
 
         message.deleteMessage();
-        if (messageArgs.size() == 0) {
+        if (messageArgs.isEmpty()) {
             message.getChannel().type();
             return;
         }

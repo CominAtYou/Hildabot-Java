@@ -11,7 +11,7 @@ public class QueryDatabase implements TextCommand {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (!message.getMessageAuthor().isBotOwner()) return;
 
-        if (messageArgs.size() == 0) {
+        if (messageArgs.isEmpty()) {
             message.getChannel().sendMessage("A key was not supplied!");
             return;
         }
@@ -27,7 +27,7 @@ public class QueryDatabase implements TextCommand {
             if (command.equalsIgnoreCase("lrange")) {
                 final List<String> response = RedisInstance.getInstance().lrange(key, 0, -1);
                 final String resp = String.join(", ", response);
-                message.getChannel().sendMessage(response.size() == 0 ? "Nothing here but Niko and the sun!" : resp); // Yes, I will continue to put game references in my software
+                message.getChannel().sendMessage(response.isEmpty() ? "Nothing here but Niko and the sun!" : resp); // Yes, I will continue to put game references in my software
             }
         }
     }
