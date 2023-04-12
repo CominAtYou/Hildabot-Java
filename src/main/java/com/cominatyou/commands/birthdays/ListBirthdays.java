@@ -54,7 +54,7 @@ public class ListBirthdays {
         final EmbedBuilder embed = new EmbedBuilder()
             .setTitle(":birthday: Birthdays for " + monthString)
             .setColor(Values.HILDA_BLUE)
-            .setDescription(birthdays.size() == 0 ? "No birthdays for this month!" : "")
+            .setDescription(birthdays.isEmpty() ? "No birthdays for this month!" : "")
             .setFooter(birthdays.size() > 0 ? String.format("Birthdays in %s: %d", monthString, birthdays.size()) : "");
 
         for (int i = 0; i < birthdays.size(); i++) {

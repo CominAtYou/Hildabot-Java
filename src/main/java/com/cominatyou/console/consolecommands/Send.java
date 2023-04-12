@@ -14,7 +14,7 @@ public class Send extends ChannelBasedConsoleCommand implements ConsoleCommand {
     protected void command(List<String> args) {
         final ServerTextChannel channel = ConsoleChannel.getCurrentChannel();
 
-        if (args.size() == 0) {
+        if (args.isEmpty()) {
             System.err.println("You need to provide a message to send!");
             return;
         }

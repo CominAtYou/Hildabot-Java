@@ -19,7 +19,7 @@ public class ListBirthdays {
     private static final List<String> thirtyDayMonths = Arrays.asList("09", "04", "06", "11");
 
     public static void list(SlashCommandInteraction interaction) {
-        final int month = interaction.getArguments().size() == 0 ? Calendar.getInstance().get(Calendar.MONTH) + 1 : Integer.parseInt(interaction.getArguments().get(0).getStringValue().get());
+        final int month = interaction.getArguments().isEmpty() ? Calendar.getInstance().get(Calendar.MONTH) + 1 : Integer.parseInt(interaction.getArguments().get(0).getStringValue().get());
 
         // Single-digit numbers need a leading 0 for the DB.
         final String numericalMonthStr = month < 10 ? "0" + month : String.valueOf(month);
@@ -42,7 +42,7 @@ public class ListBirthdays {
         final EmbedBuilder embed = new EmbedBuilder()
             .setTitle(":birthday: Birthdays for " + monthString)
             .setColor(Values.HILDA_BLUE)
-            .setDescription(birthdays.size() == 0 ? "No birthdays for this month!" : "")
+            .setDescription(birthdays.isEmpty() ? "No birthdays for this month!" : "")
             .setFooter(birthdays.size() > 0 ? String.format("Birthdays in %s: %d", monthString, birthdays.size()) : "");
 
         for (int i = 0; i < birthdays.size(); i++) {
