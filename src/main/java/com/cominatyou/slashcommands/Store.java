@@ -34,8 +34,6 @@ public class Store implements SlashCommand {
         final EmbedBuilder embed = new EmbedBuilder().setAuthor(interaction.getUser()).setTitle("Store").setColor(Values.HILDA_BLUE).setFooter("Your token balance: " + user.getInt("tokens"));
         final SelectMenuBuilder selectMenu = new SelectMenuBuilder(ComponentType.SELECT_MENU_STRING, "store_menu").setPlaceholder("Purchase an item").setMaximumValues(1);
 
-
-
         for (final StoreItem i : items) {
             if (i.getPurchaseLimit() == StoreItem.PurchaseLimit.ONESHOT && purchasedItems.contains(i.getId())) {
                 continue;
