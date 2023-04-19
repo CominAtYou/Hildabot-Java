@@ -42,8 +42,6 @@ public class App {
         client.addSelectMenuChooseListener(SelectMenuChoose::route);
         client.addButtonClickListener(ButtonClick::route);
 
-        client.addServerThreadChannelCreateListener(ThreadCreate::onCreate);
-
         client.addUserRoleAddListener(MemberPassGate::greet);
 
         client.addReactionAddListener(Kudos::tally);
