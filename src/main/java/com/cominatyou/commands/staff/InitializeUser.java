@@ -15,7 +15,7 @@ import org.javacord.api.event.message.MessageCreateEvent;
 public class InitializeUser implements TextCommand {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         final Server hildacord = message.getServer().get();
-        final Role staffRole = hildacord.getRoleById(492577085743824906L).get();
+        final Role staffRole = hildacord.getRoleById(1115017832980303903L).get();
         if (!message.getMessageAuthor().isBotOwner() && !message.getMessageAuthor().asUser().get().getRoles(hildacord).contains(staffRole)) return;
         if (messageArgs.size() < 2) {
             message.getChannel().sendMessage("You need to provide a user ID and/or a level for that!");
