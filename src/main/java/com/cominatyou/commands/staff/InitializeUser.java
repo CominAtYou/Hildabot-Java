@@ -5,18 +5,16 @@ import java.util.List;
 
 import com.cominatyou.TextCommand;
 import com.cominatyou.db.RedisUserEntry;
+import com.cominatyou.util.CommandPermissions;
 import com.cominatyou.xp.RankUtil;
 import com.cominatyou.xp.XPSystemCalculator;
 
 import org.javacord.api.entity.permission.Role;
-import org.javacord.api.entity.server.Server;
 import org.javacord.api.event.message.MessageCreateEvent;
 
 public class InitializeUser implements TextCommand {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
-        final Server hildacord = message.getServer().get();
-        final Role staffRole = hildacord.getRoleById(1115017832980303903L).get();
-        if (!message.getMessageAuthor().isBotOwner() && !message.getMessageAuthor().asUser().get().getRoles(hildacord).contains(staffRole)) return;
+        if (!CommandPermissions.canRunSensitiveCommands(message.getMessageAuthor().asUser().get())) return;
         if (messageArgs.size() < 2) {
             message.getChannel().sendMessage("You need to provide a user ID and/or a level for that!");
             return;
