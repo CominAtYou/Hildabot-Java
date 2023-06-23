@@ -11,7 +11,7 @@ public class CommandPermissions {
      * @return {@code true} if the user is a staff member or is the bot owner, {@code false} otherwise.
      */
     public static boolean canRunSensitiveCommands(User user) {
-        return user.getRoles(App.getClient().getServerById(Values.BASE_GUILD_ID).get()).stream().anyMatch(role -> role.getId() == 492577085743824906L) || user.isBotOwner();
+        return user.getRoles(App.getClient().getServerById(Values.BASE_GUILD_ID).get()).stream().anyMatch(role -> role.getId() == 1115017832980303903L) || user.isBotOwner();
     }
 
     /**
@@ -20,7 +20,7 @@ public class CommandPermissions {
      * @return {@code true} if the user is a staff member, {@code false} otherwise.
      */
     public static boolean isStaffMember(User user) {
-        return user.getRoles(App.getClient().getServerById(Values.BASE_GUILD_ID).get()).stream().anyMatch(role -> role.getId() == 492577085743824906L);
+        return user.getRoles(App.getClient().getServerById(Values.BASE_GUILD_ID).get()).stream().anyMatch(role -> role.getId() == 1115017832980303903L);
     }
 
     /**
