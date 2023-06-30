@@ -15,7 +15,7 @@ public class RedisUserEntry {
     final String redisKey;
 
     private void checkForEmptyKey(String key) throws IllegalArgumentException {
-        if (key == null || key.equals("")) {
+        if (key == null || key.isBlank()) {
             throw new IllegalArgumentException("Key cannot be empty");
         }
     }
