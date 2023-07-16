@@ -22,19 +22,19 @@ public class Kudos {
             return;
         }
 
-        final RedisUserEntry giver = new RedisUserEntry(reaction.getUserId()); // Person who reacted to the message
-        giver.incrementKey("kudos:given");
-
-        if (giver.getInt("kudos:givenintimespan") == 0) {
-            giver.incrementKey("kudos:givenintimespan");
-            giver.incrementKey("xp", 2);
-            giver.expireKeyIn("kudos:givenintimespan", 120);
-        }
-        else if (giver.getInt("kudos:givenintimespan") < 10) {
-            giver.incrementKey("xp", 2);
-        }
-
         if (message.getType() == MessageType.NORMAL && !message.getAuthor().isBotUser()) {
+            final RedisUserEntry giver = new RedisUserEntry(reaction.getUserId()); // Person who reacted to the message
+            giver.incrementKey("kudos:given");
+
+            if (giver.getInt("kudos:givenintimespan") == 0) {
+                giver.incrementKey("kudos:givenintimespan");
+                giver.incrementKey("xp", 2);
+                giver.expireKeyIn("kudos:givenintimespan", 120);
+            }
+            else if (giver.getInt("kudos:givenintimespan") < 10) {
+                giver.incrementKey("xp", 2);
+            }
+
             final RedisUserEntry receiver = new RedisUserEntry(message.getAuthor());
             receiver.incrementKey("kudos:received");
             receiver.incrementKey("xp", 2);
@@ -60,7 +60,7 @@ public class Kudos {
             return;
         }
 
-        if (message.getType() == MessageType.NORMAL && event.getMessage().get().getAuthor().isBotUser()) {
+        if (message.getType() == MessageType.NORMAL && !message.getAuthor().isBotUser()) {
             final RedisUserEntry receiver = new RedisUserEntry(event.getMessageAuthor().get());
             receiver.decrementKey("kudos:received");
             receiver.decrementKey("xp", 2);
