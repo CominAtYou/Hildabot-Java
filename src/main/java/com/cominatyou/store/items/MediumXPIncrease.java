@@ -9,8 +9,8 @@ import com.cominatyou.store.SuccessfulPurchaseEmbed;
 import com.cominatyou.xp.XPSystem;
 
 public class MediumXPIncrease extends StoreItem {
-    public MediumXPIncrease(String name, String description, String additionalInfo, String id, int price, PurchaseLimit purchaseLimit) throws IllegalArgumentException {
-        super(name, description, additionalInfo, id, price, purchaseLimit);
+    public MediumXPIncrease() {
+        super("250 XP", "Instantly get an extra 250 XP!", null, "mediumxp", 300, PurchaseLimit.UNLIMITED);
     }
 
     public void giveItem(ButtonInteraction interaction) {

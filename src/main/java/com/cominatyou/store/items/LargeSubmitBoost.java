@@ -11,8 +11,8 @@ import com.cominatyou.store.SuccessfulPurchaseEmbed;
 import com.cominatyou.util.Values;
 
 public class LargeSubmitBoost extends StoreItem {
-    public LargeSubmitBoost(String name, String description, String additionalInfo, String id, int cost, PurchaseLimit limit) throws IllegalArgumentException {
-        super(name, description, additionalInfo, id, cost, limit);
+    public LargeSubmitBoost() {
+        super("3 Large Submission Boosts", "Increase the XP you receive for your next 3 submissions by 25%.", "This item can only be purchased once every seven days.", "largesubmissionboost", 400, PurchaseLimit.WEEKLY);
     }
 
     public void giveItem(ButtonInteraction interaction) {
