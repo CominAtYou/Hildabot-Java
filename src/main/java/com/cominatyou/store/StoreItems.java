@@ -18,12 +18,6 @@ public class StoreItems {
     }
 
     public static StoreItem getItemById(String id) {
-        for (StoreItem i : items) {
-            if (i.getId().equals(id)) {
-                return i;
-            }
-        }
-
-        return null;
+        return items.stream().filter(i -> i.getId().equals(id)).findFirst().orElse(null);
     }
 }
