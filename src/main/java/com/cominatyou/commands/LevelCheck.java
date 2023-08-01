@@ -15,7 +15,7 @@ import org.javacord.api.entity.permission.Role;
 import org.javacord.api.entity.user.User;
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class LevelCheck implements TextCommand {
+public class LevelCheck extends TextCommand {
     public void execute(MessageCreateEvent message, List<String> args) { // Essentially the auto-restore, but command-based.
         if (message.getMessage().getChannel().getId() != Values.BOT_CHANNEL && message.getMessage().getChannel().getId() != Values.TESTING_CHANNEL) return;
 
@@ -49,9 +49,5 @@ public class LevelCheck implements TextCommand {
         else {
             MessageUtil.sendTextReply(message.getMessage(), "You don't seem to be missing any roles, so you're all set!");
         }
-    }
-
-    public String getName() {
-        return "LevelCheck";
     }
 }

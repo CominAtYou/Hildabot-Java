@@ -7,7 +7,7 @@ import com.cominatyou.db.RedisInstance;
 
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class Commit implements TextCommand {
+public class Commit extends TextCommand {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (!message.getMessageAuthor().isBotOwner()) return;
 
@@ -20,9 +20,5 @@ public class Commit implements TextCommand {
             message.getChannel().sendMessage("Something went wrong. Info is available in the log.");
             System.err.println("[REDIS] Save failed: " + response);
         }
-    }
-
-    public String getName() {
-        return "Commit";
     }
 }

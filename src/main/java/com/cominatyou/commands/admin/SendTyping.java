@@ -7,7 +7,7 @@ import org.javacord.api.event.message.MessageCreateEvent;
 
 import com.cominatyou.TextCommand;
 
-public class SendTyping implements TextCommand {
+public class SendTyping extends TextCommand {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (!message.getMessageAuthor().isBotOwner()) return;
 
@@ -23,9 +23,5 @@ public class SendTyping implements TextCommand {
             if (channel.getType() != ChannelType.SERVER_TEXT_CHANNEL) return;
             channel.asServerTextChannel().get().type();
         });
-    }
-
-    public String getName() {
-        return "SendTyping";
     }
 }

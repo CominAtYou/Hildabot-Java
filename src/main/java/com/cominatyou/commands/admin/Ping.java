@@ -8,16 +8,12 @@ import org.javacord.api.event.message.MessageCreateEvent;
 
 import com.cominatyou.TextCommand;
 
-public class Ping implements TextCommand {
+public class Ping extends TextCommand {
     public void execute(MessageCreateEvent message, List<String> args) {
         if (!message.getMessageAuthor().isBotOwner()) return;
         final long latency = Duration.between(message.getMessage().getCreationTimestamp(), Instant.now()).toMillis();
         final long apiLatency = message.getApi().getLatestGatewayLatency().toMillis();
 
         message.getChannel().sendMessage(String.format(":ping_pong: Pong!\n\n**Bot latency:** %dms\n**Gateway latency:** %dms", latency, apiLatency));
-    }
-
-    public String getName() {
-        return "Ping";
     }
 }

@@ -7,13 +7,9 @@ import com.cominatyou.util.versioning.Version;
 
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class GetVersion implements TextCommand {
+public class GetVersion extends TextCommand {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (!message.getMessageAuthor().isBotOwner()) return;
         message.getChannel().sendMessage("Version " + Version.VERSION_STRING);
-    }
-
-    public String getName() {
-        return "GetVersion";
     }
 }

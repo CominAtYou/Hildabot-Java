@@ -6,7 +6,7 @@ import org.javacord.api.event.message.MessageCreateEvent;
 
 import com.cominatyou.TextCommand;
 
-public class Say implements TextCommand {
+public class Say extends TextCommand {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (!message.getMessageAuthor().isBotOwner()) return;
 
@@ -18,9 +18,5 @@ public class Say implements TextCommand {
         }, () -> {
             message.getChannel().sendMessage(String.join(" ", messageArgs));
         });
-    }
-
-    public String getName() {
-        return "Say";
     }
 }

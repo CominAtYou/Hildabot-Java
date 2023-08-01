@@ -12,7 +12,7 @@ import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.entity.server.Server;
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class DbEntryCard implements TextCommand {
+public class DbEntryCard extends TextCommand {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (!message.getMessageAuthor().isBotOwner()) return;
         if (messageArgs.isEmpty()) {
@@ -45,9 +45,5 @@ public class DbEntryCard implements TextCommand {
         }, () -> {
             message.getChannel().sendMessage("That doesn't look to be a valid ID, or the user that ID points to is not a member of Hildacord.");
         });
-    }
-
-    public String getName() {
-        return "DbEntryCard";
     }
 }

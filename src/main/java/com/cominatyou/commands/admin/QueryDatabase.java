@@ -7,7 +7,7 @@ import com.cominatyou.db.RedisInstance;
 
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class QueryDatabase implements TextCommand {
+public class QueryDatabase extends TextCommand {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (!message.getMessageAuthor().isBotOwner()) return;
 
@@ -30,9 +30,5 @@ public class QueryDatabase implements TextCommand {
                 message.getChannel().sendMessage(response.isEmpty() ? "Nothing here but Niko and the sun!" : resp); // Yes, I will continue to put game references in my software
             }
         }
-    }
-
-    public String getName() {
-        return "QueryDatabase";
     }
 }

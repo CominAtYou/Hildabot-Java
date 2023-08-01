@@ -16,7 +16,7 @@ import com.cominatyou.xp.XPSystem;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class Submit implements TextCommand {
+public class Submit extends TextCommand {
     private static final List<Long> allowedChannels = Arrays.asList(492580926111481859L, 492580873628286976L, 492578733442465804L, 492579714674720778L, 492885164993675264L, 565327145786802176L);
 
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
@@ -114,9 +114,5 @@ public class Submit implements TextCommand {
         message.getChannel().sendMessage(embed);
 
         XPSystem.checkForLevelUp(currentLevel, message.getMessageAuthor().asUser().get(), message.getServer().get());
-    }
-
-    public String getName() {
-        return "Submit";
     }
 }

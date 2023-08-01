@@ -12,7 +12,7 @@ import com.cominatyou.xp.XPSystemCalculator;
 import org.javacord.api.entity.permission.Role;
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class InitializeUser implements TextCommand {
+public class InitializeUser extends TextCommand {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (!CommandPermissions.canRunSensitiveCommands(message.getMessageAuthor().asUser().get())) return;
         if (messageArgs.size() < 2) {
@@ -49,9 +49,5 @@ public class InitializeUser implements TextCommand {
         }, () -> {
             message.getChannel().sendMessage("That ID doesn't seem to be the ID of someone in this server!");
         });
-    }
-
-    public String getName() {
-        return "InitializeUser";
     }
 }

@@ -7,7 +7,7 @@ import org.javacord.api.event.message.MessageCreateEvent;
 import com.cominatyou.TextCommand;
 import com.cominatyou.routinetasks.CheckForBirthdays;
 
-public class RunBirthdays implements TextCommand {
+public class RunBirthdays extends TextCommand {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (!message.getMessageAuthor().isBotOwner()) return;
         try {
@@ -18,9 +18,5 @@ public class RunBirthdays implements TextCommand {
             message.getChannel().sendMessage("Failed to run birthday task.");
             e.printStackTrace();
         }
-    }
-
-    public String getName() {
-        return "RunBirthdays";
     }
 }

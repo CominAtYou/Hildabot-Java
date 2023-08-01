@@ -16,7 +16,7 @@ import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.entity.user.User;
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class Stats implements TextCommand {
+public class Stats extends TextCommand {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (!message.getMessageAuthor().isBotOwner() && message.getChannel().getId() != Values.BOT_CHANNEL) return;
 
@@ -74,9 +74,5 @@ public class Stats implements TextCommand {
         }
 
         message.getChannel().sendMessage(embed);
-    }
-
-    public String getName() {
-        return "Stats";
     }
 }

@@ -15,7 +15,7 @@ import org.javacord.api.event.message.MessageCreateEvent;
     (for example, the sublist that is immediately cleared) but they for some reason are.
     It works, though, so I'm not gonna question it.
 */
-public class SetActivity implements TextCommand {
+public class SetActivity extends TextCommand {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (!message.getMessageAuthor().isBotOwner()) return;
 
@@ -44,9 +44,5 @@ public class SetActivity implements TextCommand {
         final String activity = String.join(" ", messageArgs);
         message.getApi().updateActivity(type, activity);
         message.getMessage().reply(String.format("Activity set to \"%s %s\"!", proposedType.substring(0, 1).toUpperCase() + proposedType.substring(1), activity));
-    }
-
-    public String getName() {
-        return "SetActivity";
     }
 }

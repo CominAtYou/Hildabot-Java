@@ -10,7 +10,7 @@ import com.cominatyou.util.Values;
 import org.javacord.api.entity.channel.ChannelType;
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class LevelAlert implements TextCommand {
+public class LevelAlert extends TextCommand {
     private final static String alertsDisabledMessage = "Alright, level alerts have been disabled for you. If you want to turn them back on in the future, run this command again.";
     private final static String alertsEnabledMessage = "Alright, level alerts have been enabled for you. If you want to turn them off in the future, run this command again.";
 
@@ -29,9 +29,5 @@ public class LevelAlert implements TextCommand {
             if (message.getChannel().getType() == ChannelType.PRIVATE_CHANNEL) message.getChannel().sendMessage(alertsEnabledMessage);
             else MessageUtil.sendTextReply(message.getMessage(), alertsEnabledMessage);
         }
-    }
-
-    public String getName() {
-        return "LevelAlert";
     }
 }

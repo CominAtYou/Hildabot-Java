@@ -10,7 +10,7 @@ import com.cominatyou.util.Values;
 import org.javacord.api.entity.channel.ChannelType;
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class StreakWarning implements TextCommand {
+public class StreakWarning extends TextCommand {
     private static final String warningsDisabledMessage = "Sure thing. Streak warnings have been disabled for you. Should you want to turn them back on, you can re-run this command.";
     private static final String warningsEnabledMessage = "Alright! Level warnings have been enabled again. If you want to turn them off again, re-run this command.";
 
@@ -30,9 +30,5 @@ public class StreakWarning implements TextCommand {
             if (message.getChannel().getType() == ChannelType.PRIVATE_CHANNEL) message.getChannel().sendMessage(warningsEnabledMessage);
             else MessageUtil.sendTextReply(message.getMessage(), warningsEnabledMessage);
         }
-    }
-
-    public String getName() {
-        return "StreakWarning";
     }
 }

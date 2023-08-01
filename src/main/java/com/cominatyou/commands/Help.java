@@ -11,7 +11,7 @@ import com.cominatyou.util.MessageUtil;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;
 
-public class Help implements TextCommand {
+public class Help extends TextCommand {
     final static Map<String, EmbedBuilder> helpEmbeds = Map.ofEntries(
         entry("birthday", BirthdayHelp.ARTICLE_EMBED),
         entry("levelalert", LevelAlertHelp.ARTICLE_EMBED),
@@ -35,9 +35,5 @@ public class Help implements TextCommand {
         }
 
         message.getChannel().sendMessage(helpEmbeds.get(args.get(0).toLowerCase()));
-    }
-
-    public String getName() {
-        return "Help";
     }
 }
