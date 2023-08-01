@@ -1,4 +1,4 @@
-﻿package com.cominatyou.commands.admin;
+package com.cominatyou.commands.admin;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
