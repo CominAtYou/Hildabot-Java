@@ -45,7 +45,7 @@ public class InitializeUser extends TextCommand {
                 role.addUser(user);
             }
 
-            message.getChannel().sendMessage("Completed successfully. The user should have all their XP and roles now.");
+            message.getChannel().sendMessage("Completed successfully. The user should now have all their XP and roles.");
         }, () -> {
             message.getChannel().sendMessage("That ID doesn't seem to be the ID of someone in this server!");
         });
