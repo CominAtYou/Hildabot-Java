@@ -42,7 +42,7 @@ public class App {
         client.addSelectMenuChooseListener(SelectMenuChoose::route);
         client.addButtonClickListener(ButtonClick::route);
 
-        client.addUserRoleAddListener(MemberPassGate::greet);
+        client.addUserChangePendingListener(MemberPassGate::greet);
 
         client.addReactionAddListener(Kudos::tally);
         client.addReactionRemoveListener(Kudos::remove);

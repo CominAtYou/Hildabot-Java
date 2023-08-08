@@ -6,10 +6,10 @@ import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.util.logging.Log;
 
 import org.javacord.api.entity.permission.Role;
-import org.javacord.api.event.server.role.UserRoleAddEvent;
+import org.javacord.api.event.user.UserChangePendingEvent;
 
 public class RestoreRoles {
-    public static void restore(UserRoleAddEvent event) {
+    public static void restore(UserChangePendingEvent event) {
         final RedisUserEntry user = new RedisUserEntry(event.getUser());
         if (user.getXP() < 290) return;
 
