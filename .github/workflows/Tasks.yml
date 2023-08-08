@@ -2,8 +2,6 @@ name: Commit Tasks
 
 on:
   push:
-    branches:
-    - 'master'
     paths:
       - '**.java'
       - 'pom.xml'
