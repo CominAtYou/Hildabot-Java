@@ -22,7 +22,7 @@ public class Kudos {
             return;
         }
 
-        if (message.getType() == MessageType.NORMAL && !message.getAuthor().isBotUser()) {
+        if (message.getType() == MessageType.NORMAL || message.getType() == MessageType.REPLY && !message.getAuthor().isBotUser()) {
             final RedisUserEntry giver = new RedisUserEntry(reaction.getUserId()); // Person who reacted to the message
             giver.incrementKey("kudos:given");
 
