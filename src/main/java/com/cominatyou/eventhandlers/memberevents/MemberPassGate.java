@@ -26,7 +26,7 @@ public class MemberPassGate {
         final String welcomeMessage = String.format("**#%s - Welcome to Hildacord,** %s**!** %s\n\nHildacord is a great place for everyone from all around the world to come around a show that they all love: Hilda!", ThousandsFormat.format(memberCount), event.getUser().getMentionTag(), greeting);
 
         EmbedBuilder embed = new EmbedBuilder()
-            .setAuthor(event.getUser().getDiscriminator() == "0" ? event.getUser().getName() : event.getUser().getDiscriminatedName(), null, event.getUser().getAvatar())
+            .setAuthor(event.getUser().getDiscriminator().equals("0") ? event.getUser().getName() : event.getUser().getDiscriminatedName(), null, event.getUser().getAvatar())
             .addField("New to Discord?", "Don't worry! The folks at Discord HQ have got an [article](https://support.discord.com/hc/en-us/articles/360045138571-Beginner-s-Guide-to-Discord) to help you get up to speed!")
             .addInlineField("To get started, please read:", "- [Rules](https://discord.com/channels/492572315138392064/657825719522689045)\n- [Server Info](https://discord.com/channels/492572315138392064/657718082831384606)\n- [Plural Info](https://discord.com/channels/492572315138392064/787521898170810368)")
             .addInlineField("Channels to check out!", "- [Show Discussion](https://discord.com/channels/492572315138392064/492573040027369483)\n- [Movie Discussion](https://discord.com/channels/492572315138392064/498574984294301696)\n- [Fanart](https://discord.com/channels/492572315138392064/492580873628286976)")
