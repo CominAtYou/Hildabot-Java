@@ -41,13 +41,13 @@ public class NationalDebt {
             resultObject = new JSONObject(responseBody);
         }
         catch (Exception e) {
-            System.err.println("[NationalDebtActivity] Couldn't parse the national debt JSON.");
+            Log.error("NationalDebtActivity", "Couldn't parse the national debt JSON.");
             return;
         }
 
         final double debt = resultObject.getDouble("totalDebt");
         final String debtString = new DecimalFormat("###,###.##").format(debt);
 
-        client.updateActivity(ActivityType.PLAYING, String.format("the current national debt of the United States is $%s", debtString));
+        client.updateActivity(ActivityType.PLAYING, "the current national debt of the United States is $" + debtString);
     }
 }
