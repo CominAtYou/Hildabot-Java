@@ -32,7 +32,7 @@ public class MemberPassGate {
             .addInlineField("Channels to check out!", "- [Show Discussion](https://discord.com/channels/492572315138392064/492573040027369483)\n- [Movie Discussion](https://discord.com/channels/492572315138392064/498574984294301696)\n- [Fanart](https://discord.com/channels/492572315138392064/492580873628286976)")
             .setImage("https://media.giphy.com/media/ygBBMqVPvd4zvCRT1y/giphy.gif")
             .setColor(Values.HILDA_BLUE)
-            .setFooter("Have any questions? Ask around or check out #open-a-ticket to get help!", event.getServer().getIcon().get());
+            .setFooter("Have any questions? Ask around or check out #open-a-ticket for help!", event.getServer().getIcon().get());
         event.getServer().getTextChannelById(830495332474552360L).get().sendMessage(welcomeMessage, embed);
 
         // If the user was previously a member of Hildacord, add back their roles.
