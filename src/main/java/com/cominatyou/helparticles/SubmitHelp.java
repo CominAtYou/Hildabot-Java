@@ -9,7 +9,7 @@ import org.javacord.api.entity.message.embed.EmbedBuilder;
 public class SubmitHelp {
     public static final EmbedBuilder ARTICLE_EMBED = new EmbedBuilder()
         .setTitle("Submit")
-        .setDescription("Submit content in <#492580926111481859>, <#492580873628286976>, <#492578733442465804>, <#492579714674720778>, or <#492885164993675264> to get XP! You can only submit once per day.")
+        .setDescription("Submit content in <#492580926111481859>, <#492580873628286976>, <#492578733442465804>, <#492579714674720778>, <#492885164993675264>, <#1139510635223322674>, and <#1139510301390282802> to get XP! You can only submit once per day.")
         .addField("Parameters", "`file || url` - The content you want to submit, as a file attachment or URL.")
         .addField("Examples", "• h!submit https://www.youtube.com/watch?v=m8IRu3lEUPs\n• h!submit (only works when a file is attached to the message)")
         .setColor(Values.HILDA_BLUE)
