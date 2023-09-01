@@ -31,6 +31,9 @@ public class Console {
      * @param client The {@code DiscordApi} instance that the shell should use.
      */
     public static void init(DiscordApi client) {
+        // Disable console if running as systemd service
+        if (System.getenv("INVOCATION_ID") != null) return;
+
         @SuppressWarnings("all")
         Scanner scanner = new Scanner(System.in);
 
