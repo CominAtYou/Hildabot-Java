@@ -16,7 +16,7 @@ public class InitializeUser extends TextCommand {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (!CommandPermissions.canRunSensitiveCommands(message.getMessageAuthor().asUser().get())) return;
         if (messageArgs.size() < 2) {
-            message.getChannel().sendMessage("You need to provide a user ID and/or a level for that!");
+            message.getChannel().sendMessage("A user ID and/or a level must be provided.");
             return;
         }
         final Integer level;
@@ -47,7 +47,7 @@ public class InitializeUser extends TextCommand {
 
             message.addReactionToMessage("👍");
         }, () -> {
-            message.getChannel().sendMessage("That ID doesn't seem to be the ID of someone in this server!");
+            message.getChannel().sendMessage("Unable to locate a user in this server with the provided ID.");
         });
     }
 }
