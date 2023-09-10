@@ -29,5 +29,9 @@ public class LevelTest {
     public void testLevelFromXP() {
         assertEquals(15, determineLevelFromXP(2065));
         assertEquals(6, determineLevelFromXP(400));
+        assertEquals(28, determineLevelFromXP(6914));
+        assertEquals(74, determineLevelFromXP(43639));
+        assertEquals(159, determineLevelFromXP(195274));
+        assertEquals(181, determineLevelFromXP(252742));
     }
 }
