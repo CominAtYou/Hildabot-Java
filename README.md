@@ -1,7 +1,8 @@
 # Hildabot
 Hildabot, built for Hildacord.
 
-This bot was built from the ground up to work with a specific Discord guild - as such, I provide no guarantees that it'll run properly in any guilds outside of the one it was designed for, or any help accomplishing such.
+> [!IMPORTANT]
+> This bot was built from the ground up to work with a specific Discord guild - as such, I provide no guarantees that it'll run properly in any guilds outside of the one it was designed for, or any help accomplishing such.
 
 However, if you wish to run it in your own guild:
 1. You'll need to swap out all of the IDs in the source for IDs in your server. A project-wide regex search in your IDE for Discord snowflakes (`[0-9]{17,}`) should identify anything that needs to be swapped out.
