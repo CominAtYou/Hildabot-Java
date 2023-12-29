@@ -60,7 +60,9 @@ jobs:
       - name: Sign jar
         env:
           SIGNATURE_KEY: ${{ secrets.SIGNATURE_KEY }}
-        run: "echo $SIGNATURE_KEY > $GITHUB_WORKSPACE/signature.key && openssl dgst -sha256 -sign $GITHUB_WORKSPACE/signature.key -out $GITHUB_WORKSPACE/hildabot.jar.signature $GITHUB_WORKSPACE/target/hildabot.jar"
+        run: |
+          'echo "$SIGNATURE_KEY" > $GITHUB_WORKSPACE/signature.key'
+          "openssl dgst -sha256 -sign $GITHUB_WORKSPACE/signature.key -out $GITHUB_WORKSPACE/hildabot.jar.signature $GITHUB_WORKSPACE/target/hildabot.jar"
       - name: Deploy bot
         env:
           DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
