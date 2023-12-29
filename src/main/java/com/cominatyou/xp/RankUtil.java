@@ -37,10 +37,15 @@ public class RankUtil {
      */
     private static int getRankLevelFromLevel(int level) {
         if (Arrays.binarySearch(rankLevels, level) > -1) return level;
-        for (int i = 0; i < rankLevels.length; i++) {
-            if (level < rankLevels[i + 1]) return rankLevels[i];
+
+        int rankLevel = -1;
+        for (int i : rankLevels) {
+            if (i < level) {
+                rankLevel = i;
+            }
         }
-        return -1; // This should never happen
+
+        return rankLevel;
     }
 
     /**
