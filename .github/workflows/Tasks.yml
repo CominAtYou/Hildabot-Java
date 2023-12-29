@@ -57,8 +57,12 @@ jobs:
         run: "printf \"$CONFIG_DATA\" > $GITHUB_WORKSPACE/src/main/java/com/cominatyou/Config.java"
       - name: Build jar
         run: mvn clean compile assembly:single
+      - name: Sign jar
+        env:
+          SIGNATURE_KEY: ${{ secrets.SIGNATURE_KEY }}
+        run: "echo $SIGNATURE_KEY > $GITHUB_WORKSPACE/signature.key && openssl dgst -sha256 -sign $GITHUB_WORKSPACE/signature.key -out $GITHUB_WORKSPACE/hildabot.jar.signature $GITHUB_WORKSPACE/target/hildabot.jar"
       - name: Deploy bot
         env:
           DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
           DEPLOY_URL: ${{ secrets.DEPLOY_URL }}
-        run: "curl -s -f -X POST -T $GITHUB_WORKSPACE/target/hildabot-*.jar -H \"Authorization: $DEPLOY_KEY\" -H \"Content-Type: application/octet-stream\" -m 30 $DEPLOY_URL"
+        run: "curl -s -f -X POST -F payload=@$GITHUB_WORKSPACE/target/hildabot-*.jar -F signaturefile=@$GITHUB_WORKSPACE/hildabot.jar.signature -H \"Authorization: $DEPLOY_KEY\" -m 30 $DEPLOY_URL"
