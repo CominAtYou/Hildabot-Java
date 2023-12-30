@@ -58,13 +58,11 @@ jobs:
       - name: Build jar
         run: mvn clean compile assembly:single
       - name: Sign jar
-        env:
-          SIGNATURE_KEY: ${{ secrets.SIGNATURE_KEY }}
-        run: |
-          'echo "$SIGNATURE_KEY" > $GITHUB_WORKSPACE/signature.key'
-          "openssl dgst -sha256 -sign $GITHUB_WORKSPACE/signature.key -out $GITHUB_WORKSPACE/hildabot.jar.signature $GITHUB_WORKSPACE/target/hildabot.jar"
+        run: "echo '${{ secrets.SIGNATURE_KEY }}' | base64 -d > $GITHUB_WORKSPACE/signature.pem && openssl dgst -sha256 -sign $GITHUB_WORKSPACE/signature.pem -out $GITHUB_WORKSPACE/hildabot.jar.signature $GITHUB_WORKSPACE/target/hildabot-*.jar"
+      - name: "Prepare for deploy"
+        run: "mv $GITHUB_WORKSPACE/target/hildabot-*.jar $GITHUB_WORKSPACE/target/hildabot.jar"
       - name: Deploy bot
         env:
           DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
           DEPLOY_URL: ${{ secrets.DEPLOY_URL }}
-        run: "curl -s -f -X POST -F payload=@$GITHUB_WORKSPACE/target/hildabot-*.jar -F signaturefile=@$GITHUB_WORKSPACE/hildabot.jar.signature -H \"Authorization: $DEPLOY_KEY\" -m 30 $DEPLOY_URL"
+        run: "curl -s -f -X POST -F payload=@$GITHUB_WORKSPACE/target/hildabot.jar -F signaturefile=@$GITHUB_WORKSPACE/hildabot.jar.signature -H \"Authorization: $DEPLOY_KEY\" -m 30 $DEPLOY_URL"

@@ -16,11 +16,11 @@ public class DbEntryCard extends TextCommand {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
         if (!message.getMessageAuthor().isBotOwner()) return;
         if (messageArgs.isEmpty()) {
-            message.getChannel().sendMessage("Please provide a User ID.");
+            message.getChannel().sendMessage("A user ID must be provided.");
             return;
         }
         if (!messageArgs.get(0).matches("[0-9]{17,19}")) {
-            message.getChannel().sendMessage("Please provide a valid user ID.");
+            message.getChannel().sendMessage("A user ID must be provided.");
             return;
         }
 
