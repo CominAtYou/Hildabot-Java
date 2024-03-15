@@ -6,9 +6,11 @@ import java.util.List;
 import com.cominatyou.TextCommand;
 import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.util.CommandPermissions;
+import com.cominatyou.util.Values;
 import com.cominatyou.xp.RankUtil;
 import com.cominatyou.xp.XPSystemCalculator;
 
+import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.entity.permission.Role;
 import org.javacord.api.event.message.MessageCreateEvent;
 
@@ -19,7 +21,7 @@ public class InitializeUser extends TextCommand {
             message.getChannel().sendMessage("A user ID and/or a level must be provided.");
             return;
         }
-        final Integer level;
+        final int level;
 
         try {
             level = Integer.parseInt(messageArgs.get(1));
@@ -28,8 +30,23 @@ public class InitializeUser extends TextCommand {
             return;
         }
 
+        if (level < 0) {
+            message.getChannel().sendMessage("Level must be a positive number.");
+            return;
+        }
+
         message.getServer().get().getMemberById(messageArgs.get(0)).ifPresentOrElse(user -> {
             final RedisUserEntry dbUser = new RedisUserEntry(user);
+
+            if (dbUser.getLevel() >= 10 && !messageArgs.contains("--force")) {
+                final EmbedBuilder warningMessage = new EmbedBuilder()
+                    .setTitle("Hold up! You might have typed something wrong.")
+                    .setDescription(String.format("You're attempting to initialize <@%d>, but they're already level %d. **You may have specified the wrong user.**\n\nIf you're sure that this is the user you wanted, re-run your command with `--force` at the end.", user.getId(), dbUser.getLevel()))
+                    .setColor(Values.WARNING_YELLOW);
+
+                message.getChannel().sendMessage(warningMessage);
+                return;
+            }
 
             final Integer xp = XPSystemCalculator.determineMinimumTotalXPForLevel(level);
             dbUser.set("xp", xp.toString());
