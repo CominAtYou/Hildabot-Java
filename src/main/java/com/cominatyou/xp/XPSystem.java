@@ -80,12 +80,12 @@ public class XPSystem {
 
                 userEntry.incrementKey("tokens", 40);
 
-                final EmbedBuilder errorEmbed = new EmbedBuilder().setColor(Values.HILDA_BLUE)
+                final EmbedBuilder errorEmbed = new EmbedBuilder()
                     .setTitle("Failed to assign a role!")
                     .setDescription("Role assignment for a level up did not complete successfully. Check `hildabot-error.log` for more information.")
                     .addInlineField("User", String.format("%s (%d)", user.getDiscriminatedName(), user.getId()))
                     .addInlineField("Role", String.format("%s (%d)", role.getName(), currentLevel))
-                    .setColor(Values.HILDA_BLUE);
+                    .setColor(Values.ERROR_RED);
                 try {
                     role.addUser(user).get();
                     Log.eventf("LEVELUP", "Assigned role %s to %s (%d)\n", role.getName(), user.getDiscriminatedName(), user.getId());
