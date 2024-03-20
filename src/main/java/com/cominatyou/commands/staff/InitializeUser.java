@@ -1,6 +1,7 @@
 package com.cominatyou.commands.staff;
 
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.cominatyou.TextCommand;
@@ -11,7 +12,6 @@ import com.cominatyou.xp.RankUtil;
 import com.cominatyou.xp.XPSystemCalculator;
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;
-import org.javacord.api.entity.permission.Role;
 import org.javacord.api.event.message.MessageCreateEvent;
 
 public class InitializeUser extends TextCommand {
@@ -55,14 +55,24 @@ public class InitializeUser extends TextCommand {
             final int[] rankLevels = RankUtil.getRanklevels();
             final int index = Arrays.binarySearch(rankLevels, rankLevel);
 
+            final ArrayList<String> unknownRoleIds = new ArrayList<>();
+
             // Give roles
             for (int i = index; i > 0; i--) {
                 final long levelId = RankUtil.getRankFromLevel(rankLevels[i]).getId();
-                final Role role = message.getServer().get().getRoleById(levelId).get();
-                role.addUser(user);
+                message.getServer().get().getRoleById(levelId).ifPresentOrElse(role -> {
+                    role.addUser(user);
+                }, () -> {
+                    unknownRoleIds.add(String.valueOf(levelId));
+                });
             }
 
-            message.addReactionToMessage("👍");
+            if (unknownRoleIds.isEmpty()) {
+                message.addReactionToMessage("👍");
+            }
+            else {
+                message.getChannel().sendMessage(String.format("The user has been initized, but the following role(s) were unable to be added to the user: %s", String.join(", ", unknownRoleIds)));
+            }
         }, () -> {
             message.getChannel().sendMessage("Unable to locate a user in this server with the provided ID.");
         });
