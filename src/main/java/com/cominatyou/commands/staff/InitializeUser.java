@@ -8,6 +8,8 @@ import com.cominatyou.TextCommand;
 import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.util.CommandPermissions;
 import com.cominatyou.util.Values;
+import com.cominatyou.util.Pair;
+import com.cominatyou.xp.Rank;
 import com.cominatyou.xp.RankUtil;
 import com.cominatyou.xp.XPSystemCalculator;
 
@@ -55,15 +57,15 @@ public class InitializeUser extends TextCommand {
             final int[] rankLevels = RankUtil.getRanklevels();
             final int index = Arrays.binarySearch(rankLevels, rankLevel);
 
-            final ArrayList<String> unknownRoleIds = new ArrayList<>();
+            final ArrayList<Pair<String, Long>> unknownRoleIds = new ArrayList<>();
 
             // Give roles
             for (int i = index; i > 0; i--) {
-                final long levelId = RankUtil.getRankFromLevel(rankLevels[i]).getId();
-                message.getServer().get().getRoleById(levelId).ifPresentOrElse(role -> {
+                final Rank rank = RankUtil.getRankFromLevel(rankLevels[i]);
+                message.getServer().get().getRoleById(rank.getId()).ifPresentOrElse(role -> {
                     role.addUser(user);
                 }, () -> {
-                    unknownRoleIds.add(String.valueOf(levelId));
+                    unknownRoleIds.add(new Pair<String, Long>(rank.getName(), rank.getId()));
                 });
             }
 
@@ -71,7 +73,14 @@ public class InitializeUser extends TextCommand {
                 message.addReactionToMessage("👍");
             }
             else {
-                message.getChannel().sendMessage(String.format("The user has been initized, but the following role(s) were unable to be added to the user: %s", String.join(", ", unknownRoleIds)));
+                final StringBuilder unknownRolesMessage = new StringBuilder()
+                    .append("The user has been initized, but the following role(s) were unable to be added to the user:\n");
+
+                for (final Pair<String, Long> unknownRole : unknownRoleIds) {
+                    unknownRolesMessage.append(String.format("- %s (ID: %d)\n", unknownRole.getFirst(), unknownRole.getSecond()));
+                }
+
+                message.getChannel().sendMessage(unknownRolesMessage.toString().trim());
             }
         }, () -> {
             message.getChannel().sendMessage("Unable to locate a user in this server with the provided ID.");
