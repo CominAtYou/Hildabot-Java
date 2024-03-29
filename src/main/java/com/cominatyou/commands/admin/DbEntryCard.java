@@ -29,7 +29,7 @@ public class DbEntryCard extends TextCommand {
             final RedisUserEntry userEntry = new RedisUserEntry(member);
             final int level = userEntry.getLevel();
 
-            final EmbedBuilder embed = new EmbedBuilder().setTitle(member.getDiscriminatedName())
+            final EmbedBuilder embed = new EmbedBuilder().setTitle(member.getName())
                     .setColor(Values.HILDA_BLUE)
                     .setThumbnail(member.getAvatar())
                     .addInlineField("Total XP", String.valueOf(userEntry.getXP()))

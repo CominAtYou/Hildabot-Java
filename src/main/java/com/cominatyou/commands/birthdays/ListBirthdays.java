@@ -67,7 +67,7 @@ public class ListBirthdays {
                 break;
             }
             else {
-                embed.addInlineField(user.get().getDiscriminatedName(), shortenedMonthString + " " + entry.getDay());
+                embed.addInlineField(user.get().getName(), shortenedMonthString + " " + entry.getDay());
             }
         }
 

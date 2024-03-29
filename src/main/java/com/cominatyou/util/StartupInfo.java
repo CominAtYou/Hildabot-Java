@@ -10,7 +10,7 @@ public class StartupInfo {
     public static void output(DiscordApi client) {
         System.out.printf("Hildabot %s (%s)\n", Version.VERSION, Version.BUILD_NUMBER);
 
-        System.out.printf("Logged in as %s\n", client.getYourself().getDiscriminatedName());
+        System.out.printf("Logged in as %s\n", client.getYourself().getName());
         System.out.println("Invite bot with " + new BotInviteBuilder(client.getClientId()).setPermissions(Permissions.fromBitmask(412652792896L)).build() + "\n");
 
         if (!System.getProperty("os.name").equalsIgnoreCase("Linux")) {

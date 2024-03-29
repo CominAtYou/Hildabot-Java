@@ -87,7 +87,7 @@ public class CheckForBirthdays implements Job {
             client.getServerById(Values.BASE_GUILD_ID).get().getMemberById(id).ifPresent(user -> {
                 birthdayRole.ifPresent(role -> {
                     role.addUser(user, "Their birthday is today!");
-                    Log.eventf("BIRTHDAYS", "Gave birthday role to %s (%d)\n", user.getDiscriminatedName(), user.getId());
+                    Log.eventf("BIRTHDAYS", "Gave birthday role to %s (%d)\n", user.getName(), user.getId());
                 });
             });
         });
