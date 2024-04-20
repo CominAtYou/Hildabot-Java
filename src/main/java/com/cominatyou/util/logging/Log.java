@@ -22,7 +22,7 @@ public class Log {
         System.out.printf("%s -- [%s] %s\n", timeString, event.toUpperCase(), info);
 
         App.getClient().getChannelById(Values.LOG_CHANNEL).ifPresent(channel -> {
-            channel.asServerTextChannel().get().sendMessage(String.format("[%s] %s", event.toUpperCase(), info));
+            channel.asServerTextChannel().get().sendMessage(String.format("[%s] %s", event, info));
         });
     }
 
@@ -41,7 +41,7 @@ public class Log {
         System.out.printf("%s -- [%s] %s\n", timeString, event.toUpperCase(), info);
 
         App.getClient().getChannelById(Values.LOG_CHANNEL).ifPresent(channel -> {
-            channel.asServerTextChannel().get().sendMessage(String.format("[%s] %s", event.toUpperCase(), info));
+            channel.asServerTextChannel().get().sendMessage(String.format("[%s] %s", event, info));
         });
     }
 
@@ -82,7 +82,7 @@ public class Log {
         System.err.printf("%s -- [%s] %s\n", timeString, event.toUpperCase(), error);
 
         App.getClient().getChannelById(Values.LOG_CHANNEL).ifPresent(channel -> {
-            channel.asServerTextChannel().get().sendMessage(String.format("[%s ERROR] %s\n```%s```", event.toUpperCase(), error, extendedMessage));
+            channel.asServerTextChannel().get().sendMessage(String.format("[%s ERROR] %s\n```%s```", event, error, extendedMessage));
         });
     }
 
