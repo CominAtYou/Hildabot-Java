@@ -25,6 +25,7 @@ public class NationalDebt {
             responseBody = response.body().string();
         }
         catch (IOException e) {
+            e.printStackTrace();
             Log.error("NationalDebtActivity", "Couldn't get the national debt JSON.");
             return;
         }
@@ -41,6 +42,7 @@ public class NationalDebt {
             resultObject = new JSONObject(responseBody);
         }
         catch (Exception e) {
+            e.printStackTrace();
             Log.error("NationalDebtActivity", "Couldn't parse the national debt JSON.");
             return;
         }

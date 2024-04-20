@@ -50,7 +50,7 @@ public class CheckForBirthdays implements Job {
         }
 
         final int birthdayCountBeforeFilter = birthdays.size();
-        Log.eventf("BIRTHDAYS", "Got %d %s from DB for %d-%s\n", birthdayCountBeforeFilter, English.plural("birthday", birthdayCountBeforeFilter), month, dayString);
+        Log.eventf("BIRTHDAYS", "Got %d %s from DB for %d-%s", birthdayCountBeforeFilter, English.plural("birthday", birthdayCountBeforeFilter), month, dayString);
 
         final TextChannel birthdayChannel = client.getServerById(Values.BASE_GUILD_ID).get().getTextChannelById(609253148564914187L).get();
 
@@ -62,7 +62,7 @@ public class CheckForBirthdays implements Job {
         }
 
         final int birthdayCount = birthdays.size();
-        Log.eventf("BIRTHDAYS", "Got %d %s after filtering for %d-%s\n", birthdayCount, English.plural("birthday", birthdayCount), month, dayString);
+        Log.eventf("BIRTHDAYS", "Got %d %s after filtering for %d-%s", birthdayCount, English.plural("birthday", birthdayCount), month, dayString);
 
         if (birthdays.isEmpty()) {
             return;
@@ -87,7 +87,7 @@ public class CheckForBirthdays implements Job {
             client.getServerById(Values.BASE_GUILD_ID).get().getMemberById(id).ifPresent(user -> {
                 birthdayRole.ifPresent(role -> {
                     role.addUser(user, "Their birthday is today!");
-                    Log.eventf("BIRTHDAYS", "Gave birthday role to %s (%d)\n", user.getName(), user.getId());
+                    Log.eventf("BIRTHDAYS", "Gave birthday role to %s (%d)", user.getName(), user.getId());
                 });
             });
         });

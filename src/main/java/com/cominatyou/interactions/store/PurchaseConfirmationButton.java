@@ -4,9 +4,11 @@ import org.javacord.api.entity.message.MessageFlag;
 import org.javacord.api.interaction.ButtonInteraction;
 
 import com.cominatyou.interactions.ButtonClickHandler;
+import com.cominatyou.store.StoreItem;
 import com.cominatyou.store.StoreItems;
 import com.cominatyou.store.StoreTimeout;
 import com.cominatyou.util.ButtonData;
+import com.cominatyou.util.logging.Log;
 
 public class PurchaseConfirmationButton implements ButtonClickHandler {
     public void execute(ButtonInteraction interaction) {
@@ -18,6 +20,9 @@ public class PurchaseConfirmationButton implements ButtonClickHandler {
 
         if (StoreTimeout.checkAndHandleExpiry(interaction)) return;
 
-        StoreItems.getItemById(data.getPayload()).giveItem(interaction);
+        final StoreItem item = StoreItems.getItemById(data.getPayload());
+        item.giveItem(interaction);
+
+        Log.eventf("Store", "%s (%d) purchased %s for %d tokens.", interaction.getUser().getName(), interaction.getUser().getId(), item.getName(), item.getPrice());
     }
 }

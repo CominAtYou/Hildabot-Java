@@ -20,4 +20,6 @@ public class Values {
     public static final long TESTING_CHANNEL = 565327145786802176L;
     /** The guild where the bot will be active. */
     public static final long BASE_GUILD_ID = 492572315138392064L;
+    /** The channel for logging events. */
+    public static final long LOG_CHANNEL = 1231339360348274709L;
 }

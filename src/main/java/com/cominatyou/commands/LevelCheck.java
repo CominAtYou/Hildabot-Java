@@ -44,7 +44,7 @@ public class LevelCheck extends TextCommand {
 
         if (restoredRoles > 0) {
             MessageUtil.sendTextReply(message.getMessage(), "You're all set. The roles you were missing have been added to you.");
-            Log.eventf("LEVELCHECK", "Restored %d %s for %s (%d)\n", restoredRoles, English.plural("role", restoredRoles), message.getMessageAuthor().getName(), message.getMessageAuthor().getId());
+            Log.eventf("LEVELCHECK", "Restored %d %s for %s (%d)", restoredRoles, English.plural("role", restoredRoles), message.getMessageAuthor().getName(), message.getMessageAuthor().getId());
         }
         else {
             MessageUtil.sendTextReply(message.getMessage(), "You don't seem to be missing any roles, so you're all set!");

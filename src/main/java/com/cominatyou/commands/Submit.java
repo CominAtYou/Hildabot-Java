@@ -11,6 +11,7 @@ import com.cominatyou.db.RedisInstance;
 import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.util.MessageUtil;
 import com.cominatyou.util.Values;
+import com.cominatyou.util.logging.Log;
 import com.cominatyou.xp.XPSystem;
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;
@@ -121,6 +122,8 @@ public class Submit extends TextCommand {
             .addField("Streak Expiry", String.format("<t:%d>", streakExpiry))
             .setFooter("Tokens can be used with the /store command.");
         message.getChannel().sendMessage(embed);
+
+        Log.eventf("Submit", "Successfully accepted submission from %s (%d) in <#%d>. (Submission ID %d)" , message.getMessageAuthor().getName(), message.getMessageAuthor().getId(), message.getChannel().getId(), message.getMessage().getId());
 
         XPSystem.checkForLevelUp(currentLevel, message.getMessageAuthor().asUser().get(), message.getServer().get());
     }

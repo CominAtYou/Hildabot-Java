@@ -10,6 +10,7 @@ import org.javacord.api.event.message.MessageCreateEvent;
 import com.cominatyou.db.RedisInstance;
 import com.cominatyou.db.RedisUserEntry;
 import com.cominatyou.util.MessageUtil;
+import com.cominatyou.util.logging.Log;
 
 public class SetBirthday {
     private static final List<String> thirtyDayMonths = Arrays.asList("09", "04", "06", "11");
@@ -78,5 +79,7 @@ public class SetBirthday {
             final String monthString = DateFormatSymbols.getInstance().getMonths()[intMonth - 1];
             MessageUtil.sendTextReply(message.getMessage(), String.format("Success! Your birthday has been set to %s %d.", monthString, intDay));
         }
+
+        Log.eventf("Birthdays", "Birthday for %s (%d) was set to %s.", message.getMessageAuthor().getName(), message.getMessageAuthor().getId(), birthday);
     }
 }

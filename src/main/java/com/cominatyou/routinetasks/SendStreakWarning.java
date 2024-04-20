@@ -51,7 +51,7 @@ public class SendStreakWarning implements Job {
             });
         }
 
-        Log.eventf("STREAKWARN", "Sent three-day streak expiry warning to %d %s.\n", expireInThreeDays.size(), English.plural("user", expireInThreeDays.size()));
+        Log.eventf("STREAKWARN", "Sent three-day streak expiry warning to %d %s.", expireInThreeDays.size(), English.plural("user", expireInThreeDays.size()));
 
         embed.setTitle("Your streak expires in 1 day!");
 
@@ -64,7 +64,7 @@ public class SendStreakWarning implements Job {
             });
         }
 
-        Log.eventf("STREAKWARN", "Sent next-day streak expiry warning to %d %s.\n", expireTomorrow.size(), English.plural("user", expireTomorrow.size()));
+        Log.eventf("STREAKWARN", "Sent next-day streak expiry warning to %d %s.", expireTomorrow.size(), English.plural("user", expireTomorrow.size()));
         Log.event("STREAKWARN", "Finished streak warnings task.");
 
     }

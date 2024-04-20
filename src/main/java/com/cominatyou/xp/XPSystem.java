@@ -1,5 +1,7 @@
 package com.cominatyou.xp;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -59,7 +61,7 @@ public class XPSystem {
             final String levelUpMessage = String.format("Congrats on leveling up! You are now level **%d**! :tada:", currentLevel);
             final String embedTitle = RankUtil.isLevelRankLevel(currentLevel) ? rankUpMessage : levelUpMessage;
 
-            Log.eventf("LEVELUP", "%s (%d) leveled up to %d: %s XP\n", user.getName(), user.getId(), currentLevel, ThousandsFormat.format(currentXP));
+            Log.eventf("LEVELUP", "%s (%d) leveled up to %d: %s XP", user.getName(), user.getId(), currentLevel, ThousandsFormat.format(currentXP));
 
             if (!userEntry.getBoolean("levelalertsdisabled")) {
                 final EmbedBuilder embed = new EmbedBuilder()
@@ -68,10 +70,23 @@ public class XPSystem {
                         .setDescription("To disable this message going forward, run `h!levelalert` in this DM or <#495034452422950915>.");
                 try {
                     user.openPrivateChannel().join().sendMessage(embed);
+                    Log.eventf("LevelAlert", "Sent level up message to %s (%d)", user.getName(), user.getId());
                 }
                 catch (Exception e) {
-                    e.printStackTrace();
+                    if (e.getMessage().contains("Cannot send messages to this user")) {
+                        Log.eventf("LevelAlert", "No message was sent to %s (%d) as their privacy settings prevent it.", user.getName(), user.getId());
+                    }
+                    else {
+                        e.printStackTrace();
+                        final StringWriter sw = new StringWriter();
+                        e.printStackTrace(new PrintWriter(sw));
+
+                        Log.error("LevelAlert", String.format("Failed to send level up message to %s (%d)", user.getName(), user.getId()), sw.toString());
+                    }
                 }
+            }
+            else {
+                Log.eventf("LevelAlert", "Not sending a message to %s (%d) as they have level alerts off.", user.getName(), user.getId());
             }
 
             if (RankUtil.isLevelRankLevel(currentLevel)) {
@@ -80,18 +95,19 @@ public class XPSystem {
 
                 userEntry.incrementKey("tokens", 40);
 
-                final EmbedBuilder errorEmbed = new EmbedBuilder()
-                    .setTitle("Failed to assign a role!")
-                    .setDescription("Role assignment for a level up did not complete successfully. Check `hildabot-error.log` for more information.")
-                    .addInlineField("User", String.format("%s (%d)", user.getName(), user.getId()))
-                    .addInlineField("Role", String.format("%s (%d)", role.getName(), currentLevel))
-                    .setColor(Values.ERROR_RED);
                 try {
                     role.addUser(user).get();
-                    Log.eventf("LEVELUP", "Assigned role %s to %s (%d)\n", role.getName(), user.getName(), user.getId());
+                    Log.eventf("LEVELUP", "Assigned role %s to %s (%d)", role.getName(), user.getName(), user.getId());
                 }
                 catch (Exception e) {
-                    Log.errorf("LEVELUP", "Failed to assign %s to %s (%d)!\n", role.getName(), user.getName(), user.getId());
+                    final EmbedBuilder errorEmbed = new EmbedBuilder()
+                        .setTitle("Failed to assign a role!")
+                        .setDescription("Role assignment for a level up did not complete successfully. Check `hildabot-error.log` for more information.")
+                        .addInlineField("User", String.format("%s (%d)", user.getName(), user.getId()))
+                        .addInlineField("Role", String.format("%s (%d)", role.getName(), currentLevel))
+                        .setColor(Values.ERROR_RED);
+
+                    Log.errorf("LEVELUP", "Failed to assign %s to %s (%d)!", role.getName(), user.getName(), user.getId());
                     user.getApi().getOwner().get().join().openPrivateChannel().join().sendMessage(errorEmbed);
 
                     if (e.getCause() == null) e.printStackTrace();
