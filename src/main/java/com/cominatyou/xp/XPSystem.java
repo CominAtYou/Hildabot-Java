@@ -61,7 +61,7 @@ public class XPSystem {
             final String levelUpMessage = String.format("Congrats on leveling up! You are now level **%d**! :tada:", currentLevel);
             final String embedTitle = RankUtil.isLevelRankLevel(currentLevel) ? rankUpMessage : levelUpMessage;
 
-            Log.eventf("LEVELUP", "%s (%d) leveled up to %d: %s XP", user.getName(), user.getId(), currentLevel, ThousandsFormat.format(currentXP));
+            Log.eventf("LevelUp", "%s (%d) leveled up to %d: %s XP", user.getName(), user.getId(), currentLevel, ThousandsFormat.format(currentXP));
 
             if (!userEntry.getBoolean("levelalertsdisabled")) {
                 final EmbedBuilder embed = new EmbedBuilder()
@@ -97,7 +97,7 @@ public class XPSystem {
 
                 try {
                     role.addUser(user).get();
-                    Log.eventf("LEVELUP", "Assigned role %s to %s (%d)", role.getName(), user.getName(), user.getId());
+                    Log.eventf("LevelUp", "Assigned role %s to %s (%d)", role.getName(), user.getName(), user.getId());
                 }
                 catch (Exception e) {
                     final EmbedBuilder errorEmbed = new EmbedBuilder()
@@ -107,7 +107,7 @@ public class XPSystem {
                         .addInlineField("Role", String.format("%s (%d)", role.getName(), currentLevel))
                         .setColor(Values.ERROR_RED);
 
-                    Log.errorf("LEVELUP", "Failed to assign %s to %s (%d)!", role.getName(), user.getName(), user.getId());
+                    Log.errorf("LevelUp", "Failed to assign %s to %s (%d)!", role.getName(), user.getName(), user.getId());
                     user.getApi().getOwner().get().join().openPrivateChannel().join().sendMessage(errorEmbed);
 
                     if (e.getCause() == null) e.printStackTrace();

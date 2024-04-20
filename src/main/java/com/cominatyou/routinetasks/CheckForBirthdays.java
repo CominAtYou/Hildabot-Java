@@ -25,12 +25,12 @@ public class CheckForBirthdays implements Job {
     public void execute(JobExecutionContext context) throws JobExecutionException {
         final DiscordApi client = App.getClient();
 
-        Log.event("BIRTHDAYS", "Starting birthdays task.");
+        Log.event("Birthdays", "Starting birthdays task.");
 
         final Optional<Role> birthdayRole = client.getServerById(Values.BASE_GUILD_ID).get().getRoleById(609258045759029250L);
         birthdayRole.ifPresent(role -> {
             final Collection<User> birthdayRoleUsers = role.getUsers();
-            if (birthdayRoleUsers.size() != 0) Log.eventf("BIRTHDAYS", "Removing birthday role from %d %s\n", birthdayRoleUsers.size(), English.plural("user", birthdayRoleUsers.size()));
+            if (birthdayRoleUsers.size() != 0) Log.eventf("Birthdays", "Removing birthday role from %d %s\n", birthdayRoleUsers.size(), English.plural("user", birthdayRoleUsers.size()));
             birthdayRoleUsers.forEach(user -> {
                 user.removeRole(role, "Their birthday has passed.");
             });
@@ -50,7 +50,7 @@ public class CheckForBirthdays implements Job {
         }
 
         final int birthdayCountBeforeFilter = birthdays.size();
-        Log.eventf("BIRTHDAYS", "Got %d %s from DB for %d-%s", birthdayCountBeforeFilter, English.plural("birthday", birthdayCountBeforeFilter), month, dayString);
+        Log.eventf("Birthdays", "Got %d %s from DB for %d-%s", birthdayCountBeforeFilter, English.plural("birthday", birthdayCountBeforeFilter), month, dayString);
 
         final TextChannel birthdayChannel = client.getServerById(Values.BASE_GUILD_ID).get().getTextChannelById(609253148564914187L).get();
 
@@ -62,7 +62,7 @@ public class CheckForBirthdays implements Job {
         }
 
         final int birthdayCount = birthdays.size();
-        Log.eventf("BIRTHDAYS", "Got %d %s after filtering for %d-%s", birthdayCount, English.plural("birthday", birthdayCount), month, dayString);
+        Log.eventf("Birthdays", "Got %d %s after filtering for %d-%s", birthdayCount, English.plural("birthday", birthdayCount), month, dayString);
 
         if (birthdays.isEmpty()) {
             return;
@@ -87,11 +87,11 @@ public class CheckForBirthdays implements Job {
             client.getServerById(Values.BASE_GUILD_ID).get().getMemberById(id).ifPresent(user -> {
                 birthdayRole.ifPresent(role -> {
                     role.addUser(user, "Their birthday is today!");
-                    Log.eventf("BIRTHDAYS", "Gave birthday role to %s (%d)", user.getName(), user.getId());
+                    Log.eventf("Birthdays", "Gave birthday role to %s (%d)", user.getName(), user.getId());
                 });
             });
         });
 
-        Log.event("BIRTHDAYS", "Completed birthdays task.");
+        Log.event("Birthdays", "Completed birthdays task.");
     }
 }

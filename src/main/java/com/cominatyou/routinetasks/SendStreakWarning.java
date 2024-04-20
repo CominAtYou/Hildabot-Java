@@ -20,7 +20,7 @@ public class SendStreakWarning implements Job {
 
     @Override
     public void execute(JobExecutionContext arg0) throws JobExecutionException {
-        Log.event("STREAKWARN", "Starting streak warnings task.");
+        Log.event("StreakWarn", "Starting streak warnings task.");
 
         final ZonedDateTime now = ZonedDateTime.now(Values.TIMEZONE_AMERICA_CHICAGO);
         final ZonedDateTime midnight = now.toLocalDate().atStartOfDay(now.getZone());
@@ -51,7 +51,7 @@ public class SendStreakWarning implements Job {
             });
         }
 
-        Log.eventf("STREAKWARN", "Sent three-day streak expiry warning to %d %s.", expireInThreeDays.size(), English.plural("user", expireInThreeDays.size()));
+        Log.eventf("StreakWarn", "Sent three-day streak expiry warning to %d %s.", expireInThreeDays.size(), English.plural("user", expireInThreeDays.size()));
 
         embed.setTitle("Your streak expires in 1 day!");
 
@@ -64,8 +64,8 @@ public class SendStreakWarning implements Job {
             });
         }
 
-        Log.eventf("STREAKWARN", "Sent next-day streak expiry warning to %d %s.", expireTomorrow.size(), English.plural("user", expireTomorrow.size()));
-        Log.event("STREAKWARN", "Finished streak warnings task.");
+        Log.eventf("StreakWarn", "Sent next-day streak expiry warning to %d %s.", expireTomorrow.size(), English.plural("user", expireTomorrow.size()));
+        Log.event("StreakWarn", "Finished streak warnings task.");
 
     }
 }
