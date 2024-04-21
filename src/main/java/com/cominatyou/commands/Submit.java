@@ -123,7 +123,7 @@ public class Submit extends TextCommand {
             .setFooter("Tokens can be used with the /store command.");
         message.getChannel().sendMessage(embed);
 
-        Log.eventf("Submit", "Successfully accepted submission from %s (%d) in <#%d>. (Submission ID: %d)" , message.getMessageAuthor().getName(), message.getMessageAuthor().getId(), message.getChannel().getId(), message.getMessage().getId());
+        Log.eventf("Submit", "Successfully processed submission from %s (%d) in <#%d>. (Submission ID: %d)" , message.getMessageAuthor().getName(), message.getMessageAuthor().getId(), message.getChannel().getId(), message.getMessage().getId());
 
         XPSystem.checkForLevelUp(currentLevel, message.getMessageAuthor().asUser().get(), message.getServer().get());
     }

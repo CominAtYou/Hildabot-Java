@@ -70,23 +70,23 @@ public class XPSystem {
                         .setDescription("To disable this message going forward, run `h!levelalert` in this DM or <#495034452422950915>.");
                 try {
                     user.openPrivateChannel().join().sendMessage(embed);
-                    Log.eventf("LevelAlert", "Sent level up message to %s (%d)", user.getName(), user.getId());
+                    Log.eventf("LevelAlert", "Sent level up message to %s", user.getName());
                 }
                 catch (Exception e) {
-                    if (e.getMessage().contains("Cannot send messages to this user")) {
-                        Log.eventf("LevelAlert", "No message was sent to %s (%d) as their privacy settings prevent it.", user.getName(), user.getId());
+                    if (e.getMessage().contains("Cannot send messages to this user")) { // Target user has DMs off for the server
+                        Log.eventf("LevelAlert", "No message was sent to %s as their privacy settings prevent it.", user.getName());
                     }
                     else {
                         e.printStackTrace();
                         final StringWriter sw = new StringWriter();
                         e.printStackTrace(new PrintWriter(sw));
 
-                        Log.error("LevelAlert", String.format("Failed to send level up message to %s (%d)", user.getName(), user.getId()), sw.toString());
+                        Log.error("LevelAlert", String.format("Failed to send level up message to %s.", user.getName()), sw.toString());
                     }
                 }
             }
             else {
-                Log.eventf("LevelAlert", "Not sending a message to %s (%d) as they have level alerts off.", user.getName(), user.getId());
+                Log.eventf("LevelAlert", "Not sending a message to %s as they have level alerts off.", user.getName());
             }
 
             if (RankUtil.isLevelRankLevel(currentLevel)) {
