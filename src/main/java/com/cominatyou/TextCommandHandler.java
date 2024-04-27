@@ -43,8 +43,9 @@ public class TextCommandHandler {
 
     public static void getCommand(MessageCreateEvent event) {
         final String[] messageContentArray = event.getMessageContent().substring(Config.PREFIX.length()).split(" +");
-        final ArrayList<String> messageArgs = new ArrayList<>(Arrays.asList(messageContentArray));
+        if (messageContentArray.length == 0) return;
 
+        final ArrayList<String> messageArgs = new ArrayList<>(Arrays.asList(messageContentArray));
         final String command = messageArgs.remove(0).toLowerCase();
 
         if (sharedCommands.containsKey(command)) {
