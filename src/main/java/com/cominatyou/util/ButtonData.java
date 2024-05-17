@@ -1,7 +1,7 @@
 package com.cominatyou.util;
 
 /**
- * Ckass for encoding data into a button's ID.
+ * Class for encoding data into a button's ID.
  */
 public class ButtonData {
     private final String command;
