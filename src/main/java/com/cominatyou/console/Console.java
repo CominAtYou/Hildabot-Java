@@ -23,6 +23,7 @@ public class Console {
         entry("send", new Send()),
         entry("cc", new ChangeChannel()),
         entry("edit", new Edit()),
+        entry("exit", new Exit()),
         entry("clear", new Clear())
     );
 
