@@ -35,7 +35,7 @@ public class DbEntryCard extends TextCommand {
                     .addInlineField("Total XP", String.valueOf(userEntry.getXP()))
                     .addInlineField("Level", String.format("%d (%s)", level, RankUtil.getRankFromLevel(level).getName()))
                     .addInlineField("XP for Level Up", String.valueOf(XPSystemCalculator.determineMinimumTotalXPForLevel(level + 1)))
-                    .addInlineField("Enrolled", userEntry.getBoolean("enrolled") ? "Yes" : "No")
+                    .addInlineField("Tokens", String.valueOf(userEntry.getInt("tokens")))
                     .addInlineField("Level Alerts", userEntry.getBoolean("levelalertsdisabled") ? "Disabled" : "Enabled")
                     .addInlineField("Birthday", userEntry.getString("birthday:string") == null ? "None" : userEntry.getString("birthday:string"))
                     .setFooter("User ID: " + userEntry.getIdAsString())
