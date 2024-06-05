@@ -4,6 +4,7 @@ import static java.util.Map.entry;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import com.cominatyou.commands.*;
@@ -14,6 +15,8 @@ import org.javacord.api.entity.channel.ChannelType;
 import org.javacord.api.event.message.MessageCreateEvent;
 
 public class TextCommandHandler {
+    private static final List<ChannelType> textChannelTypes = Arrays.asList(ChannelType.getTextChannelTypes());
+
     // Commands that can be run in both private channels and guild text channels
     private static final Map<String, TextCommand> sharedCommands = Map.ofEntries(
         entry("levelalert", new LevelAlert()),
@@ -51,7 +54,7 @@ public class TextCommandHandler {
         if (sharedCommands.containsKey(command)) {
             sharedCommands.get(command).execute(event, messageArgs);
         }
-        else if (event.getChannel().getType() == ChannelType.SERVER_TEXT_CHANNEL && guildCommands.containsKey(command)) {
+        else if (textChannelTypes.contains(event.getChannel().getType()) && guildCommands.containsKey(command)) {
             guildCommands.get(command).execute(event, messageArgs);
         }
     }
