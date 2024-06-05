@@ -9,6 +9,7 @@ import com.cominatyou.db.RedisInstance;
 import com.cominatyou.eventhandlers.*;
 import com.cominatyou.eventhandlers.memberevents.*;
 import com.cominatyou.routinetasks.RoutineTasks;
+import com.cominatyou.util.ShutdownHook;
 import com.cominatyou.util.StartupInfo;
 import com.cominatyou.util.activities.ActivitySwapper;
 
@@ -35,6 +36,9 @@ public class App {
 
         // Set the bot's activity.
         ActivitySwapper.start(client);
+
+        // Initialize the shutdown hook.
+        ShutdownHook.init();
 
         client.addMessageCreateListener(MessageCreate::route);
         client.addSlashCommandCreateListener(SlashCommandHandler::route);

@@ -4,18 +4,34 @@ import io.lettuce.core.ClientOptions;
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.api.sync.RedisCommands;
 
+import java.util.concurrent.CompletableFuture;
+
 import com.cominatyou.Config;
 
 public class RedisInstance {
-    private static RedisCommands<String, String> syncCommands;
+    private static RedisCommands<String, String> syncCommands = null;
+    private static RedisClient client = null;
 
     /**
      * Open a connection to the Redis database.
      */
     public static void connect() {
-        RedisClient client = RedisClient.create(Config.REDIS_INSTANCE_ADDRESS);
+        client = RedisClient.create(Config.REDIS_INSTANCE_ADDRESS);
         client.setOptions(ClientOptions.builder().autoReconnect(true).build());
         syncCommands = client.connect().sync();
+    }
+
+    /**
+     * Close the connection to the Redis database.
+     */
+    public static boolean disconnect() {
+        if (client != null) {
+            final CompletableFuture<Void> future = client.shutdownAsync();
+            future.join();
+            return !future.isCompletedExceptionally();
+        }
+
+        return false;
     }
 
     /**
