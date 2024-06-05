@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ThreadLocalRandom;
 
 import com.cominatyou.db.RedisInstance;
@@ -69,20 +70,27 @@ public class XPSystem {
                         .setTitle(embedTitle)
                         .setDescription("To disable this message going forward, run `h!levelalert` in this DM or <#495034452422950915>.");
                 try {
-                    user.openPrivateChannel().join().sendMessage(embed);
+                    user.openPrivateChannel().get().sendMessage(embed).get();
                     Log.eventf("LevelAlert", "Sent level up message to %s", user.getName());
                 }
-                catch (Exception e) {
-                    if (e.getMessage().contains("Cannot send messages to this user")) { // Target user has DMs off for the server
+                catch (ExecutionException e) {
+                    if (e.getCause().getMessage().contains("Cannot send messages to this user")) { // Target user has DMs off for the server
                         Log.eventf("LevelAlert", "No message was sent to %s as their privacy settings prevent it.", user.getName());
                     }
                     else {
-                        e.printStackTrace();
+                        e.getCause().printStackTrace();
                         final StringWriter sw = new StringWriter();
-                        e.printStackTrace(new PrintWriter(sw));
+                        e.getCause().printStackTrace(new PrintWriter(sw));
 
-                        Log.error("LevelAlert", String.format("Failed to send level up message to %s.", user.getName()), sw.toString());
+                        Log.error("LevelAlert", String.format("Failed to send level up message to %s.\n```%s```", user.getName()), sw.toString());
                     }
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                    final StringWriter sw = new StringWriter();
+                    e.printStackTrace(new PrintWriter(sw));
+
+                    Log.error("LevelAlert", String.format("Failed to send level up message to %s.\n```%s```", user.getName()), sw.toString());
                 }
             }
             else {
