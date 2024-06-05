@@ -34,7 +34,7 @@ public class Pair<T1, T2> {
 
     /**
      * Get the second object in the pair.
-     * @return
+     * @return The second object in the pair.
      */
     public T2 getSecond() {
         return second;
@@ -49,7 +49,7 @@ public class Pair<T1, T2> {
         if (other == this) return true;
         if (!(other instanceof Pair)) return false;
 
-        Pair<?, ?> otherPair = (Pair<?, ?>) other;
+        final Pair<?, ?> otherPair = (Pair<?, ?>) other;
         return first.equals(otherPair.getFirst()) && second.equals(otherPair.getSecond());
     }
 }
