@@ -12,15 +12,16 @@ import org.junit.Test;
 
 public class RankTest {
     private static final int[] rankLevels = RankUtil.getRanklevels();
+    private static final int TOTAL_RANK_LEVEL_COUNT = 26;
 
     @Test
     public void ensureCorrectAmountOfRankLevels() {
-        assertEquals(26, rankLevels.length);
+        assertEquals(TOTAL_RANK_LEVEL_COUNT, rankLevels.length);
     }
 
     @Test
     public void ensureUniqueRankRoleIDs() {
-        final ArrayList<Long> seenIDs = new ArrayList<>(26);
+        final ArrayList<Long> seenIDs = new ArrayList<>(TOTAL_RANK_LEVEL_COUNT);
         for (final int i : rankLevels) {
             final Rank rank = RankUtil.getRankFromLevel(i);
             if (seenIDs.contains(rank.getId())) {
@@ -36,7 +37,7 @@ public class RankTest {
     public void ensureCorrectRankRoleIdFormat() {
         for (final int i : rankLevels) {
             final Rank rank = RankUtil.getRankFromLevel(i);
-            if (!String.valueOf(rank.getId()).matches("^[0-9]{17,19}$")) {
+            if (!String.valueOf(rank.getId()).matches("^[0-9]{17,}$")) {
                 fail(String.format("Level %d: ID %d is not a Discord snowflake!", i, rank.getId()));
             }
         }
@@ -54,14 +55,14 @@ public class RankTest {
     public void ensureSortedRankLevels() {
         for (int i = 0; i < rankLevels.length - 1; i++) {
             if (rankLevels[i] > rankLevels[i + 1]) {
-                fail(String.format("Level %d: next level is %d, which is less a lower level", rankLevels[i], rankLevels[i + 1]));
+                fail(String.format("Level %d: next level is %d, which is a lower level", rankLevels[i], rankLevels[i + 1]));
             }
         }
     }
 
     @Test
     public void ensureUniqueRankNames() {
-        final ArrayList<String> seenNames = new ArrayList<>(26);
+        final ArrayList<String> seenNames = new ArrayList<>(TOTAL_RANK_LEVEL_COUNT);
         for (final int i : rankLevels) {
             final Rank rank = RankUtil.getRankFromLevel(i);
             if (seenNames.contains(rank.getName())) {
