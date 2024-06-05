@@ -23,6 +23,7 @@ public class RedisInstance {
 
     /**
      * Close the connection to the Redis database.
+     * @return Whether or not the connection was successfully closed.
      */
     public static boolean disconnect() {
         if (client != null) {
