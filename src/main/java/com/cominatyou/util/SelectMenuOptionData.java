@@ -35,7 +35,11 @@ public class SelectMenuOptionData {
      * @param payload The payload of the select menu option.
      * @return The new {@code SelectMenuOptionData} object.
      */
-    public static SelectMenuOptionData from(String userId, String payload) {
+    public static SelectMenuOptionData from(String userId, String payload) throws IllegalArgumentException {
+        if (!userId.matches("[0-9]{17,}")) {
+            throw new IllegalArgumentException("The value passed for userId is not a valid snowflake.");
+        }
+
         return new SelectMenuOptionData(userId, payload);
     }
 

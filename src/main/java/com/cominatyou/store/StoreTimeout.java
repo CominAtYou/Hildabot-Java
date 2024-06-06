@@ -13,8 +13,8 @@ public class StoreTimeout {
     public static boolean checkAndHandleExpiry(MessageComponentInteractionBase interaction) {
         if (interaction.getMessage().getCreationTimestamp().isBefore(Instant.now().minusSeconds(600))) {
             interaction.getMessage()
-                .createUpdater().
-                removeAllComponents()
+                .createUpdater()
+                .removeAllComponents()
                 .removeAllEmbeds()
                 .setContent("This store session has expired. If you wish to access the store, please use the </store:1071965429012107486> command.")
                 .applyChanges();

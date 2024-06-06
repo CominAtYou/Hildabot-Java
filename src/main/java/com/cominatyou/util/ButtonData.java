@@ -45,7 +45,11 @@ public class ButtonData {
      * @param payload The payload of the button.
      * @return The new {@code SelectMenuOptionData} object.
      */
-    public static ButtonData from(String command, String userId, String payload) {
+    public static ButtonData from(String command, String userId, String payload) throws IllegalArgumentException {
+        if (!userId.matches("[0-9]{17,}")) {
+            throw new IllegalArgumentException("The value passed for userId is not a valid snowflake.");
+        }
+
         return new ButtonData(command, userId, payload);
     }
 
