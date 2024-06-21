@@ -50,6 +50,6 @@ public class NationalDebt {
         final double debt = resultObject.getDouble("totalDebt");
         final String debtString = new DecimalFormat("###,###.##").format(debt);
 
-        client.updateActivity(ActivityType.PLAYING, "the current national debt of the United States is $" + debtString);
+        client.updateActivity(ActivityType.CUSTOM, "The current national debt of the United States is $" + debtString);
     }
 }

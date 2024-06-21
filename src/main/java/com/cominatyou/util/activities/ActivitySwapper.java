@@ -19,7 +19,7 @@ public class ActivitySwapper {
             new Activity(ActivityType.PLAYING, "with the trolls"),
             new Activity(ActivityType.PLAYING, "with Twig"),
             new Activity(ActivityType.PLAYING, "with the water spirits"),
-            new Activity(ActivityType.PLAYING, "Version " + Version.VERSION_STRING),
+            new Activity(ActivityType.CUSTOM, "Version " + Version.VERSION_STRING),
             new Activity(ActivityType.COMPETING, "a dodgeball game"),
             new Activity(ActivityType.LISTENING, "the Rat King's secrets"),
             new Activity(ActivityType.LISTENING, "Alfur lecture"),
