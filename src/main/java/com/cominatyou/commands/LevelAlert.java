@@ -16,18 +16,17 @@ public class LevelAlert extends TextCommand {
 
     public void execute(MessageCreateEvent message, List<String> args) {
         if (message.getChannel().getId() != Values.TESTING_CHANNEL && message.getChannel().getId() != Values.BOT_CHANNEL && message.getChannel().getType() != ChannelType.PRIVATE_CHANNEL) return;
+
         final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor());
         final boolean userPreference = user.getBoolean("levelalertsdisabled");
 
-        if (!userPreference) {
-            user.set("levelalertsdisabled", "true");
-            if (message.getChannel().getType() == ChannelType.PRIVATE_CHANNEL) message.getChannel().sendMessage(alertsDisabledMessage);
-            else MessageUtil.sendTextReply(message.getMessage(), alertsDisabledMessage);
+        user.set("levelalertsdisabled", userPreference ? "false" : "true");
+
+        if (message.getChannel().getType() == ChannelType.PRIVATE_CHANNEL) {
+            message.getChannel().sendMessage(userPreference ? alertsEnabledMessage : alertsDisabledMessage);
         }
         else {
-            user.set("levelalertsdisabled", "false");
-            if (message.getChannel().getType() == ChannelType.PRIVATE_CHANNEL) message.getChannel().sendMessage(alertsEnabledMessage);
-            else MessageUtil.sendTextReply(message.getMessage(), alertsEnabledMessage);
+            MessageUtil.sendTextReply(message.getMessage(), userPreference ? alertsEnabledMessage : alertsDisabledMessage);
         }
     }
 }

@@ -20,15 +20,13 @@ public class StreakWarning extends TextCommand {
         final RedisUserEntry user = new RedisUserEntry(message.getMessageAuthor());
         final boolean userPreference = user.getBoolean("streakwarningsdisabled");
 
-        if (!userPreference) {
-            user.set("streakwarningsdisabled", "true");
-            if (message.getChannel().getType() == ChannelType.PRIVATE_CHANNEL) message.getChannel().sendMessage(warningsDisabledMessage);
-            else MessageUtil.sendTextReply(message.getMessage(), warningsDisabledMessage);
+        user.set("streakwarningsdisabled", userPreference ? "false" : "true");
+
+        if (message.getChannel().getType() == ChannelType.PRIVATE_CHANNEL) {
+            message.getChannel().sendMessage(userPreference ? warningsEnabledMessage : warningsDisabledMessage);
         }
         else {
-            user.set("streakwarningsdisabled", "false");
-            if (message.getChannel().getType() == ChannelType.PRIVATE_CHANNEL) message.getChannel().sendMessage(warningsEnabledMessage);
-            else MessageUtil.sendTextReply(message.getMessage(), warningsEnabledMessage);
+            MessageUtil.sendTextReply(message.getMessage(), userPreference ? warningsEnabledMessage : warningsDisabledMessage);
         }
     }
 }
