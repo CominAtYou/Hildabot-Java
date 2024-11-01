@@ -5,21 +5,22 @@ import java.util.List;
 import org.javacord.api.event.message.MessageCreateEvent;
 
 import com.cominatyou.TextCommand;
-import com.cominatyou.commands.birthdays.*;
-import com.cominatyou.util.MessageUtil;
 
 public class Birthdays extends TextCommand {
     public void execute(MessageCreateEvent message, List<String> messageArgs) {
-        if (messageArgs.isEmpty() || messageArgs.size() == 1 && !messageArgs.get(0).equalsIgnoreCase("list")) {
-            MessageUtil.sendTextReply(message.getMessage(), "Looks like you're missing some arguments. Please make sure you provided a command (set|edit) and a date (i.e. `h!birthday set 06-21`), or list and a month if you want to view upcoming birthdays!");
+        if (messageArgs.isEmpty()) {
+            message.getChannel().sendMessage("These commands have been deprecated. Please use the `/birthday` command instead.");
+            return;
         }
-        else if (messageArgs.get(0).equalsIgnoreCase("set")) {
-            SetBirthday.set(message, messageArgs);
-        } else if (messageArgs.get(0).equalsIgnoreCase("edit")) {
-            EditBirthday.edit(message, messageArgs);
+
+        final String arg = messageArgs.get(0);
+        if (arg.equalsIgnoreCase("set") || arg.equalsIgnoreCase("edit") || arg.equalsIgnoreCase("list")) {
+            message.getChannel().sendMessage("This command has been deprecated. Please use </birthday " + arg + ":1011153003853643816> instead.");
+            return;
         }
-        else if (messageArgs.get(0).equalsIgnoreCase("list")) {
-            ListBirthdays.list(message, messageArgs);
+        else {
+            message.getChannel().sendMessage("These commands have been deprecated. Please use the `/birthday` command instead.");
+            return;
         }
     }
 }
