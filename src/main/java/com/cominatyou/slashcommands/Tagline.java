@@ -9,7 +9,11 @@ import com.cominatyou.db.RedisUserEntry;
 public class Tagline implements SlashCommand {
     public void execute(SlashCommandInteraction interaction) {
         if (!RedisInstance.getInstance().lrange("config:tagline:allowedusers", 0, -1).contains(interaction.getUser().getIdAsString())) {
-            interaction.createImmediateResponder().setContent("You're not allowed to use this!").setFlags(MessageFlag.EPHEMERAL).respond();
+            interaction
+                .createImmediateResponder()
+                .setContent("You're not allowed to use this!")
+                .setFlags(MessageFlag.EPHEMERAL)
+                .respond();
             return;
         }
 
@@ -24,12 +28,20 @@ public class Tagline implements SlashCommand {
         final String newTagline = interaction.getOptionByIndex(0).get().getOptionByIndex(0).get().getStringValue().get();
 
         user.set("tagline", newTagline);
-        interaction.createImmediateResponder().setContent("Your tagline has been updated.").respond();
+        interaction
+            .createImmediateResponder()
+            .setContent("Your tagline has been updated.")
+            .setFlags(MessageFlag.EPHEMERAL)
+            .respond();
     }
 
     private void remove(SlashCommandInteraction interaction) {
         final RedisUserEntry user = new RedisUserEntry(interaction.getUser());
         user.deleteKey("tagline");
-        interaction.createImmediateResponder().setContent("Your tagline has been removed.").respond();
+        interaction
+            .createImmediateResponder()
+            .setContent("Your tagline has been removed.")
+            .setFlags(MessageFlag.EPHEMERAL)
+            .respond();
     }
 }

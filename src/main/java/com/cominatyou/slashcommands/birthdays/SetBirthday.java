@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
+import org.javacord.api.entity.message.MessageFlag;
 import org.javacord.api.interaction.SlashCommandInteraction;
 
 import com.cominatyou.db.RedisInstance;
@@ -17,7 +18,11 @@ public class SetBirthday {
     public static void set(SlashCommandInteraction interaction) {
         final RedisUserEntry user = new RedisUserEntry(interaction.getUser());
         if (user.hasKey("birthday:string")) {
-            interaction.createImmediateResponder().setContent("You already have a birthday set! If you want to change it, please use </birthday edit:1011153003853643816>.").respond();
+            interaction
+                .createImmediateResponder()
+                .setContent("You already have a birthday set! If you want to change it, please use </birthday edit:1011153003853643816>.")
+                .setFlags(MessageFlag.EPHEMERAL)
+                .respond();
             return;
         }
 
@@ -25,15 +30,27 @@ public class SetBirthday {
         final int day = interaction.getOptions().get(0).getOptionByName("day").get().getLongValue().get().intValue(); // will not be larger than 31
 
         if (thirtyDayMonths.contains(monthValue) && day > 30) {
-            interaction.createImmediateResponder().setContent("That month only has 30 days! Double-check the date you provided.");
+            interaction
+                .createImmediateResponder()
+                .setContent("That month only has 30 days! Double-check the date you provided.")
+                .setFlags(MessageFlag.EPHEMERAL)
+                .respond();
             return;
         }
         else if (thirtyOneDayMonths.contains(monthValue) && day > 31) {
-            interaction.createImmediateResponder().setContent("That month only has 31 days! Double-check the date you provided.").respond();
+            interaction
+                .createImmediateResponder()
+                .setContent("That month only has 31 days! Double-check the date you provided.")
+                .setFlags(MessageFlag.EPHEMERAL)
+                .respond();
             return;
         }
         else if (monthValue.equals("02") && day > 29) {
-            interaction.createImmediateResponder().setContent("February only has 29 days (at most)! Double-check the date you provided.").respond();
+            interaction
+                .createImmediateResponder()
+                .setContent("February only has 29 days (at most)! Double-check the date you provided.")
+                .setFlags(MessageFlag.EPHEMERAL)
+                .respond();
             return;
         }
 
@@ -51,22 +68,39 @@ public class SetBirthday {
 
         if (intMonth == currentMonth && day == currentDay) {
             if (formattedDate.equals("02-29")) {
-                interaction.createImmediateResponder().setContent("Happy Birthday! Your birthday has been set to February 29. Your birthday will be announced on March 1 on non-leap years.").respond();
+                interaction
+                    .createImmediateResponder()
+                    .setContent("Happy Birthday! Your birthday has been set to February 29. Your birthday will be announced on March 1 on non-leap years.")
+                    .respond();
                 return;
             }
             else {
                 final String monthString = DateFormatSymbols.getInstance().getMonths()[intMonth - 1];
-                interaction.createImmediateResponder().setContent(String.format("Happy Birthday! Your birthday has been set to %s %d.", monthString, day)).respond();
-                interaction.getServer().get().getRoleById(609258045759029250L).get().addUser(interaction.getUser(), "Today is their birthday!");
+                interaction
+                    .createImmediateResponder()
+                    .setContent(String.format("Happy Birthday! Your birthday has been set to %s %d.", monthString, day))
+                    .respond();
+
+                interaction
+                    .getServer().get()
+                    .getRoleById(609258045759029250L).get()
+                    .addUser(interaction.getUser(), "Today is their birthday!");
+
                 return;
             }
         }
         else if (formattedDate.equals("02-29")) {
-            interaction.createImmediateResponder().setContent("Success! Your birthday has been set to February 29. Your birthday will be announced on March 1 on non-leap years.").respond();
+            interaction
+                .createImmediateResponder()
+                .setContent("Success! Your birthday has been set to February 29. Your birthday will be announced on March 1 on non-leap years.")
+                .respond();
         }
         else {
             final String monthString = DateFormatSymbols.getInstance().getMonths()[intMonth - 1];
-            interaction.createImmediateResponder().setContent(String.format("Success! Your birthday has been set to %s %d.", monthString, day)).respond();
+            interaction
+                .createImmediateResponder()
+                .setContent(String.format("Success! Your birthday has been set to %s %d.", monthString, day))
+                .respond();
         }
 
     }

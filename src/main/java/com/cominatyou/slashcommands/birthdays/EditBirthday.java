@@ -1,5 +1,6 @@
 package com.cominatyou.slashcommands.birthdays;
 
+import org.javacord.api.entity.message.MessageFlag;
 import org.javacord.api.interaction.SlashCommandInteraction;
 
 import com.cominatyou.db.RedisInstance;
@@ -11,7 +12,11 @@ public class EditBirthday {
         final boolean hasBirthdaySet = user.hasKey("birthday:string");
 
         if (!hasBirthdaySet) {
-            interaction.createImmediateResponder().setContent("You don't have a birthday set! If you're trying to set your birthday, please use </birthday set:1011153003853643816>.").respond();
+            interaction
+                .createImmediateResponder()
+                .setContent("You don't have a birthday set! If you're trying to set your birthday, please use </birthday set:1011153003853643816>.")
+                .setFlags(MessageFlag.EPHEMERAL)
+                .respond();
             return;
         }
 
