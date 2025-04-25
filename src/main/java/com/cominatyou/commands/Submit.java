@@ -71,7 +71,7 @@ public class Submit extends TextCommand {
         // Streaks expire after one week of inactivity.
         user.expireKeyAt("streak", streakExpiry);
         // XP for submissions is calculated by taking the user's current streak, and adding 20 to it.
-        int amount = 20 + 2 * streak;
+        int amount = 20 + ((int) Math.floor(0.5 * streak));
         // If the user has a submit boost, apply it.
         double multiplier = 1;
         if (!submitBoosts.isEmpty()) {
