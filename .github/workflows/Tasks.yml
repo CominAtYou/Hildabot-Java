@@ -42,7 +42,7 @@ jobs:
       - name: Run script
         run: python ./importscript.py
   deploy:
-    if: ${{ !startsWith(github.event.head_commit.message, '[nodeploy]') && github.ref == 'refs/heads/master' && github.repository == 'CominAtYou/Hildabot' && github.event_name == 'push' }}
+    if: ${{ !startsWith(github.event.head_commit.message, '[nodeploy]') && github.ref == 'refs/heads/master' && github.repository == 'CominAtYou/Hildabot-Java' && github.event_name == 'push' }}
     runs-on: ubuntu-latest
     needs: [test, check-for-non-lettuce-imports, check-spelling]
     steps:
