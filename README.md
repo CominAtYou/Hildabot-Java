@@ -1,6 +1,11 @@
 # Hildabot
 Hildabot, built for Hildacord.
 
+> [!Note]
+> As the library this project relies on has been discontinued, this project has been succeeded by a newer version that uses a different library (and language) which can be found [here](https://github.com/CominAtYou/Hildabot). This bot is no longer deployed in production, and likely will full further out of date as the Discord API advances. This repository exists only for posterity's sake.
+
+<hr/>
+
 > [!IMPORTANT]
 > This bot was built from the ground up to work with a specific Discord guild - as such, I provide no guarantees that it'll run properly in any guilds outside of the one it was designed for, or any help accomplishing such.
 
